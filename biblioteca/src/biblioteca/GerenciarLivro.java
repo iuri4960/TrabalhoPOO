@@ -5,17 +5,19 @@ import java.util.List;
 
 import excepetion.LivroJaAdicionadoException;
 import excepetion.LivroNaoEncontradoException;
+import excepetion.NumeroPaginasInvalidoException;
 
 public class GerenciarLivro implements SistemaBibliotecarioCollection {
 	List<Livro> livros = new ArrayList<Livro>();
 
 	//Método para adicionar livros
-	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException {
+	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException {
 		try {
 			Livro l= consultarLivro(livro.getCodigo());
 			throw new LivroJaAdicionadoException("Livro já adicionado");
 		} catch (LivroNaoEncontradoException e){
 			livros.add(livro);
+			if (livro.getNumPaginas()<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
 		}	
 	}
 
@@ -37,6 +39,7 @@ public class GerenciarLivro implements SistemaBibliotecarioCollection {
 		Livro li= consultarLivro(codigo);
 		if (li!= null) {
 			livros.remove(li);
+			System.out.println("Livro removido");
 		}
 		
 	}
