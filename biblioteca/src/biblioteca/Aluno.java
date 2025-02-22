@@ -20,11 +20,6 @@ public class Aluno extends Usuario {
 		this.semestre = semestre;
 	}
 
-	//Ainda adicionarei o metodo 
-	@Override
-	protected void setTitulo() {
-	}
-
 	//Método para imprimir as informações do aluno
 	@Override
 	public String toString() {

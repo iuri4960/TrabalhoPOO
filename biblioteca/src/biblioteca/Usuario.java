@@ -44,9 +44,10 @@ public abstract class Usuario {
 		return titulo;
 	}
 
-	protected abstract void setTitulo();
+	protected void setTitulo(Titulo titulo) {
+		this.titulo = titulo;
+	}
 
-	//Método para imprimir as informações do usuario
 	@Override
 	public String toString() {
 		return "Usuario [nome=" + nome + ", matricula=" + matricula + ", idade=" + idade + ", titulo=" + titulo + "]";

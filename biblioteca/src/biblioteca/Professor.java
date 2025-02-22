@@ -20,13 +20,6 @@ public class Professor extends Usuario {
 		this.qtdMaterias = qtdMaterias;
 	}
 
-	//Ainda adicionarei o metodo 
-	@Override
-	protected void setTitulo() {
-		// TODO Auto-generated method stub
-
-	}
-
 	//Método para imprimir as informações do professor
 	@Override
 	public String toString() {
