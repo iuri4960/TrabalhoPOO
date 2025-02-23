@@ -9,44 +9,66 @@ import java.awt.event.ActionListener;
 
 public class Screen extends JFrame {
 	
+		//Strings para o DASHBOARD, o intuito é que nao fique assim. calma.
 		private String numeroLivrosCadastrados = "12";
 		private String numeroLivrosPendentes = "4";
 		private String numeroLivrosEmprestados = "9";
 		private String numeroUsuariosAtivos = "52";
-	
+		
+		//Strings para salvar os dados de um livro na aba CADASTRAR LIVROS;
+		//Provavelmente vai ser útil também para a aba CONSULTAR LIVROS na seção INFORMAÇÕES e AlTERAR INFORMAÇÕES;
+		private String nomeLivro;
+		private String codigoLivro;
+		private String classificacaoLivro;
+		private String anoLancamentoLivro;
+		private String generoLivro;
+		private String autorLivro;
+		private String editoraLivro;
+		private String numeroPaginasLivro;
+		private String numeroExemplaresLivro;
+		private String descricaoLivro;
+		
+		//String para salvar o nome do Livro ao qual o usuário quer procurar em CONSULTAR LIVROS
 		private String stringNomeLivroConsultado;
 	
 		public Screen() {
-			
+								
 				//--------------------------------------------------
 				//Detalhes Iniciais
-				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				setLayout(null);
+			
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Encerrar o código ao fechar a janela
+				setLayout(null); //Não definido gerenciador, todos componentes tem posição manual
 				
 				setTitle("Biblioteca Online");
 				ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
-				setIconImage(icone.getImage());
-				setSize(800, 500);
+				setIconImage(icone.getImage()); //Icone da Janela
+				setSize(800, 500); //tamanho da Janela
 				
 				//setLocation(283, 134); //centro de um monitor comum;
-				setLocationRelativeTo(null);
+				setLocationRelativeTo(null); //Janela inicia no centro do monitor
 				setResizable(false); //não redimensionável; 
 				
 				//setVisible(true);
+						
 				
 				//--------------------------------------------------
 				//Paineis Iniciais
+				
+					//Painel Roxo Superior Contendo o Titulo e o Icone
 				JPanel painelSuperior = new JPanel();
 				painelSuperior.setLayout(null);
 				painelSuperior.setBounds(0,0,800,100);
 				painelSuperior.setBackground(new Color(140,82,255));
 				
+					//Painel Lateral Contendo os Botões do Paineis Centrais
 				JPanel painelLateral = new JPanel();
 				painelLateral.setLayout(null);
 				//painelLateral.setBounds(0,100,300,800);
 				painelLateral.setPreferredSize(new Dimension(300, 550));
 				painelLateral.setBackground(new Color(211,205,237));
 				
+					//Painel Central Inicial: Serve apenas como base para o CardLayout, que mostra um painel por vez
+					//Para o respectivo botao clicado
 				JPanel painelCentral = new JPanel(new CardLayout());
 				painelCentral.setBounds(300,100,700,400);
 				painelCentral.setBackground(new Color(147,144,144));
@@ -57,6 +79,7 @@ public class Screen extends JFrame {
 				add(painelSuperior);
 				add(painelCentral);
 				
+					//Barra de Rolagem do Painel Lateral
 				JScrollPane scrollPane = new JScrollPane(painelLateral);
 				scrollPane.setBounds(0,100,300,400);
 		        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -64,12 +87,15 @@ public class Screen extends JFrame {
 		        
 		        //--------------------------------------------------------
 		        //Título:
+		        
+		        	//Titulo do Painel Superior
 		        JLabel tituloPrincipal = new JLabel();
 		        tituloPrincipal.setText("Biblioteca Online");
 		        tituloPrincipal.setBounds(100,30,800,30);
 		        tituloPrincipal.setFont(new Font("Arial", Font.BOLD, 32));
 		        tituloPrincipal.setForeground(new Color(255,255,255));	        
 		        
+		        	//Imagem do Painel Superior
 		        ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
 		        Image imagemRedimensionada = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		        ImageIcon novaImagem = new ImageIcon(imagemRedimensionada);
@@ -167,6 +193,7 @@ public class Screen extends JFrame {
 				
 				painelCentral.add(painelPaginaInicial, "painelPaginaInicial");
 				
+						//Esse botão define o Painel Central como o Painel Pagina Inicial
 				botaoPaginaInicial.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoPaginaInicial) {
 						layoutCentral.show(painelCentral, "painelPaginaInicial");
@@ -182,6 +209,8 @@ public class Screen extends JFrame {
 					}
 				});
 				
+						//Esse botão define o Painel Central como o Painel de Livros Cadastrados
+						//Nao implementado ainda
 				botaoLivrosCadastrados.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoLivrosCadastrados) {
 						tituloAssinatura.setText("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -194,6 +223,8 @@ public class Screen extends JFrame {
 					}
 				});
 				
+						//Esse botão define o Painel Central como o Painel de Livros Pendentes
+						//Nao implementado ainda
 				botaoLivrosPendentes.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoLivrosPendentes) {
 						tituloAssinatura.setText("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -206,6 +237,8 @@ public class Screen extends JFrame {
 					}
 				});
 				
+						//Esse botão define o Painel Central como o Painel de Livros Emprestados
+						//Nao implementado ainda
 				botaoLivrosEmprestados.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoLivrosEmprestados) {
 						tituloAssinatura.setText("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -218,6 +251,8 @@ public class Screen extends JFrame {
 					}
 				});
 				
+						//Esse botão define o Painel Central como o Painel de Usuarios Ativos
+						//Nao implementado ainda
 				botaoUsuariosAtivos.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoUsuariosAtivos) {
 						tituloAssinatura.setText("<html>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -244,6 +279,8 @@ public class Screen extends JFrame {
 				tituloCadastrarLivro.setFont(new Font("Arial", Font.BOLD, 15));
 				tituloCadastrarLivro.setForeground(new Color(50,50,50));
 				tituloCadastrarLivro.setOpaque(true);
+				
+						//Aqui eu estou criando os campos a serem preenchidos ao cadastramos um novo Livro:
 				
 				JTextField campoNomeLivro = new	JTextField();
 				campoNomeLivro.setText("  Nome do Livro");
@@ -285,6 +322,8 @@ public class Screen extends JFrame {
 				campoDescricao.setText("  Descrição do Livro");
 				campoDescricao.setBounds(30,200,400,50);
 				
+						/////////////////////////////////////////////////////////////////////////
+				
 				JButton botaoCadastrar = new JButton("Cadastrar");
 				botaoCadastrar.setBounds(30,285,400,20);
 				botaoCadastrar.setBackground(new Color(0,191,99));
@@ -307,6 +346,7 @@ public class Screen extends JFrame {
 			
 				painelCentral.add(painelCadastrarLivro, "painelCadastrarLivro");
 				
+						//Esse botão define o Painel Central como o Painel de Cadastro de Livros
 				botaoCadastrarLivro.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoCadastrarLivro) {
 						layoutCentral.show(painelCentral, "painelCadastrarLivro");
@@ -323,6 +363,38 @@ public class Screen extends JFrame {
 				});
 				
 				//Implementação do Cadastro de Livros
+				//Aqui eu estou salvando os dados digitados nos campos de preenchimentos em suas respectivas Strings
+				//Além disso eu retorno os campoes de preenchimentos ao texto inicial
+				//E coloco uma mensagem flutuante de Sucesso na tela;
+				
+				botaoCadastrar.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent acaobotaoCadastrar) {
+						nomeLivro = campoNomeLivro.getText().trim();
+						codigoLivro = campoCodigoLivro.getText().trim();
+						classificacaoLivro = campoClassificacao.getText().trim();
+						anoLancamentoLivro = campoAno.getText().trim();
+						generoLivro = campoGenero.getText().trim();
+						autorLivro = campoAutor.getText().trim();
+						editoraLivro = campoEditora.getText().trim();
+						numeroPaginasLivro = campoNumeroPaginas.getText().trim();
+						numeroExemplaresLivro = campoExemplares.getText().trim();
+						descricaoLivro = campoDescricao.getText().trim();
+						
+						campoNomeLivro.setText("  Nome do Livro");
+						campoCodigoLivro.setText("  Código do Livro");
+						campoClassificacao.setText("  Classificação");
+						campoAno.setText("  Ano de Lançamento");
+						campoGenero.setText("  Genero do Livro");
+						campoAutor.setText("  Autor do Livro");
+						campoEditora.setText("  Editora de Distribuição");
+						campoNumeroPaginas.setText("  Número de Páginas");
+						campoExemplares.setText("  Número de Exemplares");
+						campoDescricao.setText("  Descrição do Livro");
+						
+						JOptionPane.showMessageDialog(null, "Livro Cadastrado Com Sucesso!",
+								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					}
+				});
 				
 				//--------------------------------------------------------//
 				//Consultar Livros
@@ -356,6 +428,7 @@ public class Screen extends JFrame {
 				
 				painelCentral.add(painelConsultarLivros1, "painelConsultarLivros1");
 				
+						//Esse botão define o Painel Central como o Painel de Consultar Livros
 				botaoConsultarLivros.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoConsultarLivros) {
 						layoutCentral.show(painelCentral, "painelConsultarLivros1");
@@ -404,7 +477,9 @@ public class Screen extends JFrame {
 				
 				painelConsultarLivros1.add(painelLivroConsultado);
 				painelLivroConsultado.setVisible(false);
-				
+						
+						//Aqui eu salvo a string de livro consultado com o nome do livro digitado na barra de pesquisa
+						//Caso o livro exista, é exibido um painel com seu nome e três opções;
 				botaoPesquisarLivro.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoPesquisarLivro) {
 						stringNomeLivroConsultado = campoBarraPesquisa.getText().trim();
@@ -413,15 +488,8 @@ public class Screen extends JFrame {
 					}
 				});
 				
-				//addMouseListener(new MouseAdapter() {
-				//	public void mousePressed(MouseEvent e) {
-				//		if (!painelLivroConsultado.getBounds().contains(e.getPoint())) {
-				//			painelLivroConsultado.setVisible(false);
-				//		}
-				//	}
-				//});
-				
 				//Implementação do Painel de Informações do Livro:
+				
 				JPanel painelConsultarLivros2 = new JPanel();
 				painelConsultarLivros2.setBackground(new Color(147,144,144));
 				painelConsultarLivros2.setLayout(null);
@@ -443,6 +511,7 @@ public class Screen extends JFrame {
 				
 				painelCentral.add(painelConsultarLivros2, "painelConsultarLivros2");
 				
+						//Esse botão define o Painel Central como o Painel de Informações do Livro Consultado
 				botaoInformacoesLivros.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoInformacoesLivros) {
 						tituloInformacaoLivro.setText("  " + stringNomeLivroConsultado);
@@ -450,6 +519,7 @@ public class Screen extends JFrame {
 					}
 				});
 				
+						//Esse botão retorna ao Painel de Consultar Livros
 				botaoVoltarInformacaoLivro.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoVoltarInformacaoLivro) {
 						layoutCentral.show(painelCentral, "painelConsultarLivros1");
@@ -457,6 +527,7 @@ public class Screen extends JFrame {
 				});
 				
 				//Implementação do Painel de Alterar Informações do Livro:
+				
 				JPanel painelConsultarLivros3 = new JPanel();
 				painelConsultarLivros3.setBackground(new Color(147,144,144));
 				painelConsultarLivros3.setLayout(null);
@@ -478,6 +549,7 @@ public class Screen extends JFrame {
 				
 				painelCentral.add(painelConsultarLivros3, "painelConsultarLivros3");
 				
+						//Esse botão define o Painel Central como o Painel de Alterar Informações do Livro Consultado
 				botaoAlterarInformacoesLivros.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoAlterarInformacoesLivros) {
 						tituloInformacaoLivro2.setText("  " + stringNomeLivroConsultado);
@@ -485,6 +557,7 @@ public class Screen extends JFrame {
 					}
 				});
 				
+						//Esse botão retorna ao Painel de Consultar Livros
 				botaoVoltarAlterarInformacaoLivro.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoVoltarAlterarInformacaoLivro) {
 						layoutCentral.show(painelCentral, "painelConsultarLivros1");
@@ -493,7 +566,7 @@ public class Screen extends JFrame {
 				
 				//Implementação do Botão de Remover:
 				//ADENDO: ESSA NÃO É APLICAÇÃO REAL NO CÓDIGO, É APENAS ALGO GRÁFICO PRA FAZER GRAÇA!
-				
+				//Esse botão em tese deve remover um livro dos livros cadastrados
 				botaoRemoverLivros.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaoBotaoRemoverLivros) {
 						painelLivroConsultado.setVisible(false);
@@ -503,6 +576,9 @@ public class Screen extends JFrame {
 				
 				//--------------------------------------------------------//
 				//--------------------------------------------------------//
+				//Aqui eu finalizo o código tornando a janela visível;
+				//É muito importante na criação de uma interface gráfica que esse comando venha por último
+				//Pois caso contrário alguns componentes podem exibir mal funcionamento;
 				setVisible(true);
 	}
 	
