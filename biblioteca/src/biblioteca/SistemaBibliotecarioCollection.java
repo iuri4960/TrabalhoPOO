@@ -16,6 +16,7 @@ public interface SistemaBibliotecarioCollection {
 	public void editarEmprestimo();
 	public void removerEmprestimo();
 	public void atualizarMulta();
+	public void removerMulta();
 	
 	public void adicionarUsuario();
 	public Usuario consultarUsuario();

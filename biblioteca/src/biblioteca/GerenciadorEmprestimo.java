@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import excepetion.EmprestimoJaAdicionadoException;
 import excepetion.EmprestimoNaoEncontradoException;
+import excepetion.MultaNaoPagaException;
 
 public class GerenciadorEmprestimo {
 	private ArrayList<Emprestimo> listaEmprestimo;
@@ -64,19 +65,24 @@ public class GerenciadorEmprestimo {
 		}
 	}
 	
-	public void removerEmprestimo(Livro livro) throws EmprestimoNaoEncontradoException {
-		int controller =0;
+	public void removerEmprestimo(Livro livro) throws EmprestimoNaoEncontradoException, MultaNaoPagaException {
+		int controller = 0;
+		int controller2 = 0;
 		for(int i=0; i < listaEmprestimo.size(); i++) {
 			if(listaEmprestimo.get(i).getLivro() == livro) {
+				if (listaEmprestimo.get(i).getMultaTotal() == 0) {
+					listaEmprestimo.remove(i);
+					controller2++;
+				}
 				listaEmprestimo.remove(i);
 				controller++;
 			}
 		}
 		if (controller == 0) {
 			throw new EmprestimoNaoEncontradoException(livro);
+		} else if (controller2 == 0) {
+			throw new MultaNaoPagaException();
 		}
 	}
-
-	public void atualizarMulta
 	
 }

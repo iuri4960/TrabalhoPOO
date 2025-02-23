@@ -61,4 +61,10 @@ public class Emprestimo {
 		}
 	}
 	
+	public void pagarMultaTotal() {
+		this.multaTotal = 0;
+		LocalDate dataAtual = LocalDate.now();
+		this.dataDevolucao = dataAtual.plusDays(30);
+	}
+	
 }
