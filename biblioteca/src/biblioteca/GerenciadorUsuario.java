@@ -40,7 +40,7 @@ public class GerenciadorUsuario {
 	
 	/*O metodo alterar tentara ver se existe o usuario se existir ele trocara o usuario
 	pela sua versão alterada se não lançara uma exceção*/
-	public void alterarUsuario(int matricula, Usuario usuario) throws UsuarioNaoEncontradoException {
+	public void editarUsuario(int matricula, Usuario usuario) throws UsuarioNaoEncontradoException {
 		int controller = 0;
 		for(int i=0; i < listaUsuario.size(); i++) {
 			if(listaUsuario.get(i).getMatricula() == matricula) {

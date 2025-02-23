@@ -16,35 +16,35 @@ public abstract class Usuario {
 	}
 
 	//Métodos get e set
-	protected String getNome() {
+	public String getNome() {
 		return nome;
 	}
 
-	protected void setNome(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-	protected int getMatricula() {
+	public int getMatricula() {
 		return matricula;
 	}
 
-	protected void setMatricula(int matricula) {
+	public void setMatricula(int matricula) {
 		this.matricula = matricula;
 	}
 
-	protected int getIdade() {
+	public int getIdade() {
 		return idade;
 	}
 
-	protected void setIdade(int idade) {
+	public void setIdade(int idade) {
 		this.idade = idade;
 	}
 
-	protected Titulo getTitulo() {
+	public Titulo getTitulo() {
 		return titulo;
 	}
 
-	protected void setTitulo(Titulo titulo) {
+	public void setTitulo(Titulo titulo) {
 		this.titulo = titulo;
 	}
 

@@ -1,7 +1,6 @@
 package biblioteca;
 
 public class Aluno extends Usuario {
-	public static final int LIMITEDELIVROS = 10;
 	public static final double MULTADIARIA = 1.10;
 	private int semestre;
 
