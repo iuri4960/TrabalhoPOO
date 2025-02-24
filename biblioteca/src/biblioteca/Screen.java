@@ -1,6 +1,9 @@
-package trabalho;
+package biblioteca;
 
 import javax.swing.*;
+
+import exception.LivroJaAdicionadoException;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +17,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class Screen extends JFrame {
+	
+		SistemaBibliotecario sistema;
 	
 		//Strings para o DASHBOARD, o intuito é que nao fique assim. calma.
 		private String numeroLivrosCadastrados = "12";
@@ -449,9 +454,27 @@ public class Screen extends JFrame {
 						campoDescricao.setText("  Descrição do Livro");
 						
 						if(sucess) {
-						JOptionPane.showMessageDialog(null, "Livro Cadastrado Com Sucesso!",
-								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Livro Cadastrado Com Sucesso!",
+									"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+							
+							Livro livroAdicionado = new Livro(
+									DadosLivros.getNomeLivro(), 
+									DadosLivros.getCodigoLivro(), 
+									DadosLivros.getAnoLancamentoLivro(),
+									DadosLivros.getAutorLivro(),
+									DadosLivros.getNumeroPaginasLivro(),
+									DadosLivros.getGeneroLivro(),
+									DadosLivros.getEditoraLivro()
+									);
+							
+							try {
+								sistema.adicionarLivro(livroAdicionado);
+							} catch (LivroJaAdicionadoException e) {
+								JOptionPane.showMessageDialog(null, "Livro Existente",
+										"Erro", JOptionPane.INFORMATION_MESSAGE);
+							}
 						}
+		
 					}
 				});
 				
@@ -633,6 +656,7 @@ public class Screen extends JFrame {
 					}
 				});
 				
+				/*
 				//Suporte : "Sair Sem Salvar"	
 				addWindowListener(new java.awt.event.WindowAdapter() {
 				    @Override 
@@ -654,6 +678,7 @@ public class Screen extends JFrame {
 				        }
 				    }
 				});
+				*/
 				
 				//--------------------------------------------------------//
 				//--------------------------------------------------------//
