@@ -90,10 +90,10 @@ public class Livro implements Serializable{
 	}
 	
 	//Método para imprimir as informações do livro
-		public String toString() {
-			return "Livro [nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", autor=" + autor + ", numPaginas="
+	public String toString() {
+		return "Livro [nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", autor=" + autor + ", numPaginas="
 					+ numPaginas + ", genero=" + genero + ", editora=" + editora + "]";
-		}
+	}
 	
 
 }
