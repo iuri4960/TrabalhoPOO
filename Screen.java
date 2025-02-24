@@ -1,4 +1,4 @@
-package biblioteca;
+package trabalho;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,8 +40,8 @@ public class Screen extends JFrame {
 				setLayout(null); //Não definido gerenciador, todos componentes tem posição manual
 				
 				setTitle("Biblioteca Online");
-			//	ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
-			//	setIconImage(icone.getImage()); //Icone da Janela
+				ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
+				setIconImage(icone.getImage()); //Icone da Janela
 				setSize(800, 500); //tamanho da Janela
 				
 				//setLocation(283, 134); //centro de um monitor comum;
@@ -96,7 +96,7 @@ public class Screen extends JFrame {
 		        tituloPrincipal.setForeground(new Color(255,255,255));	        
 		        
 		        	//Imagem do Painel Superior
-		  /*      ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
+		        ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
 		        Image imagemRedimensionada = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		        ImageIcon novaImagem = new ImageIcon(imagemRedimensionada);
 		        JLabel labelImagem = new JLabel(novaImagem);
@@ -104,7 +104,7 @@ public class Screen extends JFrame {
 		        
 		        painelSuperior.add(tituloPrincipal);
 		        painelSuperior.add(labelImagem);
-		   */    
+		        
 				//--------------------------------------------------------//
 				//Botões Da Tela Inicial
 				JButton botaoPaginaInicial = new JButton("Página Inicial");
