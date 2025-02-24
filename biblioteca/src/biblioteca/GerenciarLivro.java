@@ -8,16 +8,26 @@ import exception.LivroNaoEncontradoException;
 import exception.NumeroPaginasInvalidoException;
 
 public class GerenciarLivro {
-	List<Livro> livros = new ArrayList<Livro>();
+	ArrayList<Livro> livros;
+
+	public GerenciarLivro(ArrayList<Livro> livros) {
+		this.livros = livros;
+	}
+	
+	public GerenciarLivro() {
+		this.livros = new ArrayList();
+	}
 
 	//Método para adicionar livros
-	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException {
+	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException {
+	//NumeroPaginasInvalidoException {
 		try {
-			Livro l= consultarLivro(livro.getCodigo());
+			consultarLivro(livro.getCodigo());
+			System.out.println("aaaa");
 			throw new LivroJaAdicionadoException("Livro já adicionado");
 		} catch (LivroNaoEncontradoException e){
 			livros.add(livro);
-			if (livro.getNumPaginas()<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
+			//if (Integer.parseInt(livro.getNumPaginas())<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
 		}	
 	}
 
