@@ -6,6 +6,7 @@ import excepetion.LivroJaAdicionadoException;
 import excepetion.LivroNaoEncontradoException;
 
 public class BibliotecaTeste {
+
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
 		SistemaBibliotecarioCollection manager = new SistemaBibliotecario();

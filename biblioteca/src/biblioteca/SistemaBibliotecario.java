@@ -64,7 +64,6 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 	@Override
 	public void removerEmprestimo(Livro livro) throws EmprestimoNaoEncontradoException, MultaNaoPagaException {
 		gerenciarEmprestimos.removerEmprestimo(livro);
-		
 	}
 	
 	@Override
@@ -87,7 +86,7 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 			ArrayList<Emprestimo> emprestimo = gerenciarEmprestimos.consultarEmprestimo(gerenciarUsuarios.consultarUsuario(matricula));
 		} catch (EmprestimoNaoEncontradoException e) {
 			gerenciarUsuarios.removerUsuario(matricula);
-		}	
+		}
 	}
 	
 	

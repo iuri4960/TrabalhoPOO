@@ -1,11 +1,17 @@
-package trabalho;
+package biblioteca;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 //import java.awt.event.MouseAdapter;
 //import java.awt.event.MouseEvent;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Screen extends JFrame {
 	
@@ -31,6 +37,8 @@ public class Screen extends JFrame {
 		//String para salvar o nome do Livro ao qual o usuário quer procurar em CONSULTAR LIVROS
 		private String stringNomeLivroConsultado;
 	
+		private boolean temAlteracao = true;
+		
 		public Screen() {
 								
 				//--------------------------------------------------
@@ -40,8 +48,8 @@ public class Screen extends JFrame {
 				setLayout(null); //Não definido gerenciador, todos componentes tem posição manual
 				
 				setTitle("Biblioteca Online");
-				ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
-				setIconImage(icone.getImage()); //Icone da Janela
+			//	ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
+			//	setIconImage(icone.getImage()); //Icone da Janela
 				setSize(800, 500); //tamanho da Janela
 				
 				//setLocation(283, 134); //centro de um monitor comum;
@@ -50,6 +58,7 @@ public class Screen extends JFrame {
 				
 				//setVisible(true);
 						
+				carregarDados();
 				
 				//--------------------------------------------------
 				//Paineis Iniciais
@@ -96,7 +105,7 @@ public class Screen extends JFrame {
 		        tituloPrincipal.setForeground(new Color(255,255,255));	        
 		        
 		        	//Imagem do Painel Superior
-		        ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
+		  /*      ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
 		        Image imagemRedimensionada = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		        ImageIcon novaImagem = new ImageIcon(imagemRedimensionada);
 		        JLabel labelImagem = new JLabel(novaImagem);
@@ -104,7 +113,7 @@ public class Screen extends JFrame {
 		        
 		        painelSuperior.add(tituloPrincipal);
 		        painelSuperior.add(labelImagem);
-		        
+		  */      
 				//--------------------------------------------------------//
 				//Botões Da Tela Inicial
 				JButton botaoPaginaInicial = new JButton("Página Inicial");
@@ -575,12 +584,69 @@ public class Screen extends JFrame {
 				});
 				
 				//--------------------------------------------------------//
+				
+				
+			//Suporte : "Sair Sem Salvar"	
+				addWindowListener(new java.awt.event.WindowAdapter() {
+				    @Override 
+				    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				    	//impede que o programa feche
+				    	if (temAlteracao) {
+				            int option = JOptionPane.showConfirmDialog(null,
+				                    "Você tem alterações não salvas. Deseja salvar antes de sair?",
+				                    "Salvar Alterações", JOptionPane.YES_NO_CANCEL_OPTION);
+				            if (option == JOptionPane.YES_OPTION) {
+				             //   salvarDados();
+				                System.exit(0);
+				            } else if (option == JOptionPane.NO_OPTION) {
+				                System.exit(0);
+				            }
+				            // Se cancelar, o programa não fecha
+				        } else {
+				            System.exit(0);
+				        }
+				    }
+				});
+
 				//--------------------------------------------------------//
 				//Aqui eu finalizo o código tornando a janela visível;
 				//É muito importante na criação de uma interface gráfica que esse comando venha por último
 				//Pois caso contrário alguns componentes podem exibir mal funcionamento;
+				
 				setVisible(true);
+				
 	}
+		
+		private void carregarDados() {
+		    try {
+		        FileInputStream fis = new FileInputStream("Biblioteca.dat");
+		        ObjectInputStream ois = new ObjectInputStream(fis);
+		        SistemaBibliotecario sistema = (SistemaBibliotecario) ois.readObject();
+		        ois.close();
+		        fis.close();
+		    } catch (FileNotFoundException ex) {
+		    //	JOptionPane.showMessageDialog(this, "Sistema Bibliotecário");
+		    } catch (IOException | ClassNotFoundException e) {
+		    //	sistema = new SistemaBibliotecario(); // Se o arquivo não existir, cria uma nova biblioteca
+		    }  
+		}
+		
+	/*
+		private void salvarDados() {
+		    try {
+		        FileOutputStream fos = new FileOutputStream("Biblioteca.dat");
+		        ObjectOutputStream oos = new ObjectOutputStream(fos);
+		        oos.writeObject(sistema);
+		     //   oos.close();
+		     //   fos.close();
+		        temAlteracao = false; // Marca os dados como salvos
+		        JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		        JOptionPane.showMessageDialog(this, "Erro ao salvar os dados!", "Erro", JOptionPane.ERROR_MESSAGE);
+		    }
+		}
+*/
 	
 		public static void main(String[] args) {
 			new Screen();
