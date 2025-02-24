@@ -3,13 +3,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
-import excepetion.UsuarioJaAdicionadoException;
+import exception.UsuarioJaAdicionadoException;
 
 import java.text.*;
 import java.awt.*;
 import java.util.*;
+
 public class CadastrarAlunoPainel extends JPanel {
-    SistemaBibliotecario sistema;
+    SistemaBibliotecario sistema; 
     //construindo o painel com um cabeçalho e um registro, que seraõ organizados por BorderLAyot
     CadastrarAlunoPainel(SistemaBibliotecario sistema){
         this.sistema = sistema;
@@ -88,7 +89,8 @@ public class CadastrarAlunoPainel extends JPanel {
                     Aluno aluno = new Aluno(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
                     sistema.adicionarUsuario(aluno);
                     JOptionPane.showMessageDialog(this, "Aluno Adicionado Com Sucesso", 
-                    "Atenção", JOptionPane.INFORMATION_MESSAGE);              
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);   
+                    sistema.setTemAlteracao(true);
                 }
                 catch(Exception ex){
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
@@ -106,7 +108,7 @@ public class CadastrarAlunoPainel extends JPanel {
                     sistema.adicionarUsuario(professor);
                     JOptionPane.showMessageDialog(this, "Professor Adicionado Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
-                    
+                    sistema.setTemAlteracao(true);
                 }
                 catch(UsuarioJaAdicionadoException ex){
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
