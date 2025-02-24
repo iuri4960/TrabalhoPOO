@@ -13,9 +13,10 @@ public class Exemplares {
 		this.catalogo= new HashMap<>();
 	}
 	
-	public void colocarLivro(Livro livro) {
+	public void colocarLivro(Livro livro) throws LivroJaAdicionadoException {
 		catalogo.putIfAbsent(livro.getNome(), new ArrayList<>());
         	catalogo.get(livro.getNome()).add(livro);
+		throw new LivroJaAdicionadoException("Livro já adicionado");
 	}
 	
 	public List<Livro> obterExemplares(String nomeLivro) {
