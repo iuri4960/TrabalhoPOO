@@ -3,15 +3,15 @@ package biblioteca;
 public class Livro {
 	private String  nome;
 	private String codigo;
-	private int ano;
+	private String ano;
 	private String autor;
-	private int numPaginas;
+	private String numPaginas;
 	private String genero;
 	private String editora;
 	private boolean alugado;
 	
 	//Construtor da classe livro
-	public Livro(String nome, String codigo, int ano, String autor, int numPaginas, String genero, String editora, boolean alugado) {
+	public Livro(String nome, String codigo, String ano, String autor, String numPaginas, String genero, String editora) {
 		super();
 		this.nome = nome;
 		this.codigo = codigo;
@@ -20,7 +20,6 @@ public class Livro {
 		this.numPaginas = numPaginas;
 		this.genero = genero;
 		this.editora = editora; 
-		this.alugado = alugado;
 	}
 	
 	//Métodos get e set dos atributos
@@ -40,11 +39,11 @@ public class Livro {
 		this.codigo = codigo;
 	}
 
-	public int getAno() {
+	public String getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(String ano) {
 		this.ano = ano;
 	}
 
@@ -56,11 +55,11 @@ public class Livro {
 		this.autor = autor;
 	}
 
-	public int getNumPaginas() {
+	public String getNumPaginas() {
 		return numPaginas;
 	}
 
-	public void setNumPaginas(int numPaginas) {
+	public void setNumPaginas(String numPaginas) {
 		this.numPaginas = numPaginas;
 	}
 
