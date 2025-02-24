@@ -16,19 +16,9 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 	private GerenciadorUsuario gerenciarUsuarios = new GerenciadorUsuario();
 	private GerenciadorEmprestimo gerenciarEmprestimos = new GerenciadorEmprestimo();
 	private GerenciarLivro gerenciarLivros = new GerenciarLivro();
-	
-	
-	private boolean temAlteracao = false;
-	
-	public boolean getTemAlteracao() {
-		return temAlteracao;
-	}
-	
-	public void setTemAlteracao(boolean temAlteracao) {
-		this.temAlteracao = temAlteracao;
-	}
-	
-	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException {
+	@Override
+	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException {
+	//NumeroPaginasInvalidoException {
 			gerenciarLivros.adicionarLivro(livro);
 	}
 	@Override
