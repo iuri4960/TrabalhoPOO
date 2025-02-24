@@ -1,8 +1,7 @@
 package biblioteca;
 import java.util.ArrayList;
-
-import exception.UsuarioJaAdicionadoException;
-import exception.UsuarioNaoEncontradoException;
+import excepetion.UsuarioJaAdicionadoException;
+import excepetion.UsuarioNaoEncontradoException;
 
 public class GerenciadorUsuario {
 	private ArrayList<Usuario> listaUsuario;
@@ -23,8 +22,11 @@ public class GerenciadorUsuario {
 	public void adicionarUsuario(Usuario usuario) throws UsuarioJaAdicionadoException {
 		try {
 			this.consultarUsuario(usuario.getMatricula());
+			System.out.println(" levantada ");
 			throw new UsuarioJaAdicionadoException(usuario.getMatricula());
-		} catch (Exception e) {
+			
+		} catch (UsuarioNaoEncontradoException e) {
+			System.out.println(" awaaaaaa ");
 			listaUsuario.add(usuario);
 		}
 	}
@@ -33,10 +35,12 @@ public class GerenciadorUsuario {
 	public Usuario consultarUsuario(int matricula) throws UsuarioNaoEncontradoException {
 			for(int i=0; i < listaUsuario.size(); i++) {
 				if(listaUsuario.get(i).getMatricula() == matricula) {
+					System.out.println(listaUsuario.get(i).getMatricula() + " " + matricula + " " + "usuario");
 					return listaUsuario.get(i);
-	
+					
 				}
 			}
+			System.out.println(" " + matricula + " " + "usuario2");
 			throw new UsuarioNaoEncontradoException(matricula);
 	}
 	
