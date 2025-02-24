@@ -69,9 +69,9 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 	
 	@Override
 	public void adicionarUsuario(Usuario usuario) throws UsuarioJaAdicionadoException {
-		gerenciarUsuarios.adicionarUsuario(usuario);
-		
+		gerenciarUsuarios.adicionarUsuario(usuario);	
 	}
+	
 	@Override
 	public Usuario consultarUsuario(int matricula) throws UsuarioNaoEncontradoException {
 		Usuario u = gerenciarUsuarios.consultarUsuario(matricula);

@@ -7,7 +7,7 @@ import excepetion.LivroJaAdicionadoException;
 import excepetion.LivroNaoEncontradoException;
 import excepetion.NumeroPaginasInvalidoException;
 
-public class GerenciarLivro implements SistemaBibliotecarioCollection {
+public class GerenciarLivro {
 	List<Livro> livros = new ArrayList<Livro>();
 
 	//Método para adicionar livros
