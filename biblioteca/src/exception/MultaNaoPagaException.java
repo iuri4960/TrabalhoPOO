@@ -1,4 +1,4 @@
-package excepetion;
+package exception;
 
 public class MultaNaoPagaException extends Exception{
 

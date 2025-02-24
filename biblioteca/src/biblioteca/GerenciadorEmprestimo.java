@@ -2,9 +2,9 @@ package biblioteca;
 
 import java.util.ArrayList;
 
-import excepetion.EmprestimoJaAdicionadoException;
-import excepetion.EmprestimoNaoEncontradoException;
-import excepetion.MultaNaoPagaException;
+import exception.EmprestimoJaAdicionadoException;
+import exception.EmprestimoNaoEncontradoException;
+import exception.MultaNaoPagaException;
 
 public class GerenciadorEmprestimo {
 	private ArrayList<Emprestimo> listaEmprestimo;

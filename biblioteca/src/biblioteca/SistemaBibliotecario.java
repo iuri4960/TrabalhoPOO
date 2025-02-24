@@ -2,14 +2,14 @@ package biblioteca;
 
 import java.util.ArrayList;
 
-import excepetion.EmprestimoJaAdicionadoException;
-import excepetion.EmprestimoNaoEncontradoException;
-import excepetion.LivroJaAdicionadoException;
-import excepetion.LivroNaoEncontradoException;
-import excepetion.MultaNaoPagaException;
-import excepetion.NumeroPaginasInvalidoException;
-import excepetion.UsuarioJaAdicionadoException;
-import excepetion.UsuarioNaoEncontradoException;
+import exception.EmprestimoJaAdicionadoException;
+import exception.EmprestimoNaoEncontradoException;
+import exception.LivroJaAdicionadoException;
+import exception.LivroNaoEncontradoException;
+import exception.MultaNaoPagaException;
+import exception.NumeroPaginasInvalidoException;
+import exception.UsuarioJaAdicionadoException;
+import exception.UsuarioNaoEncontradoException;
 
 public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 
@@ -82,8 +82,12 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 		gerenciarUsuarios.editarUsuario(matricula, usuario);
 	}
 	@Override
-	public void removerUsuario(int matricula) throws UsuarioNaoEncontradoException {
-		gerenciarUsuarios.removerUsuario(matricula);		
+	public void removerUsuario(int matricula) throws UsuarioNaoEncontradoException  { 
+		try {
+			ArrayList<Emprestimo> emprestimo = gerenciarEmprestimos.consultarEmprestimo(gerenciarUsuarios.consultarUsuario(matricula));
+		} catch (EmprestimoNaoEncontradoException e) {
+			gerenciarUsuarios.removerUsuario(matricula);
+		}	
 	}
 	
 	

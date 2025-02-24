@@ -1,4 +1,4 @@
-package excepetion;
+package exception;
 
 public class UsuarioNaoEncontradoException extends Exception {
 	public UsuarioNaoEncontradoException(int matricula){

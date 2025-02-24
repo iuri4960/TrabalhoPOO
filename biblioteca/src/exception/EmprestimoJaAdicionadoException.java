@@ -1,4 +1,4 @@
-package excepetion;
+package exception;
 
 import biblioteca.Livro;
 
