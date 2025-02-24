@@ -28,7 +28,7 @@ public class GerenciarLivro implements Serializable{
 			throw new LivroJaAdicionadoException("Livro já adicionado");
 		} catch (LivroNaoEncontradoException e){
 			livros.add(livro);
-			//if (Integer.parseInt(livro.getNumPaginas())<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
+			if (Integer.parseInt(livro.getNumPaginas())<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
 		}	
 	}
 
