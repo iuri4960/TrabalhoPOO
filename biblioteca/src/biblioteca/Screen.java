@@ -1,4 +1,4 @@
-package biblioteca;
+package trabalho;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,22 +23,20 @@ public class Screen extends JFrame {
 		
 		//Strings para salvar os dados de um livro na aba CADASTRAR LIVROS;
 		//Provavelmente vai ser útil também para a aba CONSULTAR LIVROS na seção INFORMAÇÕES e AlTERAR INFORMAÇÕES;
-		private String nomeLivro;
-		private String codigoLivro;
-		private String classificacaoLivro;
-		private String anoLancamentoLivro;
-		private String generoLivro;
-		private String autorLivro;
-		private String editoraLivro;
-		private String numeroPaginasLivro;
-		private String numeroExemplaresLivro;
-		private String descricaoLivro;
+		//private String nomeLivro;
+		//private String codigoLivro;
+		//private String classificacaoLivro;
+		//private String anoLancamentoLivro;
+		//private String generoLivro;
+		//private String autorLivro;
+		//private String editoraLivro;
+		//private String numeroPaginasLivro;
+		//private String numeroExemplaresLivro;
+		//private String descricaoLivro;
 		
 		//String para salvar o nome do Livro ao qual o usuário quer procurar em CONSULTAR LIVROS
 		private String stringNomeLivroConsultado;
 	
-		private boolean temAlteracao = true;
-		
 		public Screen() {
 								
 				//--------------------------------------------------
@@ -48,8 +46,8 @@ public class Screen extends JFrame {
 				setLayout(null); //Não definido gerenciador, todos componentes tem posição manual
 				
 				setTitle("Biblioteca Online");
-			//	ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
-			//	setIconImage(icone.getImage()); //Icone da Janela
+				//ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
+				//setIconImage(icone.getImage()); //Icone da Janela
 				setSize(800, 500); //tamanho da Janela
 				
 				//setLocation(283, 134); //centro de um monitor comum;
@@ -57,7 +55,7 @@ public class Screen extends JFrame {
 				setResizable(false); //não redimensionável; 
 				
 				//setVisible(true);
-						
+				
 				carregarDados();
 				
 				//--------------------------------------------------
@@ -104,8 +102,9 @@ public class Screen extends JFrame {
 		        tituloPrincipal.setFont(new Font("Arial", Font.BOLD, 32));
 		        tituloPrincipal.setForeground(new Color(255,255,255));	        
 		        
+		        /*
 		        	//Imagem do Painel Superior
-		  /*      ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
+		        ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
 		        Image imagemRedimensionada = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		        ImageIcon novaImagem = new ImageIcon(imagemRedimensionada);
 		        JLabel labelImagem = new JLabel(novaImagem);
@@ -113,7 +112,9 @@ public class Screen extends JFrame {
 		        
 		        painelSuperior.add(tituloPrincipal);
 		        painelSuperior.add(labelImagem);
-		  */      
+		        */
+		        
+		        
 				//--------------------------------------------------------//
 				//Botões Da Tela Inicial
 				JButton botaoPaginaInicial = new JButton("Página Inicial");
@@ -378,16 +379,63 @@ public class Screen extends JFrame {
 				
 				botaoCadastrar.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent acaobotaoCadastrar) {
-						nomeLivro = campoNomeLivro.getText().trim();
-						codigoLivro = campoCodigoLivro.getText().trim();
-						classificacaoLivro = campoClassificacao.getText().trim();
-						anoLancamentoLivro = campoAno.getText().trim();
-						generoLivro = campoGenero.getText().trim();
-						autorLivro = campoAutor.getText().trim();
-						editoraLivro = campoEditora.getText().trim();
-						numeroPaginasLivro = campoNumeroPaginas.getText().trim();
-						numeroExemplaresLivro = campoExemplares.getText().trim();
-						descricaoLivro = campoDescricao.getText().trim();
+						
+						boolean sucess = true;
+						if(!DadosLivros.setNomeLivro(campoNomeLivro.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Nome Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setCodigoLivro(campoCodigoLivro.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Código Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setClassificacaoLivro(campoClassificacao.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Classificação Inválida",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setAnoLancamentoLivro(campoAno.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Ano de Lançamento Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setGeneroLivro(campoGenero.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Gênero Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setAutorLivro(campoAutor.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Nome do Autor Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setEditoraLivro(campoEditora.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Editora Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setNumeroPaginasLivro(campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Número de Páginas Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						if(!DadosLivros.setNumeroExemplaresLivro(campoExemplares.getText().replaceAll("\\s+", "").toLowerCase())) {
+							JOptionPane.showMessageDialog(null, "Número de Exemplares Inválido",
+									"Erro", JOptionPane.INFORMATION_MESSAGE);
+							sucess = false;
+						}
+						
+						//codigoLivro = campoCodigoLivro.getText().replaceAll("\\s+", "").toLowerCase();
+						//classificacaoLivro = campoClassificacao.getText().replaceAll("\\s+", "").toLowerCase();
+						//anoLancamentoLivro = campoAno.getText().replaceAll("\\s+", "").toLowerCase();
+						//generoLivro = campoGenero.getText().replaceAll("\\s+", "").toLowerCase();
+						//autorLivro = campoAutor.getText().replaceAll("\\s+", "").toLowerCase();
+						//editoraLivro = campoEditora.getText().replaceAll("\\s+", "").toLowerCase();
+						//numeroPaginasLivro = campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase();
+						//numeroExemplaresLivro = campoExemplares.getText().replaceAll("\\s+", "").toLowerCase();
+						DadosLivros.setDescricaoLivro(campoDescricao.getText().replaceAll("\\s+", "").toLowerCase());
 						
 						campoNomeLivro.setText("  Nome do Livro");
 						campoCodigoLivro.setText("  Código do Livro");
@@ -400,8 +448,10 @@ public class Screen extends JFrame {
 						campoExemplares.setText("  Número de Exemplares");
 						campoDescricao.setText("  Descrição do Livro");
 						
+						if(sucess) {
 						JOptionPane.showMessageDialog(null, "Livro Cadastrado Com Sucesso!",
 								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						}
 					}
 				});
 				
@@ -583,10 +633,7 @@ public class Screen extends JFrame {
 					}
 				});
 				
-				//--------------------------------------------------------//
-				
-				
-			//Suporte : "Sair Sem Salvar"	
+				//Suporte : "Sair Sem Salvar"	
 				addWindowListener(new java.awt.event.WindowAdapter() {
 				    @Override 
 				    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -607,48 +654,54 @@ public class Screen extends JFrame {
 				        }
 				    }
 				});
-
+				
+				//--------------------------------------------------------//
 				//--------------------------------------------------------//
 				//Aqui eu finalizo o código tornando a janela visível;
 				//É muito importante na criação de uma interface gráfica que esse comando venha por último
 				//Pois caso contrário alguns componentes podem exibir mal funcionamento;
-				
 				setVisible(true);
-				
 	}
 		
-		private void carregarDados() {
-		    try {
-		        FileInputStream fis = new FileInputStream("Biblioteca.dat");
-		        ObjectInputStream ois = new ObjectInputStream(fis);
-		        SistemaBibliotecario sistema = (SistemaBibliotecario) ois.readObject();
-		        ois.close();
-		        fis.close();
-		    } catch (FileNotFoundException ex) {
-		    //	JOptionPane.showMessageDialog(this, "Sistema Bibliotecário");
-		    } catch (IOException | ClassNotFoundException e) {
-		    //	sistema = new SistemaBibliotecario(); // Se o arquivo não existir, cria uma nova biblioteca
-		    }  
-		}
 		
-	/*
-		private void salvarDados() {
-		    try {
-		        FileOutputStream fos = new FileOutputStream("Biblioteca.dat");
-		        ObjectOutputStream oos = new ObjectOutputStream(fos);
-		        oos.writeObject(sistema);
-		     //   oos.close();
-		     //   fos.close();
-		        temAlteracao = false; // Marca os dados como salvos
-		        JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		        JOptionPane.showMessageDialog(this, "Erro ao salvar os dados!", "Erro", JOptionPane.ERROR_MESSAGE);
-		    }
-		}
-*/
 	
-		public static void main(String[] args) {
-			new Screen();
+			private void carregarDados() {
+				try {
+					FileInputStream fis = new FileInputStream("Biblioteca.dat");
+					ObjectInputStream ois = new ObjectInputStream(fis);
+					SistemaBibliotecario sistema = (SistemaBibliotecario) ois.readObject();
+					ois.close();
+					fis.close();
+				} catch (FileNotFoundException ex) {
+					//	JOptionPane.showMessageDialog(this, "Sistema Bibliotecário");
+				} catch (IOException | ClassNotFoundException e) {
+					//	sistema = new SistemaBibliotecario(); // Se o arquivo não existir, cria uma nova biblioteca
+				}  
+			}
+		
+			
+			/*
+			private void salvarDados() {
+		    	try {
+		        	FileOutputStream fos = new FileOutputStream("Biblioteca.dat");
+		        	ObjectOutputStream oos = new ObjectOutputStream(fos);
+		        	oos.writeObject(sistema);
+		     		//   oos.close();
+		     		//   fos.close();
+		        	temAlteracao = false; // Marca os dados como salvos
+		        	JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+		    	} catch (IOException e) {
+		        	e.printStackTrace();
+		        	JOptionPane.showMessageDialog(this, "Erro ao salvar os dados!", "Erro", JOptionPane.ERROR_MESSAGE);
+		    	}
+			}
+*/	
+		
+			
+			
+			
+			public static void main(String[] args) {
+		
+					new Screen();
 	}
 }
