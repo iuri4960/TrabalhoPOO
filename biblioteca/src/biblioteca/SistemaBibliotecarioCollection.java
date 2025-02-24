@@ -1,5 +1,6 @@
 package biblioteca;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import exception.EmprestimoJaAdicionadoException;
@@ -11,7 +12,8 @@ import exception.NumeroPaginasInvalidoException;
 import exception.UsuarioJaAdicionadoException;
 import exception.UsuarioNaoEncontradoException;
 
-public interface SistemaBibliotecarioCollection {
+public interface SistemaBibliotecarioCollection extends Serializable {
+	
 	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException;
 	public Livro consultarLivro(String codigo) throws LivroNaoEncontradoException;
 	public void removerLivro(String codigo) throws LivroNaoEncontradoException;

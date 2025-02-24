@@ -1,5 +1,6 @@
 package biblioteca;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import exception.LivroJaAdicionadoException;
 import exception.LivroNaoEncontradoException;
 import exception.NumeroPaginasInvalidoException;
 
-public class GerenciarLivro {
+public class GerenciarLivro implements Serializable{
 	ArrayList<Livro> livros;
 
 	public GerenciarLivro(ArrayList<Livro> livros) {

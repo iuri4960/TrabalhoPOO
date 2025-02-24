@@ -1,6 +1,8 @@
 package biblioteca;
 
-public abstract class Usuario {
+import java.io.Serializable;
+
+public abstract class Usuario implements Serializable {
 	protected String nome;
 	protected int matricula;
 	protected int idade;

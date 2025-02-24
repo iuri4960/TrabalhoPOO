@@ -1,12 +1,13 @@
 package biblioteca;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import exception.EmprestimoJaAdicionadoException;
 import exception.EmprestimoNaoEncontradoException;
 import exception.MultaNaoPagaException;
 
-public class GerenciadorEmprestimo {
+public class GerenciadorEmprestimo implements Serializable {
 	private ArrayList<Emprestimo> listaEmprestimo;
 
 	/*Construtores da classe um para caso não haja uma lista ja sendo usada

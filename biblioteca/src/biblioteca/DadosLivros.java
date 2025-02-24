@@ -1,4 +1,4 @@
-package trabalho;
+package biblioteca;
 
 public class DadosLivros {
 

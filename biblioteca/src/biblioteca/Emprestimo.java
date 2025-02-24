@@ -1,8 +1,9 @@
 package biblioteca;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Emprestimo {
+public class Emprestimo implements Serializable{
 	private Usuario usuario;
 	private Livro livro;
 	private LocalDate dataAquisicao;
