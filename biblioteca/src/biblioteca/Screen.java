@@ -18,7 +18,7 @@ import java.io.ObjectOutputStream;
 
 public class Screen extends JFrame {
 	
-		SistemaBibliotecario sistema;
+		SistemaBibliotecario sistema = new SistemaBibliotecario();
 	
 		//Strings para o DASHBOARD, o intuito é que nao fique assim. calma.
 		private String numeroLivrosCadastrados = "12";
@@ -188,6 +188,13 @@ public class Screen extends JFrame {
 		        JButton botaoUsuariosAtivos = new JButton("Usuários Ativos");
 		        botaoUsuariosAtivos.setBounds(255,120,175,40);
 		        botaoUsuariosAtivos.setBackground(new Color(180,178,187));
+		     
+		        JButton botaoSalvar = new JButton("Salvar");
+		        botaoSalvar.setBounds(685, 60, 100, 40);
+		        botaoSalvar.setBackground(new Color(180, 178, 187));
+		        botaoSalvar.setFont(new Font("Arial", Font.BOLD, 14));
+		 
+		       
 		        
 		        JLabel tituloAssinatura = new JLabel("<html>&nbsp;&nbsp;Designers and Programmers<br>"
 		        		+ "&nbsp;&nbsp;Álvaro    Iuri<br>&nbsp;&nbsp;Gustavo   Estevão<br>&nbsp;&nbsp;Victor</html>");
@@ -206,7 +213,17 @@ public class Screen extends JFrame {
 		        
 		        painelPaginaInicial.add(tituloAssinatura);
 				
+		        painelSuperior.add(botaoSalvar);
+		        
 				painelCentral.add(painelPaginaInicial, "painelPaginaInicial");
+				
+				//botão de Salvamento
+				botaoSalvar.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						salvarDados();
+					}
+				});
+				
 				
 						//Esse botão define o Painel Central como o Painel Pagina Inicial
 				botaoPaginaInicial.addActionListener(new ActionListener(){
@@ -469,6 +486,7 @@ public class Screen extends JFrame {
 							
 							try {
 								sistema.adicionarLivro(livroAdicionado);
+								sistema.setTemAlteracao(true);
 							} catch (LivroJaAdicionadoException e) {
 								JOptionPane.showMessageDialog(null, "Livro Existente",
 										"Erro", JOptionPane.INFORMATION_MESSAGE);
@@ -656,18 +674,18 @@ public class Screen extends JFrame {
 					}
 				});
 				
-				/*
-				//Suporte : "Sair Sem Salvar"	
+				
+				//"Saindo com Segurança"	
 				addWindowListener(new java.awt.event.WindowAdapter() {
 				    @Override 
 				    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				    	//impede que o programa feche
-				    	if (temAlteracao) {
+				    	if (sistema.getTemAlteracao()) {
 				            int option = JOptionPane.showConfirmDialog(null,
 				                    "Você tem alterações não salvas. Deseja salvar antes de sair?",
 				                    "Salvar Alterações", JOptionPane.YES_NO_CANCEL_OPTION);
 				            if (option == JOptionPane.YES_OPTION) {
-				             //   salvarDados();
+				                salvarDados();
 				                System.exit(0);
 				            } else if (option == JOptionPane.NO_OPTION) {
 				                System.exit(0);
@@ -678,7 +696,7 @@ public class Screen extends JFrame {
 				        }
 				    }
 				});
-				*/
+				
 				
 				//--------------------------------------------------------//
 				//--------------------------------------------------------//
@@ -697,32 +715,28 @@ public class Screen extends JFrame {
 					SistemaBibliotecario sistema = (SistemaBibliotecario) ois.readObject();
 					ois.close();
 					fis.close();
+					//JOptionPane.showMessageDialog(this, "Dados carregados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 				} catch (FileNotFoundException ex) {
-					//	JOptionPane.showMessageDialog(this, "Sistema Bibliotecário");
+					ex.printStackTrace();
 				} catch (IOException | ClassNotFoundException e) {
-					//	sistema = new SistemaBibliotecario(); // Se o arquivo não existir, cria uma nova biblioteca
+					e.printStackTrace();
 				}  
 			}
-		
 			
-			/*
 			private void salvarDados() {
 		    	try {
 		        	FileOutputStream fos = new FileOutputStream("Biblioteca.dat");
 		        	ObjectOutputStream oos = new ObjectOutputStream(fos);
 		        	oos.writeObject(sistema);
-		     		//   oos.close();
-		     		//   fos.close();
-		        	temAlteracao = false; // Marca os dados como salvos
+		     		   oos.close();
+		     		   fos.close();
+		        	sistema.setTemAlteracao(false); // Marca os dados como salvos
 		        	JOptionPane.showMessageDialog(this, "Dados salvos com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 		    	} catch (IOException e) {
 		        	e.printStackTrace();
 		        	JOptionPane.showMessageDialog(this, "Erro ao salvar os dados!", "Erro", JOptionPane.ERROR_MESSAGE);
 		    	}
-			}
-*/	
-		
-			
+			}		
 			
 			
 			public static void main(String[] args) {
