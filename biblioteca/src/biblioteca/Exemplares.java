@@ -15,7 +15,7 @@ public class Exemplares {
 	
 	public void colocarLivro(Livro livro) {
 		catalogo.putIfAbsent(livro.getNome(), new ArrayList<>());
-        catalogo.get(livro.getNome()).add(livro);
+        	catalogo.get(livro.getNome()).add(livro);
 	}
 	
 	public List<Livro> obterExemplares(String nomeLivro) {
