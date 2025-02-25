@@ -4,14 +4,30 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
+import exception.UsuarioJaAdicionadoException;
+import exception.UsuarioNaoEncontradoException;
+
 import java.text.*;
 import java.awt.*;
 import java.util.*;
 //painel de alterar informações
 public class AlterarInformacoesUsuarioPainel extends JPanel {
+    Usuario usuarioSelecionadoGeral;
+    SistemaBibliotecario sistema;
+
+    JFormattedTextField idade;
+    JTextField caixaNome;
+    JFormattedTextField especifico;
+    JFormattedTextField matriculaField;
+    JComboBox<Titulo> selecaoDeTitulo;
+    JLabel selecaoDeTipo;
+    JButton botaoDeCadastro;
+    
 
     //contrutor ttera um cabeçallho e um painel de alterar
-    AlterarInformacoesUsuarioPainel(){
+    AlterarInformacoesUsuarioPainel(Usuario usuarioSelecionadoGeral, SistemaBibliotecario sistema){
+        this.usuarioSelecionadoGeral = usuarioSelecionadoGeral;
+        this.sistema = sistema;
         this.setLayout(new BorderLayout());
         add(criarPainelCabecalho(), BorderLayout.NORTH);
         add(criarPainelAlterar(), BorderLayout.CENTER);
@@ -37,7 +53,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         alterar.setBackground(Color.LIGHT_GRAY);
     
         //caixa de nome
-        JTextField caixaNome = new JTextField("colocar nome");
+        caixaNome = new JTextField("colocar nome");
         caixaNome.setColumns(40);
         caixaNome.setBorder(BorderFactory.createTitledBorder("Digite o nome do usuário"));
 
@@ -49,38 +65,84 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         numberFormatter.setMinimum(0);
         
         //caixa de idade
-        JFormattedTextField idade = new JFormattedTextField(numberFormatter);
+        idade = new JFormattedTextField(numberFormatter);
         idade.setColumns(15); 
         idade.setBorder(BorderFactory.createTitledBorder("Digite a idade do usuário"));
         idade.setValue(0);
 
         //caixa de materias/semestre
-        JFormattedTextField especifico = new JFormattedTextField(numberFormatter);
+        especifico = new JFormattedTextField(numberFormatter);
         especifico.setColumns(10); 
         especifico.setValue(null);
+        especifico.setBorder(BorderFactory.createTitledBorder("semestre atual"));
 
         numberFormatter.setMaximum(999999);
         //matricula
-        JFormattedTextField matriculaField = new JFormattedTextField(numberFormatter);
+        matriculaField = new JFormattedTextField(numberFormatter);
         matriculaField.setColumns(15); 
         matriculaField.setBorder(BorderFactory.createTitledBorder("Digite a matricula do usuário"));
         matriculaField.setValue(17);
 
         //lista para escolher titulo
-        String[] opcoesTitulo = {"Ensino médio", "Graduado", "Especializado", "Mestre", "Doutor"};
-        JComboBox<String> selecaoDeTitulo = new JComboBox<>(opcoesTitulo);
+        Titulo[] opcoesTitulo = {Titulo.GRADUANDO, Titulo.GRADUADO, Titulo.ESPECIALIZADO, Titulo.MESTRE, Titulo.DOUTOR};
+        selecaoDeTitulo = new JComboBox<>(opcoesTitulo);
         selecaoDeTitulo.setBorder(BorderFactory.createTitledBorder("Escolha o titulo"));
         selecaoDeTitulo.setSelectedItem("Graduado");
 
         //lista para escolher tipo de usuario
-        String[] opcoesTipo = {"Professor", "Aluno"};
-        JComboBox<String> selecaoDeTipo = new JComboBox<>(opcoesTipo);
+        
+        selecaoDeTipo = new JLabel();
         selecaoDeTipo.setBorder(BorderFactory.createTitledBorder("o usuário é"));
-        selecaoDeTipo.setSelectedItem("Aluno");
+        selecaoDeTipo.setText("Aluno");
+        selecaoDeTipo.setPreferredSize(new Dimension(100, 50));
+        selecaoDeTipo.setOpaque(true);  
+        selecaoDeTipo.setBackground(Color.WHITE);
 
         //botão de alterar
-        JButton botaoDeCadastro = new JButton("Alterar");
+        botaoDeCadastro = new JButton("Alterar");
         botaoDeCadastro.setBackground(Color.GREEN);
+        botaoDeCadastro.addActionListener(e ->{
+            if(null == this.obterTexto(caixaNome) || null == this.obterTexto(matriculaField) || null == this.obterTexto(idade) || null == this.obterTexto(especifico) ){
+                JOptionPane.showMessageDialog(this, "Por favor, Digite as informações do usuario.", 
+                "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+            else if(selecaoDeTipo.getText().equals("Aluno")){
+                try{
+                    Titulo titulo = (Titulo) selecaoDeTitulo.getSelectedItem();
+                    Integer matricula = (Integer) matriculaField.getValue();
+                    Integer idadeNumero = (Integer) idade.getValue();
+                    Integer semestre = (Integer) especifico.getValue();
+
+                    Aluno aluno = new Aluno(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
+                    sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), aluno);
+
+                    JOptionPane.showMessageDialog(this, "Aluno Editado Com Sucesso", 
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);              
+                }
+                catch(Exception ex){
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+             else{
+                try{
+                    Titulo titulo = (Titulo) selecaoDeTitulo.getSelectedItem();
+                    Integer matricula = (Integer) matriculaField.getValue();
+                    Integer idadeNumero = (Integer) idade.getValue();
+                    Integer semestre = (Integer) especifico.getValue();
+
+                    Professor professor = new Professor(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
+                    sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), professor);
+                    JOptionPane.showMessageDialog(this, "Professor Adicionado Com Sucesso", 
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    
+                }
+                catch(Exception ex){
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -122,5 +184,52 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         alterar.add(selecaoDeTitulo, gbc);
 
         return alterar;
+    }
+
+    public void setUsuario(Usuario usuarioSelecionadoGeral){
+        
+
+        this.usuarioSelecionadoGeral = usuarioSelecionadoGeral;
+        caixaNome.setText(usuarioSelecionadoGeral.getNome());
+        //matricula
+         matriculaField.setText(Integer.toString(usuarioSelecionadoGeral.getMatricula()));  
+
+        //titulo
+        selecaoDeTitulo.setSelectedItem(usuarioSelecionadoGeral.getTitulo().getDescricao());
+        //diferença entre professor e usuario
+        String tipo; 
+        int especificoNumero;  
+        if(usuarioSelecionadoGeral instanceof Aluno){
+            tipo = "Aluno";
+            especificoNumero = ((Aluno)usuarioSelecionadoGeral).getSemestre(); 
+            especifico.setBorder(BorderFactory.createTitledBorder("Semestre atual"));
+        }
+        else{
+            tipo = "Professor";
+            especificoNumero = ((Professor)usuarioSelecionadoGeral).getQtdMaterias();
+            especifico.setBorder(BorderFactory.createTitledBorder("Quantidade de materias"));
+        }
+
+        //tipo de usuario
+        selecaoDeTipo.setText(tipo);
+
+        //Semestre/qnt de materias
+ 
+        especifico.setText(Integer.toString(especificoNumero));  
+       
+
+        //idade
+        idade.setText(Integer.toString(usuarioSelecionadoGeral.getIdade()));
+        //quantidade de livros new JLabel(Integer.toString(sistema.consultarEmprestimo(usuarioSelecionadoGeral.getMatricula()).size()));
+       
+    }
+    public String obterTexto(JTextField texto){
+        String digitado = texto.getText().trim();
+        if(digitado.isEmpty()){
+            return null;
+        }
+        else{
+            return digitado;
+        }
     }
 }

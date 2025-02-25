@@ -16,18 +16,8 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 	private GerenciadorUsuario gerenciarUsuarios = new GerenciadorUsuario();
 	private GerenciadorEmprestimo gerenciarEmprestimos = new GerenciadorEmprestimo();
 	private GerenciarLivro gerenciarLivros = new GerenciarLivro();
-	
-	private boolean temAlteracao = false;
-	
-	public boolean getTemAlteracao() {
-		return temAlteracao;
-	}
-	public void setTemAlteracao(boolean temAlteracao) {
-		this.temAlteracao = temAlteracao;
-	}
-	
-	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException {
-	//NumeroPaginasInvalidoException {
+	@Override
+	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException {
 			gerenciarLivros.adicionarLivro(livro);
 	}
 	@Override
@@ -80,6 +70,9 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 	public void adicionarUsuario(Usuario usuario) throws UsuarioJaAdicionadoException {
 		gerenciarUsuarios.adicionarUsuario(usuario);	
 	}
+	public ArrayList<Usuario> getListaUsuarios(){
+		return gerenciarUsuarios.getListaUsuario();
+	}
 	
 	@Override
 	public Usuario consultarUsuario(int matricula) throws UsuarioNaoEncontradoException {
@@ -99,7 +92,9 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 		}
 	}
 	
-	
+	public ArrayList<Emprestimo> getListaEmprestimo() {
+		return gerenciarEmprestimos.getListaEmprestimo();
+	}
 	
 	
 }

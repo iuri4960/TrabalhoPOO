@@ -22,14 +22,7 @@ public class Aluno extends Usuario {
 	//Método para imprimir as informações do aluno
 	@Override
 	public String toString() {
-		return "Aluno [nome=" + nome + ", matricula=" + matricula + ", idade=" + idade
-				+ ", titulo=" + titulo + ", semestre=" + semestre + "]";
+		return "Aluno: " + nome;
 	}
-	
-	
-
-	
-
-	
 
 }

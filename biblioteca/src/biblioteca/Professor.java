@@ -11,7 +11,7 @@ public class Professor extends Usuario {
 	}
 
 	//Métodos get e set
-	private int getQtdMaterias() {
+	public int getQtdMaterias() {
 		return qtdMaterias;
 	}
 
@@ -22,8 +22,7 @@ public class Professor extends Usuario {
 	//Método para imprimir as informações do professor
 	@Override
 	public String toString() {
-		return "Professor [nome=" + nome + ", matricula=" + matricula + ", idade="
-				+ idade + ", titulo=" + titulo + ", qtdMaterias=" + qtdMaterias + "]";
+		return "Professor: " + nome;
 	}
 	
 	

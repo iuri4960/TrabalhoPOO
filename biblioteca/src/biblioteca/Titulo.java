@@ -13,8 +13,10 @@ public enum Titulo {
 		this.descricao = descricao;
 	}
 
-	private String getDescricao() {
+	public String getDescricao() {
 		return descricao;
 	}
+
+	
 	
 }

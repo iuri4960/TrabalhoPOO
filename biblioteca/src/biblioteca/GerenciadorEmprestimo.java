@@ -85,5 +85,7 @@ public class GerenciadorEmprestimo implements Serializable {
 			throw new MultaNaoPagaException();
 		}
 	}
-	
+	public ArrayList<Emprestimo> getListaEmprestimo() {
+		return listaEmprestimo;
+	}
 }

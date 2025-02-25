@@ -12,9 +12,20 @@ public class UsuarioEspecifico extends JPanel {
 
     //painel que sera usado para trocar ente o painel de informações e o de alterar informações
     JPanel painelDeTroca = new JPanel();
+    Usuario usuarioSelecionadoGeral;
+    SistemaBibliotecario sistema;
+    JPanel informacoes;
+    JPanel alterarInformacoes;
+    JButton remover;
+    JButton voltar;
+
+    private PainelSwitcher switcher;
 
     //construtor que dividira o painel em cabeçalho, botões e o painel que será trocavel
-    UsuarioEspecifico(){
+    UsuarioEspecifico(Usuario usuarioSelecionadoGeral, SistemaBibliotecario sistema1, PainelSwitcher switcher){
+        sistema = sistema1;
+        this.usuarioSelecionadoGeral = usuarioSelecionadoGeral;
+        this.switcher = switcher;
         this.setLayout(new BorderLayout());
         add(criarPainelCabecalho(), BorderLayout.NORTH);
         add(criarPainelInformacoes(), BorderLayout.CENTER);
@@ -35,8 +46,8 @@ public class UsuarioEspecifico extends JPanel {
    
             painelDeTroca.setLayout(new CardLayout());//troca feita por cardLayout
 
-            JPanel informacoes = new InformacoesAlunoPanel();
-            JPanel alterarInformacoes = new AlterarInformacoesUsuarioPainel();
+            informacoes = new InformacoesAlunoPanel(usuarioSelecionadoGeral, sistema);
+            alterarInformacoes = new AlterarInformacoesUsuarioPainel(usuarioSelecionadoGeral, sistema);
             painelDeTroca.add(informacoes, "Informações");
             painelDeTroca.add(alterarInformacoes, "Alterar informações do usuario");
             return painelDeTroca;
@@ -72,13 +83,52 @@ public class UsuarioEspecifico extends JPanel {
         });
 
         //botão de remover
-        JButton remover = new JButton("REMOVER");
+        remover = new JButton("REMOVER");
         remover.setBackground(Color.GREEN);
+        remover.addActionListener(e ->{
+            int opcao = JOptionPane.showConfirmDialog(
+                null,                    
+                "Deseja remover o usuario?",      
+                "Confirmação",          
+                JOptionPane.YES_NO_OPTION 
+            );
 
+            if (opcao == JOptionPane.YES_OPTION) {
+                try {
+                    sistema.removerUsuario(usuarioSelecionadoGeral.getMatricula());
+                    usuarioSelecionadoGeral = null;
+                    switcher.switchTo("consulta");
+                    switcher.reset();
+                    JOptionPane.showMessageDialog(this, "Aluno Removido Com Sucesso", 
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+                }
+            } 
+           
+        });
+        voltar = new JButton("VOLTAR");
+        voltar.setBackground(Color.GREEN);
+        voltar.addActionListener(e -> {
+            switcher.switchTo("consulta");
+            switcher.reset();
+        });
+
+        
         butoes.add(botaoInformacoes);
         butoes.add(botaoAlterarInformacoes);
         butoes.add(remover);
+        butoes.add(voltar);
+        
         return butoes;
 
+    }
+
+    public void setUsuario(Usuario usuarioSelecionadoGeral){
+        this.usuarioSelecionadoGeral = usuarioSelecionadoGeral;
+        ((AlterarInformacoesUsuarioPainel)alterarInformacoes).setUsuario(usuarioSelecionadoGeral);
+        ((InformacoesAlunoPanel)informacoes).setUsuario(usuarioSelecionadoGeral);
     }
 }

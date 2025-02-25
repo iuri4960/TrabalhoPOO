@@ -71,6 +71,9 @@ public class GerenciadorUsuario implements Serializable {
 			throw new UsuarioNaoEncontradoException(matricula);
 		}
 	}
+	public ArrayList<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
 
 
 }
