@@ -53,21 +53,21 @@ public class GerenciarLivro implements Serializable {
 		Livro l = consultarLivro(codigo);
 		List<Livro> exemplar = catalogo.get(l.getNome());
 		exemplar.remove(l);
-        System.out.println(" Exemplar '" + l.getNome() +"com código"+l.getCodigo() + " removido com sucesso!");
-        if (exemplar.isEmpty()) {
-            catalogo.remove(l.getNome());
-          }           		
+        	System.out.println(" Exemplar '" + l.getNome() +"com código"+l.getCodigo() + " removido com sucesso!");
+        	if (exemplar.isEmpty()) {
+            		catalogo.remove(l.getNome());
+          	}           		
 	}
 
 	//Método para mostrar todos os livros
 	public Livro[]  listaLivros() {
 		Map<String, List<Livro>> catalogo = exemplares.getCatalogo();
 		for (Map.Entry<String, List<Livro>> entry : catalogo.entrySet()) {
-	        System.out.println("Nome: " + entry.getKey() + " | Exemplares: " + entry.getValue().size());
-	            for (Livro livro : entry.getValue()) {
-	                System.out.println("  - " + livro);
-	      }
-	   }
+	        	System.out.println("Nome: " + entry.getKey() + " | Exemplares: " + entry.getValue().size());
+	            	for (Livro livro : entry.getValue()) {
+	                	System.out.println("  - " + livro);
+	      		}
+	   	}
 		return null;
 	}
 
@@ -78,12 +78,12 @@ public class GerenciarLivro implements Serializable {
 		List<Livro> listaLivros = catalogo.get(livroAntigo.getNome());
 		if (livroAntigo!=null) {
 			for (int i = 0; i < listaLivros.size(); i++) {
-	            if (listaLivros.get(i).getCodigo().equalsIgnoreCase(codigo)) {
-	                listaLivros.set(i, novoLivro);
-	                System.out.println("Livro atualizado com sucesso!");
-	                return;
-	            }
-	        }
+	            		if (listaLivros.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+	                	listaLivros.set(i, novoLivro);
+	                	System.out.println("Livro atualizado com sucesso!");
+	                	return;
+	            		}
+	        	}
 		} 
 	}
 }
