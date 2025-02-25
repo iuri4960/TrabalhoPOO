@@ -1,7 +1,7 @@
 package exception;
 
-import biblioteca.Livro;
-import biblioteca.Usuario;
+import usuario.Livro;
+import usuario.Usuario;
 
 public class EmprestimoNaoEncontradoException extends Exception {
 	public EmprestimoNaoEncontradoException(Livro livro){
@@ -10,6 +10,7 @@ public class EmprestimoNaoEncontradoException extends Exception {
 	
 	public EmprestimoNaoEncontradoException(Usuario usuario){
 		super("Não ha emprestimos para o usuario de matricula " + usuario.getMatricula());
-	}	
+	}
+
 
 }
