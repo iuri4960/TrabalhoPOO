@@ -3,10 +3,9 @@ package usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import biblioteca.Livro;
-import excepetion.EmprestimoJaAdicionadoException;
-import excepetion.EmprestimoNaoEncontradoException;
-import excepetion.MultaNaoPagaException;
+import exception.EmprestimoJaAdicionadoException;
+import exception.EmprestimoNaoEncontradoException;
+import exception.MultaNaoPagaException;
 
 public class GerenciadorEmprestimo implements Serializable {
 	private ArrayList<Emprestimo> listaEmprestimo;

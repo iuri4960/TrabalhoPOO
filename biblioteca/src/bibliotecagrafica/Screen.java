@@ -2,9 +2,9 @@ package bibliotecagrafica;
 
 import javax.swing.*;
 
-import biblioteca.Livro;
-import excepetion.LivroJaAdicionadoException;
-import excepetion.NumeroPaginasInvalidoException;
+import exception.LivroJaAdicionadoException;
+import exception.NumeroPaginasInvalidoException;
+import usuario.Livro;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -674,6 +674,96 @@ public class Screen extends JFrame {
 					campoBarraPesquisa.setText("");
 				}
 			});
+			
+			// Cadastrar Usuário -------------------------------------------
+			// Criando o painel de cadastro de aluno e adicionando ao painelCentral
+			CadastrarAlunoPanel painelCadastrarAluno = new CadastrarAlunoPanel(sistema);
+			painelCentral.add(painelCadastrarAluno, "painelCadastrarAluno");
+
+			// Criando botão para alternar para o painel de cadastro de aluno
+			botaoCadastrarUsuario.addActionListener(new ActionListener(){
+			    public void actionPerformed(ActionEvent acaoBotaoCadastrarUsuario) {
+			        layoutCentral.show(painelCentral, "painelCadastrarAluno");
+			        botaoCadastrarUsuario.setBackground(new Color(0,191,99));
+
+			        // Resetando as cores dos outros botões para manter o estilo
+			        botaoPaginaInicial.setBackground(new Color(180,178,187));
+			        botaoCadastrarLivro.setBackground(new Color(180,178,187));
+			        botaoConsultarLivros.setBackground(new Color(180,178,187));
+			        botaoGerenciarEmprestimo.setBackground(new Color(180,178,187));
+			     // botaoCadastrarUsuario.setBackground(new Color(180,178,187));
+			        botaoConsultarUsuario.setBackground(new Color(180,178,187));
+			        botaoEmprestarlivro.setBackground(new Color(180,178,187));
+			    }
+			});
+			
+			// Consultar Usuário -------------------------------------------
+			// Criando o painel de cadastro de aluno e adicionando ao painelCentral
+			ConsultarAlunoPanel painelConsultarAluno = new ConsultarAlunoPanel(sistema);
+			painelCentral.add(painelConsultarAluno, "painelConsultarAluno");
+
+			// Criando botão para alternar para o painel de cadastro de aluno
+			botaoConsultarUsuario.addActionListener(new ActionListener(){
+			    public void actionPerformed(ActionEvent acaoBotaoConsultarUsuario) {
+			        layoutCentral.show(painelCentral, "painelConsultarAluno");
+			        botaoConsultarUsuario.setBackground(new Color(0,191,99));
+
+			        // Resetando as cores dos outros botões para manter o estilo
+			        botaoPaginaInicial.setBackground(new Color(180,178,187));
+			        botaoCadastrarLivro.setBackground(new Color(180,178,187));
+			        botaoConsultarLivros.setBackground(new Color(180,178,187));
+			        botaoGerenciarEmprestimo.setBackground(new Color(180,178,187));
+			   //   botaoConsultarUsuario.setBackground(new Color(180,178,187));
+			        botaoCadastrarUsuario.setBackground(new Color(180,178,187));
+			        botaoEmprestarlivro.setBackground(new Color(180,178,187));
+			    }
+			});
+			
+			// Cadastrar Emprestimo -------------------------------------------
+			// Criando o painel de cadastro de aluno e adicionando ao painelCentral
+			CadastrarEmprestimoPanel painelCadastrarEmprestimo= new CadastrarEmprestimoPanel(sistema);
+			painelCentral.add(painelCadastrarEmprestimo, "painelCadastrarEmprestimo");
+
+			// Criando botão para alternar para o painel de cadastro de aluno
+			botaoEmprestarlivro.addActionListener(new ActionListener(){
+			    public void actionPerformed(ActionEvent acaoBotaoEmprestarLivro) {
+			        layoutCentral.show(painelCentral, "painelCadastrarEmprestimo");
+			        botaoEmprestarlivro.setBackground(new Color(0,191,99));
+
+			        // Resetando as cores dos outros botões para manter o estilo
+			        botaoPaginaInicial.setBackground(new Color(180,178,187));
+			        botaoCadastrarLivro.setBackground(new Color(180,178,187));
+			        botaoConsultarLivros.setBackground(new Color(180,178,187));
+			        botaoGerenciarEmprestimo.setBackground(new Color(180,178,187));
+			        botaoConsultarUsuario.setBackground(new Color(180,178,187));
+			        botaoCadastrarUsuario.setBackground(new Color(180,178,187));
+		   //       botaoEmprestarlivro.setBackground(new Color(180,178,187));
+			    }
+			});
+			
+			
+			// Gerenciar Emprestimo -------------------------------------------
+			// Criando o painel de cadastro de aluno e adicionando ao painelCentral
+			ConsultarEmprestimoPanel painelConsultarEmprestimo = new ConsultarEmprestimoPanel(sistema);
+			painelCentral.add(painelConsultarEmprestimo, "painelGerenciarEmprestimo");
+
+			// Criando botão para alternar para o painel de cadastro de aluno
+			botaoGerenciarEmprestimo.addActionListener(new ActionListener(){
+			    public void actionPerformed(ActionEvent acaoBotaoGerenciarEmprestimo) {
+			        layoutCentral.show(painelCentral, "painelGerenciarEmprestimo");
+			        botaoGerenciarEmprestimo.setBackground(new Color(0,191,99));
+
+			        // Resetando as cores dos outros botões para manter o estilo
+			        botaoPaginaInicial.setBackground(new Color(180,178,187));
+			        botaoCadastrarLivro.setBackground(new Color(180,178,187));
+			        botaoConsultarLivros.setBackground(new Color(180,178,187));
+			 //     botaoGerenciarEmprestimo.setBackground(new Color(180,178,187));
+			        botaoConsultarUsuario.setBackground(new Color(180,178,187));
+			        botaoCadastrarUsuario.setBackground(new Color(180,178,187));
+			        botaoEmprestarlivro.setBackground(new Color(180,178,187));
+			    }
+			});
+
 			
 			
 			//"Saindo com Segurança"	

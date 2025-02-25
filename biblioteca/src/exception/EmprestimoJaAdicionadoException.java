@@ -1,6 +1,6 @@
 package exception;
 
-import biblioteca.Livro;
+import usuario.Livro;
 
 public class EmprestimoJaAdicionadoException extends Exception {
 	public EmprestimoJaAdicionadoException(Livro livro){

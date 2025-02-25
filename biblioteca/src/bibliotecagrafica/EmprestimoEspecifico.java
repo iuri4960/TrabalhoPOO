@@ -90,6 +90,7 @@ public class EmprestimoEspecifico extends JPanel {
                     switcher.reset();
                     JOptionPane.showMessageDialog(this, "Emprestimo devolvido com sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    sistema.setTemAlteracao(true);
                     
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 

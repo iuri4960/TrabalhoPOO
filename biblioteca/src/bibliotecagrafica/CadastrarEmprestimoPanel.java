@@ -9,8 +9,11 @@ import javax.swing.text.NumberFormatter;
 
 
 public class CadastrarEmprestimoPanel extends JPanel {
-	CadastrarEmprestimoPanel(){
-        this.setLayout(new BorderLayout());
+	SistemaBibliotecario sistema;
+	
+	CadastrarEmprestimoPanel(SistemaBibliotecario sistema){
+		this.sistema = sistema;
+	    this.setLayout(new BorderLayout());
         add(criarPainelCabecalho(), BorderLayout.NORTH);
         add(criarPainelRegistro(), BorderLayout.CENTER);
     }

@@ -1,23 +1,10 @@
 package bibliotecagrafica;
 
 import java.util.ArrayList;
+import exception.*;
+import usuario.*;
 
-import biblioteca.GerenciarLivro;
-import biblioteca.Livro;
-import excepetion.EmprestimoJaAdicionadoException;
-import excepetion.EmprestimoNaoEncontradoException;
-import excepetion.LivroJaAdicionadoException;
-import excepetion.LivroNaoEncontradoException;
-import excepetion.MultaNaoPagaException;
-import excepetion.NumeroPaginasInvalidoException;
-import excepetion.UsuarioJaAdicionadoException;
-import excepetion.UsuarioNaoEncontradoException;
-import usuario.Emprestimo;
-import usuario.GerenciadorEmprestimo;
-import usuario.GerenciadorUsuario;
-import usuario.Usuario;
-
-public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
+public class SistemaBibliotecario implements SistemaBibliotecarioCollection  {
 	private GerenciadorUsuario gerenciarUsuarios = new GerenciadorUsuario();
 	private GerenciadorEmprestimo gerenciarEmprestimos = new GerenciadorEmprestimo();
 	private GerenciarLivro gerenciarLivros = new GerenciarLivro();

@@ -3,8 +3,8 @@ package usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import excepetion.UsuarioJaAdicionadoException;
-import excepetion.UsuarioNaoEncontradoException;
+import exception.UsuarioJaAdicionadoException;
+import exception.UsuarioNaoEncontradoException;
 
 public class GerenciadorUsuario implements Serializable {
 private ArrayList<Usuario> listaUsuario;

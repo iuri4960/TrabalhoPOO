@@ -3,8 +3,6 @@ package usuario;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import biblioteca.Livro;
-
 public class Emprestimo implements Serializable {
 	private Usuario usuario;
 	private Livro livro;

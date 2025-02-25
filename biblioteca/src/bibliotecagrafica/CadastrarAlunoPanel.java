@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
-import excepetion.UsuarioJaAdicionadoException;
+import exception.UsuarioJaAdicionadoException;
 import usuario.Aluno;
 import usuario.Professor;
 import usuario.Titulo;

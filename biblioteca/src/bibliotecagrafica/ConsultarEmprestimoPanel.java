@@ -20,9 +20,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import biblioteca.Livro;
 import usuario.Aluno;
 import usuario.Emprestimo;
+import usuario.Livro;
 import usuario.Titulo;
 
 public class ConsultarEmprestimoPanel extends JPanel implements PainelSwitcher {

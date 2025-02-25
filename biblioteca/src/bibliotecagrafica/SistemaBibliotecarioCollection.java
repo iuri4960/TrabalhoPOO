@@ -3,17 +3,8 @@ package bibliotecagrafica;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import biblioteca.Livro;
-import excepetion.EmprestimoJaAdicionadoException;
-import excepetion.EmprestimoNaoEncontradoException;
-import excepetion.LivroJaAdicionadoException;
-import excepetion.LivroNaoEncontradoException;
-import excepetion.MultaNaoPagaException;
-import excepetion.NumeroPaginasInvalidoException;
-import excepetion.UsuarioJaAdicionadoException;
-import excepetion.UsuarioNaoEncontradoException;
-import usuario.Emprestimo;
-import usuario.Usuario;
+import exception.*;
+import usuario.*;
 
 public interface SistemaBibliotecarioCollection extends Serializable {
 	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException;
