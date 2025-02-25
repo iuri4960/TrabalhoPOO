@@ -117,6 +117,8 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
                     Aluno aluno = new Aluno(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
                     sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), aluno);
                     
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
+                    
                     troca.switchUsuario(aluno);
                     troca.reset();
                     JOptionPane.showMessageDialog(this, "Aluno Editado Com Sucesso", 
@@ -138,6 +140,8 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
                     Professor professor = new Professor(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
                     sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), professor);
 
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
+                    
                     troca.switchUsuario(professor);
                     troca.reset();
                     JOptionPane.showMessageDialog(this, "Professor  Com Sucesso", 

@@ -61,6 +61,9 @@ public class EmprestimoEspecifico extends JPanel {
                 emprestimoGeral.pagarMultaTotal();
                 JOptionPane.showMessageDialog(this, "Multa paga com sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                
+                sistema.setTemAlteracao(true); //FLAG (Salvar)
+                
             }
         });
 
@@ -85,6 +88,7 @@ public class EmprestimoEspecifico extends JPanel {
                     JOptionPane.showMessageDialog(this, "Emprestimo devolvido com sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
                     
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
                     "Atenção", JOptionPane.WARNING_MESSAGE);

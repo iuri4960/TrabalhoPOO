@@ -102,7 +102,8 @@ public class CadastrarAlunoPainel extends JPanel {
                     sistema.adicionarUsuario(aluno);
                     JOptionPane.showMessageDialog(this, "Aluno Adicionado Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);   
-                    sistema.setTemAlteracao(true);
+                    
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
                 }
                 catch(Exception ex){
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
@@ -120,7 +121,8 @@ public class CadastrarAlunoPainel extends JPanel {
                     sistema.adicionarUsuario(professor);
                     JOptionPane.showMessageDialog(this, "Professor Adicionado Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
-                    sistema.setTemAlteracao(true);
+                    
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
                 }
                 catch(UsuarioJaAdicionadoException ex){
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 

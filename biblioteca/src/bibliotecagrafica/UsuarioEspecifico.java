@@ -101,6 +101,8 @@ public class UsuarioEspecifico extends JPanel implements PainelTrocarUsuario{
                     JOptionPane.showMessageDialog(this, "Aluno Removido Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
                     
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
+                    
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
                     "Atenção", JOptionPane.WARNING_MESSAGE);

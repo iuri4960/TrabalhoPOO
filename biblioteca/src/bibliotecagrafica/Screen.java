@@ -54,7 +54,7 @@ public class Screen extends JFrame {
 			setTitle("Biblioteca Online");
 			//ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
 			//setIconImage(icone.getImage()); //Icone da Janela
-			setSize(800, 500); //tamanho da Janela
+			setSize(1000, 700); //tamanho da Janela
 			
 			//setLocation(283, 134); //centro de um monitor comum;
 			setLocationRelativeTo(null); //Janela inicia no centro do monitor
@@ -487,7 +487,7 @@ public class Screen extends JFrame {
 						
 						try {
 							sistema.adicionarLivro(livroAdicionado);
-							sistema.setTemAlteracao(true);
+							sistema.setTemAlteracao(true); //FLAG (Salvar)
 						} catch (LivroJaAdicionadoException | NumeroPaginasInvalidoException e) {
 							JOptionPane.showMessageDialog(null, "Livro Existente",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);

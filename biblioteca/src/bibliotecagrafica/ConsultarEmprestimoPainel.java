@@ -36,7 +36,7 @@ public class ConsultarEmprestimoPainel extends JPanel implements PainelSwitcher{
     ConsultarEmprestimoPainel(SistemaBibliotecario sistema){
         this.sistema = sistema;
         Aluno aluno = new Aluno("", 0, 0, Titulo.GRADUANDO, 0);
-        Livro livro = livro = new Livro("", "", "0", "", "0", "", "");
+        Livro livro = livro = new Livro("", "", 0, "", 0, "", "", true);
         emprestimoSelecionado = new Emprestimo(aluno, livro, LocalDate.now());
         this.setLayout(new BorderLayout());
         listaEmprestimosTotal = sistema.getListaEmprestimo();

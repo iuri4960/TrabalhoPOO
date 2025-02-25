@@ -47,7 +47,7 @@ public class CadastrarEmprestimoPanel extends JPanel {
 
 
         descriçãoUsuario = new JLabel("Descrição do usuario");
-        descriçãoUsuario.setPreferredSize(new Dimension(300, 200));
+        descriçãoUsuario.setPreferredSize(new Dimension(200, 100));
 
         //definindo uma bornda para o nome
         descriçãoUsuario.setOpaque(true);  // Permite que o fundo seja desenhado
@@ -56,7 +56,7 @@ public class CadastrarEmprestimoPanel extends JPanel {
         descriçãoUsuario.setBorder(BorderFactory.createTitledBorder("Descrição do usuário")); 
 
         descriçãoLivro = new JLabel("Descrição do livro");
-        descriçãoLivro.setPreferredSize(new Dimension(300, 200));
+        descriçãoLivro.setPreferredSize(new Dimension(200, 100));
 
         //definindo uma bornda para o nome
         descriçãoLivro.setOpaque(true);  // Permite que o fundo seja desenhado
@@ -95,6 +95,8 @@ public class CadastrarEmprestimoPanel extends JPanel {
                     LocalDate data = LocalDate.parse(dataString);
                     Emprestimo emprestimo = new Emprestimo(usuarioEscolhido, livroEscolhido, data);
                     sistema.adicionarEmprestimo(emprestimo);
+                    
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
                     
                     limparSelecao();
                     JOptionPane.showMessageDialog(this, "Emprestimo Efetuado", 
@@ -144,7 +146,7 @@ public class CadastrarEmprestimoPanel extends JPanel {
         cadastro.add(matriculaField, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         cadastro.add(caixaLivro, gbc);
 
         // Reset gridwidth para 1 para os demais componentes
@@ -156,31 +158,32 @@ public class CadastrarEmprestimoPanel extends JPanel {
         cadastro.add(botaoDeProcurarUsuario, gbc);
 
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         cadastro.add(botaoDeProcurarLivro, gbc);
         
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
         // Linha 2, coluna 2: matriculaField
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         cadastro.add(descriçãoUsuario, gbc);
         
         // Linha 2, coluna 3: selecaoDeTipo
-        gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
         cadastro.add(descriçãoLivro, gbc);
         
          // Linha 3, coluna 1: selecaoDeTitulo
-         gbc.gridwidth = 1;
+         gbc.gridwidth = 2;
          gbc.gridheight = 1;
  
          gbc.gridx = 0;
-         gbc.gridy = 6;
+         gbc.gridy = 4;
          cadastro.add(dataCadastro, gbc);
- 
+         
+         gbc.gridwidth = 1;
          gbc.gridx = 2;
-         gbc.gridy = 6;
+         gbc.gridy = 4;
          cadastro.add(botaoDeCadastro, gbc);
         
         return cadastro;
