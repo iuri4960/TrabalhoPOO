@@ -3,6 +3,7 @@ package bibliotecagrafica;
 import javax.swing.*;
 
 import exception.LivroJaAdicionadoException;
+import exception.LivroNaoEncontradoException;
 import exception.NumeroPaginasInvalidoException;
 import usuario.Livro;
 
@@ -41,7 +42,7 @@ public class Screen extends JFrame {
 	//private String descricaoLivro;
 	
 	//String para salvar o nome do Livro ao qual o usuário quer procurar em CONSULTAR LIVROS
-	private String stringNomeLivroConsultado;
+	private String stringCodigoLivroConsultado;
 
 	public Screen() {
 							
@@ -460,20 +461,8 @@ public class Screen extends JFrame {
 					//numeroExemplaresLivro = campoExemplares.getText().replaceAll("\\s+", "").toLowerCase();
 					DadosLivros.setDescricaoLivro(campoDescricao.getText().replaceAll("\\s+", "").toLowerCase());
 					
-					campoNomeLivro.setText("  Nome do Livro");
-					campoCodigoLivro.setText("  Código do Livro");
-					campoClassificacao.setText("  Classificação");
-					campoAno.setText("  Ano de Lançamento");
-					campoGenero.setText("  Genero do Livro");
-					campoAutor.setText("  Autor do Livro");
-					campoEditora.setText("  Editora de Distribuição");
-					campoNumeroPaginas.setText("  Número de Páginas");
-					campoExemplares.setText("  Número de Exemplares");
-					campoDescricao.setText("  Descrição do Livro");
-					
 					if(sucess) {
-						JOptionPane.showMessageDialog(null, "Livro Cadastrado Com Sucesso!",
-								"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						
 						
 						Livro livroAdicionado = new Livro(
 								DadosLivros.getNomeLivro(), 
@@ -488,6 +477,22 @@ public class Screen extends JFrame {
 						try {
 							sistema.adicionarLivro(livroAdicionado);
 							sistema.setTemAlteracao(true); //FLAG (Salvar)
+							
+							JOptionPane.showMessageDialog(null, "Livro Cadastrado Com Sucesso!",
+									"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+							
+							campoNomeLivro.setText("  Nome do Livro");
+							campoCodigoLivro.setText("  Código do Livro");
+							campoClassificacao.setText("  Classificação");
+							campoAno.setText("  Ano de Lançamento");
+							campoGenero.setText("  Genero do Livro");
+							campoAutor.setText("  Autor do Livro");
+							campoEditora.setText("  Editora de Distribuição");
+							campoNumeroPaginas.setText("  Número de Páginas");
+							campoExemplares.setText("  Número de Exemplares");
+							campoDescricao.setText("  Descrição do Livro");
+							
+							
 						} catch (LivroJaAdicionadoException | NumeroPaginasInvalidoException e) {
 							JOptionPane.showMessageDialog(null, "Livro Existente",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
@@ -513,7 +518,7 @@ public class Screen extends JFrame {
 			tituloConsultarLivro.setOpaque(true);
 			
 			JTextField campoBarraPesquisa = new	JTextField();
-			campoBarraPesquisa.setText("  Memórias Póstumas de Brás Cubas");
+			campoBarraPesquisa.setText("  Código do Livro");
 			campoBarraPesquisa.setBounds(30,55,250,20);
 			
 			JButton botaoPesquisarLivro = new JButton("Pesquisar");
@@ -583,97 +588,242 @@ public class Screen extends JFrame {
 					//Caso o livro exista, é exibido um painel com seu nome e três opções;
 			botaoPesquisarLivro.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent acaoBotaoPesquisarLivro) {
-					stringNomeLivroConsultado = campoBarraPesquisa.getText().trim();
-					nomeLivroConsultado.setText(stringNomeLivroConsultado);
-					painelLivroConsultado.setVisible(true);
+					try {
+						stringCodigoLivroConsultado = campoBarraPesquisa.getText();
+						sistema.consultarLivro(stringCodigoLivroConsultado);
+						
+						Livro livroConsultado = sistema.consultarLivro(stringCodigoLivroConsultado);
+						
+						nomeLivroConsultado.setText(livroConsultado.getNome());
+						painelLivroConsultado.setVisible(true);
+						
+						
+						//Implementação do Painel de Informações do Livro:
+			
+						JPanel painelConsultarLivros2 = new JPanel();
+						painelConsultarLivros2.setBackground(new Color(147,144,144));
+						painelConsultarLivros2.setLayout(null);
+			
+						JLabel tituloInformacaoLivro = new JLabel("  " + livroConsultado.getNome());
+						tituloInformacaoLivro.setBounds(30,20,400,20);
+						tituloInformacaoLivro.setBackground(new Color(211,205,237));
+						tituloInformacaoLivro.setFont(new Font("Arial", Font.BOLD, 15));
+						tituloInformacaoLivro.setForeground(new Color(50,50,50));
+						tituloInformacaoLivro.setOpaque(true);
+						
+						JLabel codigoLivro = new JLabel(" Código: " + livroConsultado.getCodigo());
+						codigoLivro.setBounds(30,80,175,20);
+						codigoLivro.setBackground(new Color(211,205,237));
+						codigoLivro.setFont(new Font("Arial", Font.BOLD, 15));
+						codigoLivro.setForeground(new Color(50,50,50));
+						codigoLivro.setOpaque(true);
+						
+						JLabel AnoLivro = new JLabel(" Publicação: " + livroConsultado.getAno());
+						AnoLivro.setBounds(255,80,175,20);
+						AnoLivro.setBackground(new Color(211,205,237));
+						AnoLivro.setFont(new Font("Arial", Font.BOLD, 15));
+						AnoLivro.setForeground(new Color(50,50,50));
+						AnoLivro.setOpaque(true);
+						
+						JLabel GeneroLivro = new JLabel(" Gênero: " + livroConsultado.getGenero());
+						GeneroLivro.setBounds(30,110,175,20);
+						GeneroLivro.setBackground(new Color(211,205,237));
+						GeneroLivro.setFont(new Font("Arial", Font.BOLD, 15));
+						GeneroLivro.setForeground(new Color(50,50,50));
+						GeneroLivro.setOpaque(true);
+						
+						JLabel AutorLivro = new JLabel(" Autor: " + livroConsultado.getAutor());
+						AutorLivro.setBounds(255,110,175,20);
+						AutorLivro.setBackground(new Color(211,205,237));
+						AutorLivro.setFont(new Font("Arial", Font.BOLD, 15));
+						AutorLivro.setForeground(new Color(50,50,50));
+						AutorLivro.setOpaque(true);
+						
+						JLabel EditoraLivro = new JLabel(" Editora: " + livroConsultado.getEditora());
+						EditoraLivro.setBounds(30,140,175,20);
+						EditoraLivro.setBackground(new Color(211,205,237));
+						EditoraLivro.setFont(new Font("Arial", Font.BOLD, 15));
+						EditoraLivro.setForeground(new Color(50,50,50));
+						EditoraLivro.setOpaque(true);
+						
+						JLabel numPagLivro = new JLabel(" Num Pág: " + livroConsultado.getNumPaginas());
+						numPagLivro.setBounds(255,140,175,20);
+						numPagLivro.setBackground(new Color(211,205,237));
+						numPagLivro.setFont(new Font("Arial", Font.BOLD, 15));
+						numPagLivro.setForeground(new Color(50,50,50));
+						numPagLivro.setOpaque(true);
+						
+						JButton botaoVoltarInformacaoLivro = new JButton("⬅ Voltar");
+						botaoVoltarInformacaoLivro.setBounds(30,300,400,20);
+						botaoVoltarInformacaoLivro.setBackground(new Color(180,178,187));
+						
+						painelConsultarLivros2.add(tituloInformacaoLivro);
+						
+						painelConsultarLivros2.add(codigoLivro);
+						painelConsultarLivros2.add(AnoLivro);
+						painelConsultarLivros2.add(GeneroLivro);
+						painelConsultarLivros2.add(AutorLivro);
+						painelConsultarLivros2.add(EditoraLivro);
+						painelConsultarLivros2.add(numPagLivro);
+						
+						painelConsultarLivros2.add(botaoVoltarInformacaoLivro);
+						
+						painelCentral.add(painelConsultarLivros2, "painelConsultarLivros2");
+						
+								//Esse botão define o Painel Central como o Painel de Informações do Livro Consultado
+						botaoInformacoesLivros.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent acaoBotaoInformacoesLivros) {
+								layoutCentral.show(painelCentral, "painelConsultarLivros2");
+							}
+						});
+						
+								//Esse botão retorna ao Painel de Consultar Livros
+						botaoVoltarInformacaoLivro.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent acaoBotaoVoltarInformacaoLivro) {
+								layoutCentral.show(painelCentral, "painelConsultarLivros1");
+							}
+						});
+						
+						//Implementação do Painel de Alterar Informações do Livro:
+						
+						JPanel painelConsultarLivros3 = new JPanel();
+						painelConsultarLivros3.setBackground(new Color(147,144,144));
+						painelConsultarLivros3.setLayout(null);
+						
+						JTextField tituloInformacaoLivro2 = new JTextField("  " + nomeLivroConsultado.getText());
+						tituloInformacaoLivro2.setBounds(30,20,400,20);
+						tituloInformacaoLivro2.setBackground(new Color(211,205,237));
+						tituloInformacaoLivro2.setFont(new Font("Arial", Font.BOLD, 15));
+						tituloInformacaoLivro2.setForeground(new Color(50,50,50));
+						tituloInformacaoLivro2.setOpaque(true);
+						
+						JTextField campoCodigoLivro2 = new JTextField("  " + livroConsultado.getCodigo());
+						campoCodigoLivro.setBounds(30,80,175,20);
+						
+//						JTextField campoClassificacao2 = new JTextField("  " + livroConsultado.getClassificacao());
+//						campoClassificacao.setText("  Classificação");
+//						campoClassificacao.setBounds(255,80,175,20);
+						
+						JTextField campoAno2 = new JTextField(" Publicação: " + livroConsultado.getAno());
+						campoAno2.setBounds(30,110,175,20);
+						
+						JTextField campoGenero2 = new JTextField(" Gênero: " + livroConsultado.getGenero());
+						campoGenero2.setBounds(255,110,175,20);
+						
+						JTextField campoAutor2 = new JTextField(" Autor:" + livroConsultado.getAutor());
+						campoAutor2.setBounds(30,140,175,20);
+						
+						JTextField campoEditora2 = new JTextField(" Editora: " + livroConsultado.getEditora());
+						campoEditora2.setBounds(255,140,175,20);
+						
+						JTextField campoNumeroPaginas2 = new JTextField(" Núm Pág: " + livroConsultado.getNumPaginas());
+						campoNumeroPaginas2.setBounds(30,170,175,20);
+						
+//						JTextField campoExemplares2 = new JTextField("  " + livroConsultado.getNumExemplares());
+//						campoExemplares.setText("  Número de Exemplares");
+//						campoExemplares.setBounds(255,170,175,20);
+						
+//						JTextArea campoDescricao2 = new JTextArea("  " + livroConsultado.getNome());
+//						campoDescricao.setText("  Descrição do Livro");
+//						campoDescricao.setBounds(30,200,400,50);
+						
+						JButton botaoAtualizar = new JButton("Atualizar");
+						botaoAtualizar.setBounds(30,270,400,20);
+						botaoAtualizar.setBackground(new Color(0,191,99));
+						
+						JButton botaoVoltarAlterarInformacaoLivro = new JButton("⬅ Voltar");
+						botaoVoltarAlterarInformacaoLivro.setBounds(30,300,400,20);
+						botaoVoltarAlterarInformacaoLivro.setBackground(new Color(180,178,187));
+						
+						painelConsultarLivros3.add(tituloInformacaoLivro2);
+						
+						painelConsultarLivros3.add(campoCodigoLivro2);
+//						painelConsultarLivros3.add(campoClassificacao2);
+						painelConsultarLivros3.add(campoAno2);
+						painelConsultarLivros3.add(campoGenero2);
+						painelConsultarLivros3.add(campoAutor2);
+						painelConsultarLivros3.add(campoEditora2);
+						painelConsultarLivros3.add(campoNumeroPaginas2);
+//						painelConsultarLivros3.add(campoExemplares2);
+//						painelConsultarLivros3.add(campoDescricao2);
+						
+						painelConsultarLivros3.add(botaoAtualizar);
+						painelConsultarLivros3.add(botaoVoltarAlterarInformacaoLivro);
+						
+						painelCentral.add(painelConsultarLivros3, "painelConsultarLivros3");
+						
+								//Esse botão define o Painel Central como o Painel de Alterar Informações do Livro Consultado
+						botaoAlterarInformacoesLivros.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent acaoBotaoAlterarInformacoesLivros) {
+								
+								layoutCentral.show(painelCentral, "painelConsultarLivros3");
+							}
+						});
+						
+						botaoAtualizar.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent acaoBotaoAtualizar) {
+								
+								Livro livroAtualizado = new Livro(
+										tituloInformacaoLivro2.getText(), 
+										campoCodigoLivro2.getText(), 
+										Integer.parseInt(campoAno2.getText()),
+										campoAutor2.getText(),
+										Integer.parseInt(campoNumeroPaginas2.getText()),
+										campoGenero2.getText(),
+										campoEditora2.getText()
+										);
+								
+								
+								try {
+									sistema.atualizarInformacao(stringCodigoLivroConsultado, livroAtualizado);
+								} catch (LivroNaoEncontradoException e) {
+									JOptionPane.showMessageDialog(null, "Livro Não Encontrado",
+											"Erro", JOptionPane.INFORMATION_MESSAGE);
+								}
+							}
+						});
+						
+								//Esse botão retorna ao Painel de Consultar Livros
+						botaoVoltarAlterarInformacaoLivro.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent acaoBotaoVoltarAlterarInformacaoLivro) {
+								layoutCentral.show(painelCentral, "painelConsultarLivros1");
+							}
+						});
+						
+						//Implementação do Botão de Remover:
+						//ADENDO: ESSA NÃO É APLICAÇÃO REAL NO CÓDIGO, É APENAS ALGO GRÁFICO PRA FAZER GRAÇA!
+						//Esse botão em tese deve remover um livro dos livros cadastrados
+						botaoRemoverLivros.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent acaoBotaoRemoverLivros) {
+								painelLivroConsultado.setVisible(false);
+								campoBarraPesquisa.setText("");
+								
+								JOptionPane.showMessageDialog(null, "Livro Removido",
+										"Sucesso", JOptionPane.INFORMATION_MESSAGE);
+								try {
+									sistema.removerLivro(stringCodigoLivroConsultado);
+								} catch (LivroNaoEncontradoException e) {
+									JOptionPane.showMessageDialog(null, "Livro Não Encontrado",
+											"Erro", JOptionPane.INFORMATION_MESSAGE);
+								}
+							}
+						});
+						
+						
+						
+						
+						
+						
+					} catch (LivroNaoEncontradoException e) {
+						JOptionPane.showMessageDialog(null, "Livro Não Cadastrado",
+								"Erro", JOptionPane.INFORMATION_MESSAGE);
+						
+						campoBarraPesquisa.setText("  Código do Livro");
+					}
 				}
 			});
 			
-			//Implementação do Painel de Informações do Livro:
 			
-			JPanel painelConsultarLivros2 = new JPanel();
-			painelConsultarLivros2.setBackground(new Color(147,144,144));
-			painelConsultarLivros2.setLayout(null);
-			
-			JLabel tituloInformacaoLivro = new JLabel();
-			tituloInformacaoLivro.setBounds(30,20,400,20);
-			tituloInformacaoLivro.setBackground(new Color(211,205,237));
-			tituloInformacaoLivro.setFont(new Font("Arial", Font.BOLD, 15));
-			tituloInformacaoLivro.setForeground(new Color(50,50,50));
-			tituloInformacaoLivro.setOpaque(true);
-			
-			JButton botaoVoltarInformacaoLivro = new JButton("⬅ Voltar");
-			botaoVoltarInformacaoLivro.setBounds(30,300,400,20);
-			botaoVoltarInformacaoLivro.setBackground(new Color(180,178,187));
-			
-			painelConsultarLivros2.add(tituloInformacaoLivro);
-			
-			painelConsultarLivros2.add(botaoVoltarInformacaoLivro);
-			
-			painelCentral.add(painelConsultarLivros2, "painelConsultarLivros2");
-			
-					//Esse botão define o Painel Central como o Painel de Informações do Livro Consultado
-			botaoInformacoesLivros.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent acaoBotaoInformacoesLivros) {
-					tituloInformacaoLivro.setText("  " + stringNomeLivroConsultado);
-					layoutCentral.show(painelCentral, "painelConsultarLivros2");
-				}
-			});
-			
-					//Esse botão retorna ao Painel de Consultar Livros
-			botaoVoltarInformacaoLivro.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent acaoBotaoVoltarInformacaoLivro) {
-					layoutCentral.show(painelCentral, "painelConsultarLivros1");
-				}
-			});
-			
-			//Implementação do Painel de Alterar Informações do Livro:
-			
-			JPanel painelConsultarLivros3 = new JPanel();
-			painelConsultarLivros3.setBackground(new Color(147,144,144));
-			painelConsultarLivros3.setLayout(null);
-			
-			JLabel tituloInformacaoLivro2 = new JLabel();
-			tituloInformacaoLivro2.setBounds(30,20,400,20);
-			tituloInformacaoLivro2.setBackground(new Color(211,205,237));
-			tituloInformacaoLivro2.setFont(new Font("Arial", Font.BOLD, 15));
-			tituloInformacaoLivro2.setForeground(new Color(50,50,50));
-			tituloInformacaoLivro2.setOpaque(true);
-			
-			JButton botaoVoltarAlterarInformacaoLivro = new JButton("⬅ Voltar");
-			botaoVoltarAlterarInformacaoLivro.setBounds(30,300,400,20);
-			botaoVoltarAlterarInformacaoLivro.setBackground(new Color(180,178,187));
-			
-			painelConsultarLivros3.add(tituloInformacaoLivro2);
-			
-			painelConsultarLivros3.add(botaoVoltarAlterarInformacaoLivro);
-			
-			painelCentral.add(painelConsultarLivros3, "painelConsultarLivros3");
-			
-					//Esse botão define o Painel Central como o Painel de Alterar Informações do Livro Consultado
-			botaoAlterarInformacoesLivros.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent acaoBotaoAlterarInformacoesLivros) {
-					tituloInformacaoLivro2.setText("  " + stringNomeLivroConsultado);
-					layoutCentral.show(painelCentral, "painelConsultarLivros3");
-				}
-			});
-			
-					//Esse botão retorna ao Painel de Consultar Livros
-			botaoVoltarAlterarInformacaoLivro.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent acaoBotaoVoltarAlterarInformacaoLivro) {
-					layoutCentral.show(painelCentral, "painelConsultarLivros1");
-				}
-			});
-			
-			//Implementação do Botão de Remover:
-			//ADENDO: ESSA NÃO É APLICAÇÃO REAL NO CÓDIGO, É APENAS ALGO GRÁFICO PRA FAZER GRAÇA!
-			//Esse botão em tese deve remover um livro dos livros cadastrados
-			botaoRemoverLivros.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent acaoBotaoRemoverLivros) {
-					painelLivroConsultado.setVisible(false);
-					campoBarraPesquisa.setText("");
-				}
-			});
 			
 			// Cadastrar Usuário -------------------------------------------
 			// Criando o painel de cadastro de aluno e adicionando ao painelCentral
