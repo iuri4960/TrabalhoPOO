@@ -6,28 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import excepetion.LivroJaAdicionadoException;
+
 public class Exemplares {
 	private Map<String, List<Livro>> catalogo;
 	
-	public Exemplares() {
+	public Exemplares(List<Livro> catalogo) {
 		this.catalogo= new HashMap<>();
 	}
-	
-	public void colocarLivro(Livro livro) throws LivroJaAdicionadoException {
-		catalogo.putIfAbsent(livro.getNome(), new ArrayList<>());
-        	catalogo.get(livro.getNome()).add(livro);
-		throw new LivroJaAdicionadoException("Livro já adicionado");
+
+	public Map<String, List<Livro>> getCatalogo() {
+		return catalogo;
 	}
-	
-	public List<Livro> obterExemplares(String nomeLivro) {
-		return catalogo.getOrDefault(nomeLivro, Collections.emptyList());
-	}
-	public void exibirCatalogo() {
-	    for (Map.Entry<String, List<Livro>> entry : catalogo.entrySet()) {
-	        System.out.println("Nome: " + entry.getKey() + " | Exemplares: " + entry.getValue().size());
-	            for (Livro livro : entry.getValue()) {
-	                System.out.println("  - " + livro);
-	      }
-	   }
+
+
+	public void setCatalogo(Map<String, List<Livro>> catalogo) {
+		this.catalogo = catalogo;
 	}
 }
