@@ -1,19 +1,17 @@
 package biblioteca;
 
-import java.io.Serializable;
-
-public class Livro implements Serializable{
+public class Livro {
 	private String  nome;
 	private String codigo;
-	private String ano;
+	private int ano;
 	private String autor;
-	private String numPaginas;
+	private int numPaginas;
 	private String genero;
 	private String editora;
 	private boolean alugado;
 	
 	//Construtor da classe livro
-	public Livro(String nome, String codigo, String ano, String autor, String numPaginas, String genero, String editora) {
+	public Livro(String nome, String codigo, int ano, String autor, int numPaginas, String genero, String editora, boolean alugado) {
 		super();
 		this.nome = nome;
 		this.codigo = codigo;
@@ -22,8 +20,14 @@ public class Livro implements Serializable{
 		this.numPaginas = numPaginas;
 		this.genero = genero;
 		this.editora = editora; 
+		this.alugado = alugado;
 	}
 	
+	public Livro(String nomeLivro, String codigoLivro, String anoLancamentoLivro, String autorLivro,
+			String numeroPaginasLivro, String generoLivro, String editoraLivro) {
+
+	}
+
 	//Métodos get e set dos atributos
 	public String getNome() {
 		return nome;
@@ -41,11 +45,11 @@ public class Livro implements Serializable{
 		this.codigo = codigo;
 	}
 
-	public String getAno() {
+	public int getAno() {
 		return ano;
 	}
 
-	public void setAno(String ano) {
+	public void setAno(int ano) {
 		this.ano = ano;
 	}
 
@@ -57,11 +61,11 @@ public class Livro implements Serializable{
 		this.autor = autor;
 	}
 
-	public String getNumPaginas() {
+	public int getNumPaginas() {
 		return numPaginas;
 	}
 
-	public void setNumPaginas(String numPaginas) {
+	public void setNumPaginas(int numPaginas) {
 		this.numPaginas = numPaginas;
 	}
 
@@ -90,10 +94,10 @@ public class Livro implements Serializable{
 	}
 	
 	//Método para imprimir as informações do livro
-	public String toString() {
-		return "Livro [nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", autor=" + autor + ", numPaginas="
+		public String toString() {
+			return "Livro [nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", autor=" + autor + ", numPaginas="
 					+ numPaginas + ", genero=" + genero + ", editora=" + editora + "]";
-	}
+		}
 	
 
 }

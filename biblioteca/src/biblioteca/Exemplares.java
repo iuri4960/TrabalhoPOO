@@ -1,15 +1,14 @@
 package biblioteca;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import exception.LivroJaAdicionadoException;
+import excepetion.LivroJaAdicionadoException;
 
-public class Exemplares implements Serializable {
+public class Exemplares {
 	private Map<String, List<Livro>> catalogo;
 	
 	public Exemplares(List<Livro> catalogo) {

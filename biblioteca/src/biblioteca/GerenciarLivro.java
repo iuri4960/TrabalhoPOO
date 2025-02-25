@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import exception.LivroJaAdicionadoException;
-import exception.LivroNaoEncontradoException;
-import exception.NumeroPaginasInvalidoException;
+import excepetion.LivroJaAdicionadoException;
+import excepetion.LivroNaoEncontradoException;
+import excepetion.NumeroPaginasInvalidoException;
 
 public class GerenciarLivro implements Serializable {
 	List<Livro> livros = new ArrayList<Livro>();
@@ -27,7 +27,7 @@ public class GerenciarLivro implements Serializable {
 		} catch (LivroNaoEncontradoException e){
 	        catalogo.putIfAbsent(livro.getNome(), new ArrayList<>());
 	        catalogo.get(livro.getNome()).add(livro);
-			if (Integer.parseInt(livro.getNumPaginas())<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
+			if (livro.getNumPaginas()<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
 		}	
 	}
 
@@ -60,7 +60,7 @@ public class GerenciarLivro implements Serializable {
 	}
 
 	//Método para mostrar todos os livros
-	public void listaLivros() {
+	public Livro[]  listaLivros() {
 		Map<String, List<Livro>> catalogo = exemplares.getCatalogo();
 		for (Map.Entry<String, List<Livro>> entry : catalogo.entrySet()) {
 	        System.out.println("Nome: " + entry.getKey() + " | Exemplares: " + entry.getValue().size());
@@ -68,6 +68,7 @@ public class GerenciarLivro implements Serializable {
 	                System.out.println("  - " + livro);
 	      }
 	   }
+		return null;
 	}
 
 	//Método para atualizar as informações de um livro
