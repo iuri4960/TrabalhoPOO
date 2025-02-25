@@ -419,7 +419,7 @@ public class Screen extends JFrame {
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
 					}
-					if(!DadosLivros.setAnoLancamentoLivro(campoAno.getText().replaceAll("\\s+", "").toLowerCase())) {
+					if(!DadosLivros.setAnoLancamentoLivro(Integer.parseInt(campoAno.getText().replaceAll("\\s+", "").toLowerCase()))) {
 						JOptionPane.showMessageDialog(null, "Ano de Lançamento Inválido",
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
@@ -439,7 +439,7 @@ public class Screen extends JFrame {
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
 					}
-					if(!DadosLivros.setNumeroPaginasLivro(campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase())) {
+					if(!DadosLivros.setNumeroPaginasLivro(Integer.parseInt(campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase()))) {
 						JOptionPane.showMessageDialog(null, "Número de Páginas Inválido",
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
