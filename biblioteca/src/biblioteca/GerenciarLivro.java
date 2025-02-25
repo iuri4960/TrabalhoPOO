@@ -3,9 +3,9 @@ package biblioteca;
 import java.util.ArrayList;
 import java.util.List;
 
-import excepetion.LivroJaAdicionadoException;
-import excepetion.LivroNaoEncontradoException;
-import excepetion.NumeroPaginasInvalidoException;
+import exception.LivroJaAdicionadoException;
+import exception.LivroNaoEncontradoException;
+import exception.NumeroPaginasInvalidoException;
 
 public class GerenciarLivro {
 	List<Livro> livros = new ArrayList<Livro>();

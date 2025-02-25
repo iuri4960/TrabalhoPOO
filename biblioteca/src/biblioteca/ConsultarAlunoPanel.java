@@ -7,27 +7,34 @@ import java.text.*;
 import java.awt.*;
 import java.util.*;
 
-public class ConsultarAlunoPanel extends JPanel{
+public class ConsultarAlunoPanel extends JPanel implements PainelSwitcher{
 
+    SistemaBibliotecario sistema;
     JButton BotaoDeConsulta = new JButton("consultar"); //botão que trocara o painel quando um usuario for selecionado
+    Usuario usuarioSelecionadoGeral;
 
     JTextField pesquisa = new JTextField();//barra de pesquisa
     JButton botaoPesquisar = new JButton("Pesquisar");//botao de pesquisar
     //a ser trocado
-    String[] alunosMestra = {"João da Silva\n\n", "Maria Oliveira\n\n", "Joãozinho Pereira\n\n", "Ana Souza"}; //exemplo de pesquisa
-    String[] opcoes = {"pesquisa1", "pesquisa2"}; //tipo de pesquisa
+    ArrayList<Usuario> listaUsuario = new ArrayList<>(); //exemplo de pesquisa
+    String[] opcoes = {"por nome", "por matricula"}; //tipo de pesquisa
+    int opcoesVar;
 
     JComboBox<String> pesquisarPor = new JComboBox<>(opcoes);
     //configurando a pesquisa
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    JList<String> listaAlunos = new JList<>(modelo);
+    DefaultListModel<Usuario> modelo = new DefaultListModel<>();
+    JList<Usuario> listaAlunos = new JList<>(modelo);
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
+    JPanel informacoesPanel;
 
-
-    ConsultarAlunoPanel(){
+    ConsultarAlunoPanel(SistemaBibliotecario sistema1){
+        usuarioSelecionadoGeral = new Aluno("", 0, 0, Titulo.GRADUANDO, 0);
+        this.sistema = sistema1;
         this.setLayout(new BorderLayout());
+        listaUsuario = sistema.getListaUsuarios();
+
 
         //painel de troca entre pesquisa e informações de aluno
         cardLayout = new CardLayout();
@@ -35,7 +42,7 @@ public class ConsultarAlunoPanel extends JPanel{
 
         JPanel consultaPanel = new JPanel();
         consultaPanel.setLayout(new BorderLayout());
-        JPanel informacoesPanel = new UsuarioEspecifico();
+        informacoesPanel = new UsuarioEspecifico(usuarioSelecionadoGeral, sistema, this);
 
         cardPanel.add(consultaPanel, "consulta");
         cardPanel.add(informacoesPanel, "informacoes");
@@ -49,21 +56,33 @@ public class ConsultarAlunoPanel extends JPanel{
         botaoPesquisar.addActionListener(e -> {
             String termoPesquisa = pesquisa.getText().toLowerCase();
             modelo.clear();
-            for (String aluno : alunosMestra) {  // alunosMestra é sua lista mestra de alunos
-                if (aluno.toLowerCase().contains(termoPesquisa)) {
-                    modelo.addElement(aluno);
+            if(pesquisarPor.getSelectedItem() == "por nome"){
+                for (Usuario usuario : listaUsuario) {  // nome
+                    if (usuario.getNome().toLowerCase().contains(termoPesquisa)) {
+                        modelo.addElement(usuario);
+                    }
                 }
             }
+            else{
+                for (Usuario aluno : listaUsuario) {  // matricula
+                    String matriculaString = Integer.toString(aluno.getMatricula());
+                    if (matriculaString.contains(termoPesquisa)) {
+                        modelo.addElement(aluno);
+                    }
+                }
+            } 
         });
 
         //ação para o botão de consulta
         BotaoDeConsulta.addActionListener(e -> {
             // Recupera o valor selecionado na lista
-            String alunoSelecionado = listaAlunos.getSelectedValue();
+            Usuario usuarioSelecionado = listaAlunos.getSelectedValue();
+            usuarioSelecionadoGeral = usuarioSelecionado;
             
-            if (alunoSelecionado != null) {
+            if (usuarioSelecionado != null) {
                 
                 // Troca para o painel de informações usando o CardLayout
+                ((UsuarioEspecifico)informacoesPanel).setUsuario(usuarioSelecionadoGeral);
                 cardLayout.show(cardPanel, "informacoes");
             } 
             else {
@@ -116,6 +135,16 @@ public class ConsultarAlunoPanel extends JPanel{
         consulta.add(scrollPane);
         consulta.add(BotaoDeConsulta);
         return consulta;
+    }
+
+    @Override
+    public void switchTo(String cardName) {
+        cardLayout.show(cardPanel, cardName);
+    }
+
+    @Override
+    public void reset() {
+        botaoPesquisar.doClick();
     }
        
 }

@@ -11,25 +11,18 @@ public class Aluno extends Usuario {
 	}
 
 	//Métodos get e set
-	private int getSemestre() {
+	public int getSemestre() {
 		return semestre;
 	}
 
-	private void setSemestre(int semestre) {
+	public void setSemestre(int semestre) {
 		this.semestre = semestre;
 	}
 
 	//Método para imprimir as informações do aluno
 	@Override
 	public String toString() {
-		return "Aluno [nome=" + nome + ", matricula=" + matricula + ", idade=" + idade
-				+ ", titulo=" + titulo + ", semestre=" + semestre + "]";
+		return "Aluno: " + nome;
 	}
-	
-	
-
-	
-
-	
 
 }

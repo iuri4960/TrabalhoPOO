@@ -3,7 +3,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
-import excepetion.UsuarioJaAdicionadoException;
+import exception.UsuarioJaAdicionadoException;
 
 import java.text.*;
 import java.awt.*;
@@ -53,7 +53,7 @@ public class CadastrarAlunoPainel extends JPanel {
 
         //caixa de semestre/materias
         JFormattedTextField especifico = new JFormattedTextField(numberFormatter);
-        especifico.setColumns(10); 
+        especifico.setColumns(15); 
         
         numberFormatter.setMaximum(999999);
         //matricula
@@ -68,7 +68,18 @@ public class CadastrarAlunoPainel extends JPanel {
         //caixa de tipo, somente escolhas possiveis
         String[] opcoesTipo = {"Professor", "Aluno"};
         JComboBox<String> selecaoDeTipo = new JComboBox<>(opcoesTipo);
+    
         selecaoDeTipo.setBorder(BorderFactory.createTitledBorder("o usuário é"));
+        selecaoDeTipo.addActionListener(e ->{
+            if(selecaoDeTipo.getSelectedItem().equals("Aluno")){
+                especifico.setBorder(BorderFactory.createTitledBorder("semestre do aluno"));
+            }
+            else{
+                especifico.setBorder(BorderFactory.createTitledBorder("quantidade de materias"));
+            }
+        });
+        selecaoDeTipo.setSelectedItem("Professor");
+
 
         //boão para cadastrar
         JButton botaoDeCadastro = new JButton("Cadastrar");

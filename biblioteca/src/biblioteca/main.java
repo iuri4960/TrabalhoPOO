@@ -24,7 +24,7 @@ public class main {
             tabela2.setSize(600, 600); 
             
             tabela2.setTitle("nome");
-            JPanel painel2 = new ConsultarAlunoPanel();
+            JPanel painel2 = new ConsultarAlunoPanel(sistema);
             tabela2.getContentPane().add(painel2);
             //SwingUtilities.invokeLater(() -> new MeuFrame("jogo"));
             tabela2.setVisible(true);
