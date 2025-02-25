@@ -9,7 +9,7 @@ import excepetion.LivroJaAdicionadoException;
 import excepetion.LivroNaoEncontradoException;
 import excepetion.NumeroPaginasInvalidoException;
 
-public class GerenciarLivro implements SistemaBibliotecarioCollection {
+public class GerenciarLivro implements Serializable {
 	List<Livro> livros = new ArrayList<Livro>();
 	private Exemplares exemplares;
 	
