@@ -8,7 +8,21 @@ import java.text.*;
 import java.awt.*;
 import java.util.*;
 public class InformacoesEmprestimoPainel extends JPanel {
-    InformacoesEmprestimoPainel(){
+    SistemaBibliotecario sistema;
+    Emprestimo emprestimoGeral;
+
+    JLabel labelNome;
+    JLabel labelNomeDoUsuario;
+    JLabel tipoDeUsuario;
+    JLabel labelMatriculaDoUsuario;
+    JLabel labelCodigoLivro;
+    JLabel labelDataDeDevolucao;
+    JLabel labelDataDeDoCadastro; //data do cadastro
+    JLabel labelMultaDoEmprestimo;
+
+    InformacoesEmprestimoPainel(SistemaBibliotecario sistema, Emprestimo emprestimoGeral){
+        this.emprestimoGeral = emprestimoGeral;
+        this.sistema = sistema;
         this.setLayout(new BorderLayout());
         add(criarPainelCabecalho(), BorderLayout.NORTH);
         add(criarPainelInformacoes(), BorderLayout.CENTER);
@@ -32,7 +46,7 @@ public class InformacoesEmprestimoPainel extends JPanel {
         informacoes.setBackground(Color.LIGHT_GRAY);
 
         //caixa de nome
-        JLabel labelNome = new JLabel("Nome do Livro");
+        labelNome = new JLabel("Nome do Livro");
         labelNome.setPreferredSize(new Dimension(300, 50));
 
         //definindo uma bornda para o nome
@@ -41,60 +55,60 @@ public class InformacoesEmprestimoPainel extends JPanel {
         labelNome.setBorder(BorderFactory.createTitledBorder("Nome do Livro"));  // Adiciona uma borda preta
 
         //matricula
-        JLabel labelMatricula = new JLabel("Nome do Usuário");
-        labelMatricula.setPreferredSize(new Dimension(150, 50));
+        labelNomeDoUsuario = new JLabel("Nome do Usuário");
+        labelNomeDoUsuario.setPreferredSize(new Dimension(150, 50));
         
-        labelMatricula.setOpaque(true);  
-        labelMatricula.setBackground(Color.WHITE);  
-        labelMatricula.setBorder(BorderFactory.createTitledBorder("Nome do Usuário"));  
+        labelNomeDoUsuario.setOpaque(true);  
+        labelNomeDoUsuario.setBackground(Color.WHITE);  
+        labelNomeDoUsuario.setBorder(BorderFactory.createTitledBorder("Nome do Usuário"));  
 
         //titulo
-        JLabel labelTitulo = new JLabel("Tipo de Usuário");
-        labelTitulo.setPreferredSize(new Dimension(150, 50));
+        tipoDeUsuario = new JLabel("Tipo de Usuário");
+        tipoDeUsuario.setPreferredSize(new Dimension(150, 50));
         
-        labelTitulo.setOpaque(true);  
-        labelTitulo.setBackground(Color.WHITE);  
-        labelTitulo.setBorder(BorderFactory.createTitledBorder("Tipo de usuário")); 
+        tipoDeUsuario.setOpaque(true);  
+        tipoDeUsuario.setBackground(Color.WHITE);  
+        tipoDeUsuario.setBorder(BorderFactory.createTitledBorder("Tipo de usuário")); 
         
         //tipo de usuario
-        JLabel labelTipo = new JLabel("Matricula do Usuário");
-        labelTipo.setPreferredSize(new Dimension(150, 50));
+        labelMatriculaDoUsuario = new JLabel("Matricula do Usuário");
+        labelMatriculaDoUsuario.setPreferredSize(new Dimension(150, 50));
         
-        labelTipo.setOpaque(true);  
-        labelTipo.setBackground(Color.WHITE);  
-        labelTipo.setBorder(BorderFactory.createTitledBorder("Matricula do Usuário")); 
+        labelMatriculaDoUsuario.setOpaque(true);  
+        labelMatriculaDoUsuario.setBackground(Color.WHITE);  
+        labelMatriculaDoUsuario.setBorder(BorderFactory.createTitledBorder("Matricula do Usuário")); 
 
         //idade
-        JLabel labelIdade = new JLabel("Codigo do Livro");
-        labelIdade.setPreferredSize(new Dimension(150, 50));
+        labelCodigoLivro = new JLabel("Codigo do Livro");
+        labelCodigoLivro.setPreferredSize(new Dimension(150, 50));
         
-        labelIdade.setOpaque(true);  
-        labelIdade.setBackground(Color.WHITE);  
-        labelIdade.setBorder(BorderFactory.createTitledBorder("Codigo do Livro")); 
+        labelCodigoLivro.setOpaque(true);  
+        labelCodigoLivro.setBackground(Color.WHITE);  
+        labelCodigoLivro.setBorder(BorderFactory.createTitledBorder("Codigo do Livro")); 
 
         //quantidade de livros
-        JLabel labelQuantidadeLivros = new JLabel("Data de Devolução");
-        labelQuantidadeLivros.setPreferredSize(new Dimension(150, 50));
+        labelDataDeDevolucao = new JLabel("Data de Devolução");
+        labelDataDeDevolucao.setPreferredSize(new Dimension(150, 50));
         
-        labelQuantidadeLivros.setOpaque(true);  
-        labelQuantidadeLivros.setBackground(Color.WHITE);  
-        labelQuantidadeLivros.setBorder(BorderFactory.createTitledBorder("Data de Devolução")); 
+        labelDataDeDevolucao.setOpaque(true);  
+        labelDataDeDevolucao.setBackground(Color.WHITE);  
+        labelDataDeDevolucao.setBorder(BorderFactory.createTitledBorder("Data de Devolução")); 
 
         //Multa
-        JLabel labelMultaDoUsuario = new JLabel("Multa total");
-        labelMultaDoUsuario.setPreferredSize(new Dimension(100, 50));
+        labelMultaDoEmprestimo = new JLabel("Multa total");
+        labelMultaDoEmprestimo.setPreferredSize(new Dimension(100, 50));
         
-        labelMultaDoUsuario.setOpaque(true);  
-        labelMultaDoUsuario.setBackground(Color.WHITE);  
-        labelMultaDoUsuario.setBorder(BorderFactory.createTitledBorder("Multa total"));
+        labelMultaDoEmprestimo.setOpaque(true);  
+        labelMultaDoEmprestimo.setBackground(Color.WHITE);  
+        labelMultaDoEmprestimo.setBorder(BorderFactory.createTitledBorder("Multa total"));
         
         //Semestre/qnt de materias
-        JLabel labelSemestre = new JLabel("Data de Cadastro");
-        labelSemestre.setPreferredSize(new Dimension(150, 50));
+        labelDataDeDoCadastro = new JLabel("Data de Cadastro");
+        labelDataDeDoCadastro.setPreferredSize(new Dimension(150, 50));
         
-        labelSemestre.setOpaque(true);  
-        labelSemestre.setBackground(Color.WHITE);  
-        labelSemestre.setBorder(BorderFactory.createTitledBorder("Data de Cadastro"));
+        labelDataDeDoCadastro.setOpaque(true);  
+        labelDataDeDoCadastro.setBackground(Color.WHITE);  
+        labelDataDeDoCadastro.setBorder(BorderFactory.createTitledBorder("Data de Cadastro"));
 
         //criandeo a imagem
         ImageIcon icone = new ImageIcon("../assets/imagens/livroEmprestimo.png");
@@ -112,7 +126,7 @@ public class InformacoesEmprestimoPainel extends JPanel {
 
 
 
-
+        
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         
@@ -132,32 +146,66 @@ public class InformacoesEmprestimoPainel extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        informacoes.add(labelTipo, gbc);
+        informacoes.add(labelMatriculaDoUsuario, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        informacoes.add(labelMatricula, gbc);
+        informacoes.add(labelNomeDoUsuario, gbc);
 
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        informacoes.add(labelIdade, gbc);
+        informacoes.add(labelCodigoLivro, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        informacoes.add(labelTitulo, gbc);
+        informacoes.add(tipoDeUsuario, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        informacoes.add(labelSemestre, gbc);
+        informacoes.add(labelDataDeDoCadastro, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 3;
-        informacoes.add(labelQuantidadeLivros, gbc);
+        informacoes.add(labelDataDeDevolucao, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 3;
-        informacoes.add(labelMultaDoUsuario, gbc);
+        informacoes.add(labelMultaDoEmprestimo, gbc);
+        setEmprestimo(emprestimoGeral);
         return informacoes;
+    }
+
+    public void setEmprestimo(Emprestimo emprestimo){
+        this.emprestimoGeral = emprestimo;
+        labelNome.setText(emprestimoGeral.getLivro().getNome());
+
+        //matricula
+        labelNomeDoUsuario.setText(emprestimoGeral.getUsuario().getNome());
+
+        //titulo
+        String tipo;  
+        if(emprestimoGeral.getUsuario() instanceof Aluno){
+            tipo = "Aluno";
+        }
+        else{
+            tipo = "Professor";
+        }
+        tipoDeUsuario.setText(tipo);
+        
+        //tipo de usuario
+        labelMatriculaDoUsuario.setText(Integer.toString(emprestimoGeral.getUsuario().matricula));
+        
+        labelCodigoLivro.setText(emprestimo.getLivro().getCodigo());
+
+        labelDataDeDevolucao.setText(emprestimoGeral.getDataDevolucao().toString());
+
+        //Multa
+        emprestimoGeral.atualizarMultaTotal();
+        labelMultaDoEmprestimo.setText(Double.toString(emprestimoGeral.getMultaTotal()));
+        
+        //Semestre/qnt de materias
+        labelDataDeDoCadastro.setText(emprestimoGeral.getDataAquisicao().toString());
+
     }
 }

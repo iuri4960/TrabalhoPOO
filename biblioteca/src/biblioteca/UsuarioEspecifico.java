@@ -17,6 +17,7 @@ public class UsuarioEspecifico extends JPanel {
     JPanel informacoes;
     JPanel alterarInformacoes;
     JButton remover;
+    JButton voltar;
 
     private PainelSwitcher switcher;
 
@@ -95,6 +96,7 @@ public class UsuarioEspecifico extends JPanel {
             if (opcao == JOptionPane.YES_OPTION) {
                 try {
                     sistema.removerUsuario(usuarioSelecionadoGeral.getMatricula());
+                    usuarioSelecionadoGeral = null;
                     switcher.switchTo("consulta");
                     switcher.reset();
                     JOptionPane.showMessageDialog(this, "Aluno Removido Com Sucesso", 
@@ -107,10 +109,18 @@ public class UsuarioEspecifico extends JPanel {
             } 
            
         });
+        voltar = new JButton("VOLTAR");
+        voltar.setBackground(Color.GREEN);
+        voltar.addActionListener(e -> {
+            switcher.switchTo("consulta");
+            switcher.reset();
+        });
 
+        
         butoes.add(botaoInformacoes);
         butoes.add(botaoAlterarInformacoes);
         butoes.add(remover);
+        butoes.add(voltar);
         
         return butoes;
 

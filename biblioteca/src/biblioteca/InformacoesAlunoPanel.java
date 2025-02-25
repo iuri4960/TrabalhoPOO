@@ -21,7 +21,7 @@ public class InformacoesAlunoPanel extends JPanel {
 
     SistemaBibliotecario sistema;
     Usuario usuarioSelecionadoGeral;
-    InformacoesAlunoPanel(Usuario usuarioSelecionadoGeral1,SistemaBibliotecario sistema1){
+    InformacoesAlunoPanel(Usuario usuarioSelecionadoGeral1, SistemaBibliotecario sistema1){
         this.usuarioSelecionadoGeral = usuarioSelecionadoGeral1;
         this.sistema = sistema1;
         this.setLayout(new BorderLayout());

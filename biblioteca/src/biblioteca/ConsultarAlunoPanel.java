@@ -16,6 +16,7 @@ public class ConsultarAlunoPanel extends JPanel implements PainelSwitcher{
     JTextField pesquisa = new JTextField();//barra de pesquisa
     JButton botaoPesquisar = new JButton("Pesquisar");//botao de pesquisar
     //a ser trocado
+    
     ArrayList<Usuario> listaUsuario = new ArrayList<>(); //exemplo de pesquisa
     String[] opcoes = {"por nome", "por matricula"}; //tipo de pesquisa
     int opcoesVar;

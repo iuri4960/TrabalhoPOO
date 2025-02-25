@@ -4,10 +4,26 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
 import java.text.*;
+import java.time.LocalDate;
 import java.awt.*;
 import java.util.*;
 public class CadastrarEmprestimoPanel extends JPanel {
-    CadastrarEmprestimoPanel(){
+
+    SistemaBibliotecario sistema;
+    JLabel descriçãoUsuario;
+    JLabel descriçãoLivro;
+    JFormattedTextField matriculaField;
+    JTextField caixaLivro;
+    JButton botaoDeCadastro;
+    JButton botaoDeProcurarUsuario;
+    JButton botaoDeProcurarLivro;
+    Usuario usuarioEscolhido;
+    Livro livroEscolhido;
+    
+
+
+    CadastrarEmprestimoPanel(SistemaBibliotecario sistema){
+        this.sistema = sistema;
         this.setLayout(new BorderLayout());
         add(criarPainelCabecalho(), BorderLayout.NORTH);
         add(criarPainelRegistro(), BorderLayout.CENTER);
@@ -26,11 +42,28 @@ public class CadastrarEmprestimoPanel extends JPanel {
     private JPanel criarPainelRegistro() {
         JPanel cadastro = new JPanel();
         cadastro.setLayout(new GridBagLayout());
-    
-    
-        JTextField caixaNome = new JTextField();
-        caixaNome.setColumns(40);
-        caixaNome.setBorder(BorderFactory.createTitledBorder("Digite o nome do usuário"));
+
+
+        descriçãoUsuario = new JLabel("Descrição do usuario");
+        descriçãoUsuario.setPreferredSize(new Dimension(300, 200));
+
+        //definindo uma bornda para o nome
+        descriçãoUsuario.setOpaque(true);  // Permite que o fundo seja desenhado
+        descriçãoUsuario.setBackground(Color.WHITE);  // Define a cor de fundo desejada
+        
+        descriçãoUsuario.setBorder(BorderFactory.createTitledBorder("Descrição do usuário")); 
+
+        descriçãoLivro = new JLabel("Descrição do livro");
+        descriçãoLivro.setPreferredSize(new Dimension(300, 200));
+
+        //definindo uma bornda para o nome
+        descriçãoLivro.setOpaque(true);  // Permite que o fundo seja desenhado
+        descriçãoLivro.setBackground(Color.WHITE);  // Define a cor de fundo desejada
+        descriçãoLivro.setBorder(BorderFactory.createTitledBorder("Descrição do livro"));
+
+        caixaLivro = new JTextField();
+        caixaLivro.setColumns(40);
+        caixaLivro.setBorder(BorderFactory.createTitledBorder("Digite o codigo do livro"));
 
         NumberFormat integerFormat = NumberFormat.getIntegerInstance();
         NumberFormatter numberFormatter = new NumberFormatter(integerFormat);
@@ -38,72 +71,119 @@ public class CadastrarEmprestimoPanel extends JPanel {
         numberFormatter.setAllowsInvalid(false);              // Impede entrada inválida (não permite caracteres não numéricos)
         numberFormatter.setMinimum(0);
         
-        
-        JFormattedTextField idade = new JFormattedTextField(numberFormatter);
-        idade.setColumns(15); 
-        idade.setBorder(BorderFactory.createTitledBorder("Digite a idade do usuário"));
-
-        JFormattedTextField especifico = new JFormattedTextField(numberFormatter);
-        especifico.setColumns(10); 
-        
         numberFormatter.setMaximum(999999);
-        JFormattedTextField matriculaField = new JFormattedTextField(numberFormatter);
-        matriculaField.setColumns(15); 
+
+        matriculaField = new JFormattedTextField(numberFormatter);
+        matriculaField.setColumns(40); 
         matriculaField.setBorder(BorderFactory.createTitledBorder("Digite a matricula do usuário"));
 
-        
-        String[] opcoesTitulo = {"Ensino médio", "Graduado", "Especializado", "Mestre", "Doutor"};
-        JComboBox<String> selecaoDeTitulo = new JComboBox<>(opcoesTitulo);
-        selecaoDeTitulo.setBorder(BorderFactory.createTitledBorder("Escolha o titulo"));
-
-
-        String[] opcoesTipo = {"Professor", "Aluno"};
-        JComboBox<String> selecaoDeTipo = new JComboBox<>(opcoesTipo);
-        selecaoDeTipo.setBorder(BorderFactory.createTitledBorder("o usuário é"));
-
-        JButton botaoDeCadastro = new JButton("Cadastrar");
+        botaoDeCadastro = new JButton("Cadastrar");
         botaoDeCadastro.setBackground(Color.GREEN);
+        botaoDeCadastro.addActionListener(e ->{
+            if(usuarioEscolhido == null || livroEscolhido == null){
+                JOptionPane.showMessageDialog(this,"por favor, escolha um usuario e um livro", 
+                "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                try {    
+                    Emprestimo emprestimo = new Emprestimo(usuarioEscolhido, livroEscolhido, LocalDate.now());
+                    sistema.adicionarEmprestimo(emprestimo);
+                    
+                    limparSelecao();
+                    JOptionPane.showMessageDialog(this, "Emprestimo Efetuado", 
+                    "Informação", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+            
+        });
+
+        botaoDeProcurarLivro = new JButton("Procurar livro");
+        botaoDeProcurarLivro.setBackground(Color.CYAN);
+        botaoDeProcurarLivro.addActionListener(e ->{
+            try {
+                livroEscolhido = sistema.consultarLivro(caixaLivro.getText());
+                descriçãoLivro.setText(livroEscolhido.toString());
+                caixaLivro.setText("");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+        botaoDeProcurarUsuario = new JButton("Procurar usuario");
+        botaoDeProcurarUsuario.setBackground(Color.CYAN);
+        botaoDeProcurarUsuario.addActionListener(e ->{
+            Integer matricula = (Integer) matriculaField.getValue();
+            try {
+                usuarioEscolhido = sistema.consultarUsuario(matricula);
+                descriçãoUsuario.setText(usuarioEscolhido.toString());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+            
+        });
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         
         // Campo de nome: ocupa a primeira linha, 3 colunas
+        gbc.gridheight = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 3;
-        cadastro.add(caixaNome, gbc);
-        
+        gbc.gridwidth = 2;
+        cadastro.add(matriculaField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        cadastro.add(caixaLivro, gbc);
+
         // Reset gridwidth para 1 para os demais componentes
         gbc.gridwidth = 1;
         
         // Linha 2, coluna 1: idade
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        cadastro.add(botaoDeProcurarUsuario, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        cadastro.add(botaoDeProcurarLivro, gbc);
+        
+        gbc.gridwidth = 2;
+        gbc.gridheight = 2;
+        // Linha 2, coluna 2: matriculaField
         gbc.gridx = 0;
         gbc.gridy = 1;
-        cadastro.add(matriculaField, gbc);
-        
-        // Linha 2, coluna 2: matriculaField
-        gbc.gridx = 1;
-        cadastro.add(selecaoDeTipo, gbc);
+        cadastro.add(descriçãoUsuario, gbc);
         
         // Linha 2, coluna 3: selecaoDeTipo
-        gbc.gridx = 2;
-        cadastro.add(especifico, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        cadastro.add(descriçãoLivro, gbc);
         
         // Linha 3, coluna 1: selecaoDeTitulo
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        cadastro.add(idade, gbc);
-        
-        // Linha 3, coluna 2: botaoDeCadastro
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+
         gbc.gridx = 2;
+        gbc.gridy = 6;
         cadastro.add(botaoDeCadastro, gbc);
         
-        // Linha 3, coluna 3: pode deixar vazia ou adicionar outro componente
-        gbc.gridx = 1;
-        cadastro.add(selecaoDeTitulo, gbc);
         return cadastro;
     }
 
+    public void limparSelecao(){
+        usuarioEscolhido = null;
+        livroEscolhido = null;
+        descriçãoLivro.setText("Descrição do livro");
+        descriçãoUsuario.setText("Descrição do usuario");
+        caixaLivro.setText("");
+        matriculaField.setText("0");
+
+    }
 
 }
 

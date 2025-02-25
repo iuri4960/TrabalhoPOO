@@ -92,7 +92,9 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 		}
 	}
 	
-	
+	public ArrayList<Emprestimo> getListaEmprestimo() {
+		return gerenciarEmprestimos.getListaEmprestimo();
+	}
 	
 	
 }

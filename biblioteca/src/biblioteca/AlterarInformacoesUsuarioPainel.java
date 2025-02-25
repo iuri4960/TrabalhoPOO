@@ -19,7 +19,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
     JTextField caixaNome;
     JFormattedTextField especifico;
     JFormattedTextField matriculaField;
-    JComboBox<String> selecaoDeTitulo;
+    JComboBox<Titulo> selecaoDeTitulo;
     JLabel selecaoDeTipo;
     JButton botaoDeCadastro;
     
@@ -84,7 +84,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         matriculaField.setValue(17);
 
         //lista para escolher titulo
-        String[] opcoesTitulo = {"Ensino médio", "Graduado", "Especializado", "Mestre", "Doutor"};
+        Titulo[] opcoesTitulo = {Titulo.GRADUANDO, Titulo.GRADUADO, Titulo.ESPECIALIZADO, Titulo.MESTRE, Titulo.DOUTOR};
         selecaoDeTitulo = new JComboBox<>(opcoesTitulo);
         selecaoDeTitulo.setBorder(BorderFactory.createTitledBorder("Escolha o titulo"));
         selecaoDeTitulo.setSelectedItem("Graduado");

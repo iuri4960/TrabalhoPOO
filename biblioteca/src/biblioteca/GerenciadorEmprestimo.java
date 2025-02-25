@@ -84,5 +84,7 @@ public class GerenciadorEmprestimo {
 			throw new MultaNaoPagaException();
 		}
 	}
-	
+	public ArrayList<Emprestimo> getListaEmprestimo() {
+		return listaEmprestimo;
+	}
 }

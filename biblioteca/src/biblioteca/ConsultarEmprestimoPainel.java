@@ -4,31 +4,41 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
 import java.text.*;
+import java.time.LocalDate;
 import java.awt.*;
 import java.util.*;
 
-public class ConsultarEmprestimoPainel extends JPanel{
+public class ConsultarEmprestimoPainel extends JPanel implements PainelSwitcher{
 
+    SistemaBibliotecario sistema;
+    Emprestimo emprestimoSelecionado;
     JButton BotaoDeConsulta = new JButton("consultar"); //botão que trocara o painel quando um usuario for selecionado
 
     JTextField pesquisa = new JTextField();//barra de pesquisa
     JButton botaoPesquisar = new JButton("Pesquisar");//botao de pesquisar
     //a ser trocado
-    String[] alunosMestra = {"João da Silva\n\n", "Maria Oliveira\n\n", "Joãozinho Pereira\n\n", "Ana Souza"}; //exemplo de pesquisa
     String[] opcoes = {"codigo do Livro", "Matricula do usuario"}; //tipo de pesquisa
     int opcao;
 
+    ArrayList<Emprestimo> listaEmprestimosTotal = new ArrayList<>();
     JComboBox<String> pesquisarPor = new JComboBox<>(opcoes);
     //configurando a pesquisa
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    JList<String> listaAlunos = new JList<>(modelo);
+    DefaultListModel<Emprestimo> modelo = new DefaultListModel<>();
+    JList<Emprestimo> listaEmprestimos = new JList<>(modelo);
+
 
     private CardLayout cardLayout;
     private JPanel cardPanel;
 
 
-    ConsultarEmprestimoPainel(){
+    ConsultarEmprestimoPainel(SistemaBibliotecario sistema){
+        this.sistema = sistema;
+        Aluno aluno = new Aluno("", 0, 0, Titulo.GRADUANDO, 0);
+        Livro livro = livro = new Livro("", "", 0, "", 0, "", "", true);
+        emprestimoSelecionado = new Emprestimo(aluno, livro, LocalDate.now());
         this.setLayout(new BorderLayout());
+        listaEmprestimosTotal = sistema.getListaEmprestimo();
+        
 
         //painel de troca entre pesquisa e informações de aluno
         cardLayout = new CardLayout();
@@ -36,7 +46,7 @@ public class ConsultarEmprestimoPainel extends JPanel{
 
         JPanel consultaPanel = new JPanel();
         consultaPanel.setLayout(new BorderLayout());
-        JPanel informacoesPanel = new EmprestimoEspecifico();
+        JPanel informacoesPanel = new EmprestimoEspecifico(sistema, emprestimoSelecionado, this);
 
         cardPanel.add(consultaPanel, "consulta");
         cardPanel.add(informacoesPanel, "informacoes");
@@ -50,39 +60,38 @@ public class ConsultarEmprestimoPainel extends JPanel{
         botaoPesquisar.addActionListener(e -> {
             String termoPesquisa = pesquisa.getText().toLowerCase();
             modelo.clear();
-            for (String aluno : alunosMestra) {  // alunosMestra é sua lista mestra de alunos
-                if (aluno.toLowerCase().contains(termoPesquisa)) {
-                    modelo.addElement(aluno);
+            if("Matricula do usuario".equals(pesquisarPor.getSelectedItem())){
+                for (Emprestimo emprestimo : listaEmprestimosTotal) {  // alunosMestra é sua lista mestra de alunos
+                    if ((Integer.toString(emprestimo.getUsuario().getMatricula())).toLowerCase().contains(termoPesquisa)) {
+                        modelo.addElement(emprestimo);
+                    }
                 }
             }
+            else{
+                for (Emprestimo emprestimo : listaEmprestimosTotal) {  // alunosMestra é sua lista mestra de alunos
+                    if (emprestimo.getLivro().getCodigo().toLowerCase().contains(termoPesquisa)) {
+                        modelo.addElement(emprestimo);
+                    }
+                }
+            }
+            
         });
 
         //ação para o botão de consulta
         BotaoDeConsulta.addActionListener(e -> {
             // Recupera o valor selecionado na lista
-            String alunoSelecionado = listaAlunos.getSelectedValue();
+            Emprestimo emprestimoGeral = listaEmprestimos.getSelectedValue();
+            emprestimoSelecionado = emprestimoGeral;
             
-            if (alunoSelecionado != null) {
+            if (emprestimoGeral != null) {
                 
-                // Troca para o painel de informações usando o CardLayout
+                ((EmprestimoEspecifico)informacoesPanel).setEmprestimo(emprestimoSelecionado);;
                 cardLayout.show(cardPanel, "informacoes");
             } 
             else {
                 // Se nenhum aluno estiver selecionado, exibe uma mensagem de aviso.
-                JOptionPane.showMessageDialog(this, "Por favor, selecione um aluno para consultar.", 
+                JOptionPane.showMessageDialog(this, "Por favor, selecione um Emprestimo para consultar.", 
                                               "Atenção", JOptionPane.WARNING_MESSAGE);
-            }
-        });
-        pesquisarPor.addActionListener(e -> {
-            String itemSelecionado = (String) pesquisarPor.getSelectedItem();
-        
-            // Verifica se um item específico foi selecionado
-            if ("codigo do Livro".equalsIgnoreCase(itemSelecionado)) {
-                // Altera o valor da variável quando "opcao" é selecionado
-                opcao = 1;
-            } else {
-                // Caso contrário, mantenha ou mude de acordo com a lógica desejada
-                opcao = 0;
             }
         });
     }
@@ -123,12 +132,22 @@ public class ConsultarEmprestimoPainel extends JPanel{
         consulta.setLayout(new FlowLayout());
 
         
-        JScrollPane scrollPane = new JScrollPane(listaAlunos);
+        JScrollPane scrollPane = new JScrollPane(listaEmprestimos);
         scrollPane.setPreferredSize(new Dimension(300, 200));
 
         consulta.add(scrollPane);
         consulta.add(BotaoDeConsulta);
         return consulta;
     }
-       
+
+
+    @Override
+    public void switchTo(String cardName) {
+        cardLayout.show(cardPanel, cardName);
+    }
+
+    @Override
+    public void reset() {
+        botaoPesquisar.doClick();
+    }
 }
