@@ -26,7 +26,7 @@ public class GerenciarLivro implements SistemaBibliotecarioCollection {
 		} catch (LivroNaoEncontradoException e){
 	        catalogo.putIfAbsent(livro.getNome(), new ArrayList<>());
 	        catalogo.get(livro.getNome()).add(livro);
-			if (livro.getNumPaginas()<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
+			if (Integer.parseInt(livro.getNumPaginas())<0) {throw new NumeroPaginasInvalidoException("Número de páginas invalido"); }
 		}	
 	}
 
