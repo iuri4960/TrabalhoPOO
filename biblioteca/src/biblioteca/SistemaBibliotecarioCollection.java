@@ -2,7 +2,6 @@ package biblioteca;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import exception.EmprestimoJaAdicionadoException;
 import exception.EmprestimoNaoEncontradoException;
 import exception.LivroJaAdicionadoException;

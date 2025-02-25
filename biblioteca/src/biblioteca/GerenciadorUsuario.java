@@ -47,7 +47,8 @@ public class GerenciadorUsuario implements Serializable {
 		int controller = 0;
 		for(int i=0; i < listaUsuario.size(); i++) {
 			if(listaUsuario.get(i).getMatricula() == matricula) {
-				listaUsuario.add(i, usuario);
+				Usuario usuarioAntigo = listaUsuario.get(i);
+				usuarioAntigo = usuario;
 				controller++;
 			}
 		}

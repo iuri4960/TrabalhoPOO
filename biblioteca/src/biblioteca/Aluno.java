@@ -11,11 +11,11 @@ public class Aluno extends Usuario {
 	}
 
 	//Métodos get e set
-	private int getSemestre() {
+	public int getSemestre() {
 		return semestre;
 	}
 
-	private void setSemestre(int semestre) {
+	public void setSemestre(int semestre) {
 		this.semestre = semestre;
 	}
 
