@@ -24,7 +24,10 @@ public class Professor extends Usuario {
 	public String toString() {
 		return "Professor: " + nome;
 	}
-	
-	
+
+	@Override
+	public String Descricao() {
+		return "Usuario Professor \nnome=" + nome + ", \nmatricula=" + matricula + ", \nidade=" + idade + ", \ntitulo=" + titulo + "\nquantidade de materia" + this.qtdMaterias;
+	}
 
 }

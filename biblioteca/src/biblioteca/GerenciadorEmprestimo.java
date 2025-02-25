@@ -26,7 +26,7 @@ public class GerenciadorEmprestimo implements Serializable {
 		try {
 			this.consultarEmprestimo(emprestimo.getLivro());
 			throw new EmprestimoJaAdicionadoException(emprestimo.getLivro());
-		} catch (Exception e) {
+		} catch (EmprestimoNaoEncontradoException e) {
 			listaEmprestimo.add(emprestimo);
 		}
 	}
@@ -70,12 +70,11 @@ public class GerenciadorEmprestimo implements Serializable {
 		int controller = 0;
 		int controller2 = 0;
 		for(int i=0; i < listaEmprestimo.size(); i++) {
-			if(listaEmprestimo.get(i).getLivro() == livro) {
+			if(listaEmprestimo.get(i).getLivro().getCodigo() == livro.getCodigo()) {
 				if (listaEmprestimo.get(i).getMultaTotal() == 0) {
 					listaEmprestimo.remove(i);
 					controller2++;
 				}
-				listaEmprestimo.remove(i);
 				controller++;
 			}
 		}

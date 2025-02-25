@@ -3,6 +3,7 @@ package biblioteca;
 import javax.swing.*;
 
 import exception.LivroJaAdicionadoException;
+import exception.NumeroPaginasInvalidoException;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -94,32 +95,32 @@ public class Screen extends JFrame {
 					//Barra de Rolagem do Painel Lateral
 				JScrollPane scrollPane = new JScrollPane(painelLateral);
 				scrollPane.setBounds(0,100,300,400);
-		        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		        add(scrollPane);
-		        
-		        //--------------------------------------------------------
-		        //Título:
-		        
-		        	//Titulo do Painel Superior
-		        JLabel tituloPrincipal = new JLabel();
-		        tituloPrincipal.setText("Biblioteca Online");
-		        tituloPrincipal.setBounds(100,30,800,30);
-		        tituloPrincipal.setFont(new Font("Arial", Font.BOLD, 32));
-		        tituloPrincipal.setForeground(new Color(255,255,255));	        
-		        
-		        /*
-		        	//Imagem do Painel Superior
-		        ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
-		        Image imagemRedimensionada = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		        ImageIcon novaImagem = new ImageIcon(imagemRedimensionada);
-		        JLabel labelImagem = new JLabel(novaImagem);
-		        labelImagem.setBounds(365, 0, novaImagem.getIconWidth(), novaImagem.getIconHeight());
-		        
-		        painelSuperior.add(tituloPrincipal);
-		        painelSuperior.add(labelImagem);
-		        */
-		        
-		        
+				scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				add(scrollPane);
+				
+				//--------------------------------------------------------
+				//Título:
+				
+					//Titulo do Painel Superior
+				JLabel tituloPrincipal = new JLabel();
+				tituloPrincipal.setText("Biblioteca Online");
+				tituloPrincipal.setBounds(100,30,800,30);
+				tituloPrincipal.setFont(new Font("Arial", Font.BOLD, 32));
+				tituloPrincipal.setForeground(new Color(255,255,255));	        
+				
+				/*
+					//Imagem do Painel Superior
+				ImageIcon imagem = new ImageIcon(getClass().getResource("/imagens/image.png"));
+				Image imagemRedimensionada = imagem.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+				ImageIcon novaImagem = new ImageIcon(imagemRedimensionada);
+				JLabel labelImagem = new JLabel(novaImagem);
+				labelImagem.setBounds(365, 0, novaImagem.getIconWidth(), novaImagem.getIconHeight());
+				
+				painelSuperior.add(tituloPrincipal);
+				painelSuperior.add(labelImagem);
+				*/
+				
+				
 				//--------------------------------------------------------//
 				//Botões Da Tela Inicial
 				JButton botaoPaginaInicial = new JButton("Página Inicial");
@@ -170,51 +171,51 @@ public class Screen extends JFrame {
 				tituloDashboard.setBounds(30,20,400,20);
 				tituloDashboard.setBackground(new Color(211,205,237));
 				tituloDashboard.setFont(new Font("Arial", Font.BOLD, 15));
-		        tituloDashboard.setForeground(new Color(50,50,50));
-		        tituloDashboard.setOpaque(true);
-		        
-		        JButton botaoLivrosCadastrados = new JButton("Livros Cadastrados");
-		        botaoLivrosCadastrados.setBounds(30,60,175,40);
-		        botaoLivrosCadastrados.setBackground(new Color(180,178,187));
-		        
-		        JButton botaoLivrosPendentes = new JButton("Livros Pendentes");
-		        botaoLivrosPendentes.setBounds(255,60,175,40);
-		        botaoLivrosPendentes.setBackground(new Color(180,178,187));
-		        
-		        JButton botaoLivrosEmprestados = new JButton("Livros Emprestados");
-		        botaoLivrosEmprestados.setBounds(30,120,175,40);
-		        botaoLivrosEmprestados.setBackground(new Color(180,178,187));
-		        
-		        JButton botaoUsuariosAtivos = new JButton("Usuários Ativos");
-		        botaoUsuariosAtivos.setBounds(255,120,175,40);
-		        botaoUsuariosAtivos.setBackground(new Color(180,178,187));
-		     
-		        JButton botaoSalvar = new JButton("Salvar");
-		        botaoSalvar.setBounds(685, 60, 100, 40);
-		        botaoSalvar.setBackground(new Color(180, 178, 187));
-		        botaoSalvar.setFont(new Font("Arial", Font.BOLD, 14));
+				tituloDashboard.setForeground(new Color(50,50,50));
+				tituloDashboard.setOpaque(true);
+				
+				JButton botaoLivrosCadastrados = new JButton("Livros Cadastrados");
+				botaoLivrosCadastrados.setBounds(30,60,175,40);
+				botaoLivrosCadastrados.setBackground(new Color(180,178,187));
+				
+				JButton botaoLivrosPendentes = new JButton("Livros Pendentes");
+				botaoLivrosPendentes.setBounds(255,60,175,40);
+				botaoLivrosPendentes.setBackground(new Color(180,178,187));
+				
+				JButton botaoLivrosEmprestados = new JButton("Livros Emprestados");
+				botaoLivrosEmprestados.setBounds(30,120,175,40);
+				botaoLivrosEmprestados.setBackground(new Color(180,178,187));
+				
+				JButton botaoUsuariosAtivos = new JButton("Usuários Ativos");
+				botaoUsuariosAtivos.setBounds(255,120,175,40);
+				botaoUsuariosAtivos.setBackground(new Color(180,178,187));
+			 
+				JButton botaoSalvar = new JButton("Salvar");
+				botaoSalvar.setBounds(685, 60, 100, 40);
+				botaoSalvar.setBackground(new Color(180, 178, 187));
+				botaoSalvar.setFont(new Font("Arial", Font.BOLD, 14));
 		 
-		       
-		        
-		        JLabel tituloAssinatura = new JLabel("<html>&nbsp;&nbsp;Designers and Programmers<br>"
-		        		+ "&nbsp;&nbsp;Álvaro    Iuri<br>&nbsp;&nbsp;Gustavo   Estevão<br>&nbsp;&nbsp;Victor</html>");
+			   
+				
+				JLabel tituloAssinatura = new JLabel("<html>&nbsp;&nbsp;Designers and Programmers<br>"
+						+ "&nbsp;&nbsp;Álvaro    Iuri<br>&nbsp;&nbsp;Gustavo   Estevão<br>&nbsp;&nbsp;Victor</html>");
 				tituloAssinatura.setBounds(30,190,400,80);
 				tituloAssinatura.setBackground(new Color(211,205,237));
 				tituloAssinatura.setFont(new Font("Arial", Font.PLAIN, 15));
-		        tituloAssinatura.setForeground(new Color(50,50,50));
-		        tituloAssinatura.setOpaque(true);
-		        
-		        painelPaginaInicial.add(tituloDashboard);
-		        
-		        painelPaginaInicial.add(botaoLivrosCadastrados);
-		        painelPaginaInicial.add(botaoLivrosPendentes);
-		        painelPaginaInicial.add(botaoLivrosEmprestados);
-		        painelPaginaInicial.add(botaoUsuariosAtivos);
-		        
-		        painelPaginaInicial.add(tituloAssinatura);
+				tituloAssinatura.setForeground(new Color(50,50,50));
+				tituloAssinatura.setOpaque(true);
 				
-		        painelSuperior.add(botaoSalvar);
-		        
+				painelPaginaInicial.add(tituloDashboard);
+				
+				painelPaginaInicial.add(botaoLivrosCadastrados);
+				painelPaginaInicial.add(botaoLivrosPendentes);
+				painelPaginaInicial.add(botaoLivrosEmprestados);
+				painelPaginaInicial.add(botaoUsuariosAtivos);
+				
+				painelPaginaInicial.add(tituloAssinatura);
+				
+				painelSuperior.add(botaoSalvar);
+				
 				painelCentral.add(painelPaginaInicial, "painelPaginaInicial");
 				
 				//botão de Salvamento
@@ -249,9 +250,9 @@ public class Screen extends JFrame {
 									+ numeroLivrosCadastrados);
 						
 						botaoLivrosCadastrados.setBackground(new Color(0,191,99));
-				        botaoLivrosPendentes.setBackground(new Color(180,178,187));
-				        botaoLivrosEmprestados.setBackground(new Color(180,178,187));
-				        botaoUsuariosAtivos.setBackground(new Color(180,178,187));
+						botaoLivrosPendentes.setBackground(new Color(180,178,187));
+						botaoLivrosEmprestados.setBackground(new Color(180,178,187));
+						botaoUsuariosAtivos.setBackground(new Color(180,178,187));
 					}
 				});
 				
@@ -263,9 +264,9 @@ public class Screen extends JFrame {
 									+ numeroLivrosPendentes);
 						
 						botaoLivrosCadastrados.setBackground(new Color(180,178,187));
-				        botaoLivrosPendentes.setBackground(new Color(0,191,99));
-				        botaoLivrosEmprestados.setBackground(new Color(180,178,187));
-				        botaoUsuariosAtivos.setBackground(new Color(180,178,187));
+						botaoLivrosPendentes.setBackground(new Color(0,191,99));
+						botaoLivrosEmprestados.setBackground(new Color(180,178,187));
+						botaoUsuariosAtivos.setBackground(new Color(180,178,187));
 					}
 				});
 				
@@ -277,9 +278,9 @@ public class Screen extends JFrame {
 									+ numeroLivrosEmprestados);
 						
 						botaoLivrosCadastrados.setBackground(new Color(180,178,187));
-				        botaoLivrosPendentes.setBackground(new Color(180,178,187));
-				        botaoLivrosEmprestados.setBackground(new Color(0,191,99));
-				        botaoUsuariosAtivos.setBackground(new Color(180,178,187));
+						botaoLivrosPendentes.setBackground(new Color(180,178,187));
+						botaoLivrosEmprestados.setBackground(new Color(0,191,99));
+						botaoUsuariosAtivos.setBackground(new Color(180,178,187));
 					}
 				});
 				
@@ -291,9 +292,9 @@ public class Screen extends JFrame {
 									+ numeroUsuariosAtivos);
 						
 						botaoLivrosCadastrados.setBackground(new Color(180,178,187));
-				        botaoLivrosPendentes.setBackground(new Color(180,178,187));
-				        botaoLivrosEmprestados.setBackground(new Color(180,178,187));
-				        botaoUsuariosAtivos.setBackground(new Color(0,191,99));
+						botaoLivrosPendentes.setBackground(new Color(180,178,187));
+						botaoLivrosEmprestados.setBackground(new Color(180,178,187));
+						botaoUsuariosAtivos.setBackground(new Color(0,191,99));
 					}
 				});
 				
@@ -403,61 +404,61 @@ public class Screen extends JFrame {
 					public void actionPerformed(ActionEvent acaobotaoCadastrar) {
 						
 						boolean sucess = true;
-						if(!DadosLivros.setNomeLivro(campoNomeLivro.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setNomeLivro(campoNomeLivro.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Nome Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setCodigoLivro(campoCodigoLivro.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setCodigoLivro(campoCodigoLivro.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Código Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setClassificacaoLivro(campoClassificacao.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setClassificacaoLivro(campoClassificacao.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Classificação Inválida",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setAnoLancamentoLivro(campoAno.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setAnoLancamentoLivro(campoAno.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Ano de Lançamento Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setGeneroLivro(campoGenero.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setGeneroLivro(campoGenero.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Gênero Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setAutorLivro(campoAutor.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setAutorLivro(campoAutor.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Nome do Autor Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setEditoraLivro(campoEditora.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setEditoraLivro(campoEditora.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Editora Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setNumeroPaginasLivro(campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setNumeroPaginasLivro(campoNumeroPaginas.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Número de Páginas Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
-						if(!DadosLivros.setNumeroExemplaresLivro(campoExemplares.getText().replaceAll("\\s+", "").toLowerCase())) {
+						if(!DadosLivros.setNumeroExemplaresLivro(campoExemplares.getText().replaceAll("\s+", "").toLowerCase())) {
 							JOptionPane.showMessageDialog(null, "Número de Exemplares Inválido",
 									"Erro", JOptionPane.INFORMATION_MESSAGE);
 							sucess = false;
 						}
 						
-						//codigoLivro = campoCodigoLivro.getText().replaceAll("\\s+", "").toLowerCase();
-						//classificacaoLivro = campoClassificacao.getText().replaceAll("\\s+", "").toLowerCase();
-						//anoLancamentoLivro = campoAno.getText().replaceAll("\\s+", "").toLowerCase();
-						//generoLivro = campoGenero.getText().replaceAll("\\s+", "").toLowerCase();
-						//autorLivro = campoAutor.getText().replaceAll("\\s+", "").toLowerCase();
-						//editoraLivro = campoEditora.getText().replaceAll("\\s+", "").toLowerCase();
-						//numeroPaginasLivro = campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase();
-						//numeroExemplaresLivro = campoExemplares.getText().replaceAll("\\s+", "").toLowerCase();
-						DadosLivros.setDescricaoLivro(campoDescricao.getText().replaceAll("\\s+", "").toLowerCase());
+						//codigoLivro = campoCodigoLivro.getText().replaceAll("\s+", "").toLowerCase();
+						//classificacaoLivro = campoClassificacao.getText().replaceAll("\s+", "").toLowerCase();
+						//anoLancamentoLivro = campoAno.getText().replaceAll("\s+", "").toLowerCase();
+						//generoLivro = campoGenero.getText().replaceAll("\s+", "").toLowerCase();
+						//autorLivro = campoAutor.getText().replaceAll("\s+", "").toLowerCase();
+						//editoraLivro = campoEditora.getText().replaceAll("\s+", "").toLowerCase();
+						//numeroPaginasLivro = campoNumeroPaginas.getText().replaceAll("\s+", "").toLowerCase();
+						//numeroExemplaresLivro = campoExemplares.getText().replaceAll("\s+", "").toLowerCase();
+						DadosLivros.setDescricaoLivro(campoDescricao.getText().replaceAll("\s+", "").toLowerCase());
 						
 						campoNomeLivro.setText("  Nome do Livro");
 						campoCodigoLivro.setText("  Código do Livro");
@@ -489,6 +490,9 @@ public class Screen extends JFrame {
 								sistema.setTemAlteracao(true);
 							} catch (LivroJaAdicionadoException e) {
 								JOptionPane.showMessageDialog(null, "Livro Existente",
+										"Erro", JOptionPane.INFORMATION_MESSAGE);
+							} catch (NumeroPaginasInvalidoException e) {
+								JOptionPane.showMessageDialog(null, "Numero de paginas invalido",
 										"Erro", JOptionPane.INFORMATION_MESSAGE);
 							}
 						}

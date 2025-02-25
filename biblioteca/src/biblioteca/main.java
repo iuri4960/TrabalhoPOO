@@ -8,7 +8,7 @@ public class main {
 
         //codigo para testar cada painel
         SistemaBibliotecario sistema = new SistemaBibliotecario();
-            Livro livro = new Livro("dom quixote", "123", 9999, "Dom roserante", 100, "Ficção", "anable", false);
+            Livro livro = new Livro("dom quixote", "123", "9999", "Dom roserante", "100", "Ficção", "anable");
             try {
                 sistema.adicionarLivro(livro);
             } catch (Exception ex) {

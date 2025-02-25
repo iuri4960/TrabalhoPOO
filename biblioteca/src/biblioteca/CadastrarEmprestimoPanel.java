@@ -19,7 +19,7 @@ public class CadastrarEmprestimoPanel extends JPanel {
     JButton botaoDeProcurarLivro;
     Usuario usuarioEscolhido;
     Livro livroEscolhido;
-    
+    GerenciadorDataPanel dataCadastro;
 
 
     CadastrarEmprestimoPanel(SistemaBibliotecario sistema){
@@ -77,16 +77,21 @@ public class CadastrarEmprestimoPanel extends JPanel {
         matriculaField.setColumns(40); 
         matriculaField.setBorder(BorderFactory.createTitledBorder("Digite a matricula do usuário"));
 
+        dataCadastro = new GerenciadorDataPanel();
+
         botaoDeCadastro = new JButton("Cadastrar");
         botaoDeCadastro.setBackground(Color.GREEN);
         botaoDeCadastro.addActionListener(e ->{
+
             if(usuarioEscolhido == null || livroEscolhido == null){
                 JOptionPane.showMessageDialog(this,"por favor, escolha um usuario e um livro", 
                 "Atenção", JOptionPane.WARNING_MESSAGE);
             }
             else{
                 try {    
-                    Emprestimo emprestimo = new Emprestimo(usuarioEscolhido, livroEscolhido, LocalDate.now());
+                    String dataString = dataCadastro.toString();
+                    LocalDate data = LocalDate.parse(dataString);
+                    Emprestimo emprestimo = new Emprestimo(usuarioEscolhido, livroEscolhido, data);
                     sistema.adicionarEmprestimo(emprestimo);
                     
                     limparSelecao();
@@ -164,13 +169,17 @@ public class CadastrarEmprestimoPanel extends JPanel {
         gbc.gridy = 4;
         cadastro.add(descriçãoLivro, gbc);
         
-        // Linha 3, coluna 1: selecaoDeTitulo
-        gbc.gridwidth = 1;
-        gbc.gridheight = 1;
-
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        cadastro.add(botaoDeCadastro, gbc);
+         // Linha 3, coluna 1: selecaoDeTitulo
+         gbc.gridwidth = 1;
+         gbc.gridheight = 1;
+ 
+         gbc.gridx = 0;
+         gbc.gridy = 6;
+         cadastro.add(dataCadastro, gbc);
+ 
+         gbc.gridx = 2;
+         gbc.gridy = 6;
+         cadastro.add(botaoDeCadastro, gbc);
         
         return cadastro;
     }

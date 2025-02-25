@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.*;
 
 
-public class UsuarioEspecifico extends JPanel {
+public class UsuarioEspecifico extends JPanel implements PainelTrocarUsuario{
 
     //painel que sera usado para trocar ente o painel de informações e o de alterar informações
     JPanel painelDeTroca = new JPanel();
@@ -18,6 +18,7 @@ public class UsuarioEspecifico extends JPanel {
     JPanel alterarInformacoes;
     JButton remover;
     JButton voltar;
+    JButton botaoInformacoes;
 
     private PainelSwitcher switcher;
 
@@ -47,7 +48,7 @@ public class UsuarioEspecifico extends JPanel {
             painelDeTroca.setLayout(new CardLayout());//troca feita por cardLayout
 
             informacoes = new InformacoesAlunoPanel(usuarioSelecionadoGeral, sistema);
-            alterarInformacoes = new AlterarInformacoesUsuarioPainel(usuarioSelecionadoGeral, sistema);
+            alterarInformacoes = new AlterarInformacoesUsuarioPainel(usuarioSelecionadoGeral, sistema, this);
             painelDeTroca.add(informacoes, "Informações");
             painelDeTroca.add(alterarInformacoes, "Alterar informações do usuario");
             return painelDeTroca;
@@ -60,7 +61,7 @@ public class UsuarioEspecifico extends JPanel {
         butoes.setLayout(new FlowLayout());
 
        
-        JButton botaoInformacoes = new JButton("INFORMAÇÕES");
+        botaoInformacoes = new JButton("INFORMAÇÕES");
         botaoInformacoes.setBackground(Color.CYAN);
         JButton botaoAlterarInformacoes = new JButton("ALTERAR INFORMAÇÕES");
         botaoAlterarInformacoes.setBackground(Color.GREEN);
@@ -131,4 +132,15 @@ public class UsuarioEspecifico extends JPanel {
         ((AlterarInformacoesUsuarioPainel)alterarInformacoes).setUsuario(usuarioSelecionadoGeral);
         ((InformacoesAlunoPanel)informacoes).setUsuario(usuarioSelecionadoGeral);
     }
+    @Override
+    public void switchUsuario(Usuario usuario) {
+        this.usuarioSelecionadoGeral = usuario;
+        ((InformacoesAlunoPanel)informacoes).setUsuario(usuario);
+        ((AlterarInformacoesUsuarioPainel)alterarInformacoes).setUsuario(usuario);
+    }
+    @Override
+    public void reset() {
+        botaoInformacoes.doClick();
+    }
+    
 }

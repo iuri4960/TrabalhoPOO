@@ -94,6 +94,10 @@ public class Livro implements Serializable{
 		return "Livro [nome=" + nome + ", codigo=" + codigo + ", ano=" + ano + ", autor=" + autor + ", numPaginas="
 					+ numPaginas + ", genero=" + genero + ", editora=" + editora + "]";
 	}
+	public String Descricao() {
+		return "Livro \nnome=" + nome + ", \ncodigo=" + codigo + ", \nano=" + ano + ", \nautor=" + autor + ", \nnumPaginas="
+					+ numPaginas + ", \ngenero=" + genero + ", \neditora=" + editora;
+	}
 	
 
 }

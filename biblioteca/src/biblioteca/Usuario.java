@@ -55,6 +55,8 @@ public abstract class Usuario implements Serializable {
 		return "Usuario [nome=" + nome + ", matricula=" + matricula + ", idade=" + idade + ", titulo=" + titulo + "]";
 	}
 
-
+	public String Descricao() {
+		return "Usuario [\nnome=" + nome + ", \nmatricula=" + matricula + ", \nidade=" + idade + ", \ntitulo=" + titulo + "]";
+	}
 	
 }

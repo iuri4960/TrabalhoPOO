@@ -25,4 +25,9 @@ public class Aluno extends Usuario {
 		return "Aluno: " + nome;
 	}
 
+	@Override
+	public String Descricao() {
+		return "Usuario Professor \nnome=" + nome + ", \nmatricula=" + matricula + ", \nidade=" + idade + ", \ntitulo=" + titulo + "\nsemestre" + this.semestre;
+	}
+
 }

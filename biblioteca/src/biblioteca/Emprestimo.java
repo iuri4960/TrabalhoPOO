@@ -53,11 +53,12 @@ public class Emprestimo implements Serializable{
 	public void atualizarMultaTotal() {
 		LocalDate dataAtual = LocalDate.now();
 		if(dataAtual.isAfter(dataDevolucao)) {
-			dataAtual = dataAtual.minusDays(dataDevolucao.getDayOfMonth()).minusMonths(dataDevolucao.getMonthValue()).minusYears(dataDevolucao.getYear());
+			int diaAtraso = dataAtual.getDayOfYear() - dataDevolucao.getDayOfYear();
+			int anoAtraso = dataAtual.getYear() - dataDevolucao.getYear();
 			if (this.usuario instanceof Aluno) {
-				this.multaTotal = (dataAtual.getDayOfYear() + dataAtual.getYear() * 365) * Aluno.MULTADIARIA;
+				this.multaTotal = (diaAtraso + (anoAtraso * 365)) * Aluno.MULTADIARIA;
 			} else {
-				this.multaTotal = (dataAtual.getDayOfYear() + dataAtual.getYear() * 365) * Professor.MULTADIARIA;
+				this.multaTotal = (diaAtraso + (anoAtraso * 365)) * Professor.MULTADIARIA;
 			}
 		}
 	}
@@ -66,6 +67,10 @@ public class Emprestimo implements Serializable{
 		this.multaTotal = 0;
 		LocalDate dataAtual = LocalDate.now();
 		this.dataDevolucao = dataAtual.plusDays(30);
+	}
+
+	public String toString(){
+		return "Emprestimo: aluno - " +this.getUsuario().getNome() + " livro -" + this.getLivro().getNome();
 	}
 	
 }

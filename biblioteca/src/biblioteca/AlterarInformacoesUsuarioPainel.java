@@ -21,11 +21,12 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
     JFormattedTextField matriculaField;
     JComboBox<Titulo> selecaoDeTitulo;
     JLabel selecaoDeTipo;
-    JButton botaoDeCadastro;
-    
+    JButton botaoDeAlterar;
+    PainelTrocarUsuario troca;
 
     //contrutor ttera um cabeçallho e um painel de alterar
-    AlterarInformacoesUsuarioPainel(Usuario usuarioSelecionadoGeral, SistemaBibliotecario sistema){
+    AlterarInformacoesUsuarioPainel(Usuario usuarioSelecionadoGeral, SistemaBibliotecario sistema, PainelTrocarUsuario troca){
+        this.troca = troca;
         this.usuarioSelecionadoGeral = usuarioSelecionadoGeral;
         this.sistema = sistema;
         this.setLayout(new BorderLayout());
@@ -99,9 +100,9 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         selecaoDeTipo.setBackground(Color.WHITE);
 
         //botão de alterar
-        botaoDeCadastro = new JButton("Alterar");
-        botaoDeCadastro.setBackground(Color.GREEN);
-        botaoDeCadastro.addActionListener(e ->{
+        botaoDeAlterar = new JButton("Alterar");
+        botaoDeAlterar.setBackground(Color.GREEN);
+        botaoDeAlterar.addActionListener(e ->{
             if(null == this.obterTexto(caixaNome) || null == this.obterTexto(matriculaField) || null == this.obterTexto(idade) || null == this.obterTexto(especifico) ){
                 JOptionPane.showMessageDialog(this, "Por favor, Digite as informações do usuario.", 
                 "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -115,9 +116,12 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
 
                     Aluno aluno = new Aluno(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
                     sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), aluno);
-
+                    
+                    troca.switchUsuario(aluno);
+                    troca.reset();
                     JOptionPane.showMessageDialog(this, "Aluno Editado Com Sucesso", 
-                    "Atenção", JOptionPane.INFORMATION_MESSAGE);              
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);    
+                    this.setUsuario(aluno);          
                 }
                 catch(Exception ex){
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
@@ -133,8 +137,12 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
 
                     Professor professor = new Professor(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
                     sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), professor);
-                    JOptionPane.showMessageDialog(this, "Professor Adicionado Com Sucesso", 
+
+                    troca.switchUsuario(professor);
+                    troca.reset();
+                    JOptionPane.showMessageDialog(this, "Professor  Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    this.setUsuario(professor);
                     
                 }
                 catch(Exception ex){
@@ -175,9 +183,9 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         gbc.gridy = 2;
         alterar.add(idade, gbc);
         
-        // Linha 3, coluna 2: botaoDeCadastro
+        // Linha 3, coluna 2: botaoDeAlterar
         gbc.gridx = 2;
-        alterar.add(botaoDeCadastro, gbc);
+        alterar.add(botaoDeAlterar, gbc);
         
         // Linha 3, coluna 3: pode deixar vazia ou adicionar outro componente
         gbc.gridx = 1;
