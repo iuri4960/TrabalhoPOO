@@ -4,17 +4,13 @@ public class DadosLivros {
 	private static String nomeLivro;
 	private static String codigoLivro;
 	private static String classificacaoLivro;
-	private static String anoLancamentoLivro;
+	private static int anoLancamentoLivro;
 	private static String generoLivro;
 	private static String autorLivro;
 	private static String editoraLivro;
-	private static String numeroPaginasLivro;
+	private static int numeroPaginasLivro;
 	private static String numeroExemplaresLivro;
 	private static String descricaoLivro;
-	
-	public DadosLivros(String nomeLivro2, String codigoLivro2, String anoLancamentoLivro2, String autorLivro2,
-			String numeroPaginasLivro2, String generoLivro2, String editoraLivro2) {
-	}
 
 	public static String getNomeLivro() {
 		return nomeLivro;
@@ -60,12 +56,12 @@ public class DadosLivros {
 
 	}
 	
-	public static String getAnoLancamentoLivro() {
+	public static int getAnoLancamentoLivro() {
 		return anoLancamentoLivro;
 	}
 	
-	public static boolean setAnoLancamentoLivro(String anoLancamentoLivro) {
-		if(anoLancamentoLivro.matches("[0-9]+")) { 
+	public static boolean setAnoLancamentoLivro(int anoLancamentoLivro) {
+		if(anoLancamentoLivro > 0) { 
 			DadosLivros.anoLancamentoLivro = anoLancamentoLivro;
 			return true;
 		}
@@ -117,12 +113,12 @@ public class DadosLivros {
 		}
 	}
 	
-	public static String getNumeroPaginasLivro() {
+	public static int getNumeroPaginasLivro() {
 		return numeroPaginasLivro;
 	}
 	
-	public static boolean setNumeroPaginasLivro(String numeroPaginasLivro) {
-		if(numeroPaginasLivro.matches("[0-9]+")) { 
+	public static boolean setNumeroPaginasLivro(int numeroPaginasLivro) {
+		if(numeroPaginasLivro > 0) { 
 			DadosLivros.numeroPaginasLivro = numeroPaginasLivro;
 			return true;
 		}
