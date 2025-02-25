@@ -17,7 +17,6 @@ public interface SistemaBibliotecarioCollection extends Serializable {
 	public Livro consultarLivro(String codigo) throws LivroNaoEncontradoException;
 	public void removerLivro(String codigo) throws LivroNaoEncontradoException;
 	public void atualizarInformacao(String codigo, Livro novoLivro) throws LivroNaoEncontradoException;
-	public Livro[] listaLivros();
 	
 	public void adicionarEmprestimo(Emprestimo emprestimo) throws EmprestimoJaAdicionadoException;
 	public Emprestimo consultarEmprestimo(String codigo) throws LivroNaoEncontradoException, EmprestimoNaoEncontradoException;

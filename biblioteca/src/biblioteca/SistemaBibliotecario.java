@@ -16,7 +16,17 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 	private GerenciadorUsuario gerenciarUsuarios = new GerenciadorUsuario();
 	private GerenciadorEmprestimo gerenciarEmprestimos = new GerenciadorEmprestimo();
 	private GerenciarLivro gerenciarLivros = new GerenciarLivro();
-	@Override
+	
+	private boolean temAlteracao;
+	
+	public boolean getTemAlteracao() {
+		return temAlteracao;
+	}
+	
+	public void setTemAlteracao(boolean temAlteracao) {
+		this.temAlteracao = temAlteracao;
+	}
+	
 	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException {
 			gerenciarLivros.adicionarLivro(livro);
 	}
@@ -34,11 +44,7 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 	public void atualizarInformacao(String codigo, Livro novoLivro) throws LivroNaoEncontradoException {
 		gerenciarLivros.atualizarInformacao(codigo, novoLivro);
 	}
-	@Override
-	public Livro[] listaLivros() {
-		Livro[] l = gerenciarLivros.listaLivros();
-		return l;
-	}
+
 	@Override
 	public void adicionarEmprestimo(Emprestimo emprestimo) throws EmprestimoJaAdicionadoException {
 		gerenciarEmprestimos.adicionarEmprestimo(emprestimo);
