@@ -45,11 +45,34 @@ private ArrayList<Usuario> listaUsuario;
 	
 	/*O metodo alterar tentara ver se existe o usuario se existir ele trocara o usuario
 	pela sua versão alterada se não lançara uma exceção*/
-	public void editarUsuario(int matricula, Usuario usuario) throws UsuarioNaoEncontradoException {
+	public void editarUsuario(int matricula, Aluno usuario) throws UsuarioNaoEncontradoException {
 		int controller = 0;
+		Aluno aluno;
 		for(int i=0; i < listaUsuario.size(); i++) {
 			if(listaUsuario.get(i).getMatricula() == matricula) {
-				listaUsuario.add(i, usuario);
+				aluno = (Aluno)listaUsuario.get(i);
+				aluno.setIdade(usuario.getIdade());
+				aluno.setNome(usuario.getNome());
+				aluno.setTitulo(usuario.getTitulo());
+				aluno.setSemestre(usuario.getSemestre());
+				controller++;
+			}
+		}
+		if (controller == 0) {
+			throw new UsuarioNaoEncontradoException(matricula);
+		}
+	}
+
+	public void editarUsuario(int matricula, Professor usuario) throws UsuarioNaoEncontradoException {
+		int controller = 0;
+		Professor professor;
+		for(int i=0; i < listaUsuario.size(); i++) {
+			if(listaUsuario.get(i).getMatricula() == matricula) {
+				professor = (Professor)listaUsuario.get(i);
+				professor.setIdade(usuario.getIdade());
+				professor.setNome(usuario.getNome());
+				professor.setTitulo(usuario.getTitulo());
+				professor.setQtdMaterias(usuario.getQtdMaterias());
 				controller++;
 			}
 		}

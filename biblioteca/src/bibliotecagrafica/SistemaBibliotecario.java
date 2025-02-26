@@ -10,11 +10,13 @@ import exception.MultaNaoPagaException;
 import exception.NumeroPaginasInvalidoException;
 import exception.UsuarioJaAdicionadoException;
 import exception.UsuarioNaoEncontradoException;
+import usuario.Aluno;
 import usuario.Emprestimo;
 import usuario.GerenciadorEmprestimo;
 import usuario.GerenciadorUsuario;
 import usuario.GerenciarLivro;
 import usuario.Livro;
+import usuario.Professor;
 import usuario.Usuario;
 
 public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
@@ -93,7 +95,12 @@ public class SistemaBibliotecario implements SistemaBibliotecarioCollection {
 		return u;
 	}
 	@Override
-	public void editarUsuario(int matricula, Usuario usuario) throws UsuarioNaoEncontradoException {
+	public void editarUsuario(int matricula, Aluno usuario) throws UsuarioNaoEncontradoException {
+		gerenciarUsuarios.editarUsuario(matricula, usuario);
+	}
+
+	@Override
+	public void editarUsuario(int matricula, Professor usuario) throws UsuarioNaoEncontradoException {
 		gerenciarUsuarios.editarUsuario(matricula, usuario);
 	}
 	@Override

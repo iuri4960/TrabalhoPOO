@@ -18,7 +18,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
     JFormattedTextField idade;
     JTextField caixaNome;
     JFormattedTextField especifico;
-    JFormattedTextField matriculaField;
+    JLabel matriculaField;
     JComboBox<Titulo> selecaoDeTitulo;
     JLabel selecaoDeTipo;
     JButton botaoDeAlterar;
@@ -79,10 +79,17 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
 
         numberFormatter.setMaximum(999999);
         //matricula
-        matriculaField = new JFormattedTextField(numberFormatter);
-        matriculaField.setColumns(15); 
-        matriculaField.setBorder(BorderFactory.createTitledBorder("Digite a matricula do usuário"));
-        matriculaField.setValue(17);
+        //matriculaField = new JFormattedTextField(numberFormatter);
+        //matriculaField.setColumns(15); 
+        //matriculaField.setBorder(BorderFactory.createTitledBorder("Digite a matricula do usuário"));
+        //matriculaField.setValue(17);
+
+        matriculaField = new JLabel();
+        matriculaField.setBorder(BorderFactory.createTitledBorder("Matricula/imutavel"));
+        matriculaField.setText("matricula");
+        matriculaField.setPreferredSize(new Dimension(150, 50));
+        matriculaField.setOpaque(true);  
+        matriculaField.setBackground(Color.WHITE);
 
         //lista para escolher titulo
         Titulo[] opcoesTitulo = {Titulo.GRADUANDO, Titulo.GRADUADO, Titulo.ESPECIALIZADO, Titulo.MESTRE, Titulo.DOUTOR};
@@ -95,7 +102,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         selecaoDeTipo = new JLabel();
         selecaoDeTipo.setBorder(BorderFactory.createTitledBorder("o usuário é"));
         selecaoDeTipo.setText("Aluno");
-        selecaoDeTipo.setPreferredSize(new Dimension(100, 50));
+        selecaoDeTipo.setPreferredSize(new Dimension(150, 50));
         selecaoDeTipo.setOpaque(true);  
         selecaoDeTipo.setBackground(Color.WHITE);
 
@@ -103,27 +110,34 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         botaoDeAlterar = new JButton("Alterar");
         botaoDeAlterar.setBackground(Color.GREEN);
         botaoDeAlterar.addActionListener(e ->{
-            if(null == this.obterTexto(caixaNome) || null == this.obterTexto(matriculaField) || null == this.obterTexto(idade) || null == this.obterTexto(especifico) ){
+            try {
+                idade.commitEdit();
+                especifico.commitEdit();
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), 
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            if(null == this.obterTexto(caixaNome) || null == matriculaField.getText() || null == this.obterTexto(idade) || null == this.obterTexto(especifico) ){
                 JOptionPane.showMessageDialog(this, "Por favor, Digite as informações do usuario.", 
                 "Atenção", JOptionPane.WARNING_MESSAGE);
             }
             else if(selecaoDeTipo.getText().equals("Aluno")){
                 try{
+                    
                     Titulo titulo = (Titulo) selecaoDeTitulo.getSelectedItem();
-                    Integer matricula = (Integer) matriculaField.getValue();
+                    Integer matricula = (Integer) Integer.parseInt(matriculaField.getText());
                     Integer idadeNumero = (Integer) idade.getValue();
                     Integer semestre = (Integer) especifico.getValue();
 
                     Aluno aluno = new Aluno(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
                     sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), aluno);
-                    
-                    sistema.setTemAlteracao(true); //FLAG (Salvar)
-                    
+                    this.setUsuario(aluno);  
                     troca.switchUsuario(aluno);
                     troca.reset();
                     JOptionPane.showMessageDialog(this, "Aluno Editado Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);    
-                    this.setUsuario(aluno);          
+                            
                 }
                 catch(Exception ex){
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
@@ -133,15 +147,13 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
              else{
                 try{
                     Titulo titulo = (Titulo) selecaoDeTitulo.getSelectedItem();
-                    Integer matricula = (Integer) matriculaField.getValue();
+                    Integer matricula = (Integer) Integer.parseInt(matriculaField.getText());
                     Integer idadeNumero = (Integer) idade.getValue();
                     Integer semestre = (Integer) especifico.getValue();
 
                     Professor professor = new Professor(this.obterTexto(caixaNome), matricula, idadeNumero, titulo, semestre);
                     sistema.editarUsuario(usuarioSelecionadoGeral.getMatricula(), professor);
 
-                    sistema.setTemAlteracao(true); //FLAG (Salvar)
-                    
                     troca.switchUsuario(professor);
                     troca.reset();
                     JOptionPane.showMessageDialog(this, "Professor  Com Sucesso", 
@@ -172,11 +184,11 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         // Linha 2, coluna 1: idade
         gbc.gridx = 0;
         gbc.gridy = 1;
-        alterar.add(matriculaField, gbc);
+        alterar.add(selecaoDeTitulo, gbc);
         
         // Linha 2, coluna 2: matriculaField
         gbc.gridx = 1;
-        alterar.add(selecaoDeTipo, gbc);
+        alterar.add(idade, gbc);
         
         // Linha 2, coluna 3: selecaoDeTipo
         gbc.gridx = 2;
@@ -185,7 +197,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         // Linha 3, coluna 1: selecaoDeTitulo
         gbc.gridx = 0;
         gbc.gridy = 2;
-        alterar.add(idade, gbc);
+        alterar.add(selecaoDeTipo, gbc);
         
         // Linha 3, coluna 2: botaoDeAlterar
         gbc.gridx = 2;
@@ -193,7 +205,8 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
         
         // Linha 3, coluna 3: pode deixar vazia ou adicionar outro componente
         gbc.gridx = 1;
-        alterar.add(selecaoDeTitulo, gbc);
+        alterar.add(matriculaField, gbc);
+        setUsuario(usuarioSelecionadoGeral);
 
         return alterar;
     }
@@ -207,7 +220,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
          matriculaField.setText(Integer.toString(usuarioSelecionadoGeral.getMatricula()));  
 
         //titulo
-        selecaoDeTitulo.setSelectedItem(usuarioSelecionadoGeral.getTitulo().getDescricao());
+        selecaoDeTitulo.setSelectedItem(usuarioSelecionadoGeral.getTitulo());
         //diferença entre professor e usuario
         String tipo; 
         int especificoNumero;  

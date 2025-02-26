@@ -71,7 +71,7 @@ public class Emprestimo implements Serializable {
 
 	
 	public String toString(){
-		return "Emprestimo: aluno - " +this.getUsuario().getNome() + " livro -" + this.getLivro().getNome();
+		return "aluno: " +this.getUsuario().getNome() + " /  livro: " + this.getLivro().getNome() + "(" +this.getLivro().getCodigo() +")";
 	}
 
 }

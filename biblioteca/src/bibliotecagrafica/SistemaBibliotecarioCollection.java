@@ -20,7 +20,8 @@ public interface SistemaBibliotecarioCollection extends Serializable {
 	
 	public void adicionarUsuario(Usuario usuario) throws UsuarioJaAdicionadoException;
 	public Usuario consultarUsuario(int matricula) throws UsuarioNaoEncontradoException;
-	public void editarUsuario(int matricula, Usuario usuario) throws UsuarioNaoEncontradoException;
+	public void editarUsuario(int matricula, Aluno usuario) throws UsuarioNaoEncontradoException;
+	public void editarUsuario(int matricula, Professor usuario) throws UsuarioNaoEncontradoException;
 	public void removerUsuario(int matricula) throws UsuarioNaoEncontradoException;
 
 }

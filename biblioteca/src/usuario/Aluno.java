@@ -15,15 +15,18 @@ public class Aluno extends Usuario {
 		return semestre;
 	}
 
-	private void setSemestre(int semestre) {
+	public void setSemestre(int semestre) {
 		this.semestre = semestre;
 	}
 
 	//Método para imprimir as informações do aluno
 	@Override
 	public String toString() {
-		return "Aluno [nome=" + nome + ", matricula=" + matricula + ", idade=" + idade
-				+ ", titulo=" + titulo + ", semestre=" + semestre + "]";
+		return "Aluno: " + nome + " Matricula: " + this.getMatricula();
+	}
+	public String Descricao() {
+		return "Aluno \nnome=" + nome + ", \nmatricula=" + matricula + ", \nidade=" + idade
+				+ ", \ntitulo=" + titulo + ", \nsemestre=" + semestre + ".";
 	}
 
 }

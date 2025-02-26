@@ -15,15 +15,17 @@ public class Professor extends Usuario {
 		return qtdMaterias;
 	}
 
-	private void setQtdMaterias(int qtdMaterias) {
+	public void setQtdMaterias(int qtdMaterias) {
 		this.qtdMaterias = qtdMaterias;
 	}
 
 	//Método para imprimir as informações do professor
 	@Override
 	public String toString() {
-		return "Professor [nome=" + nome + ", matricula=" + matricula + ", idade="
-				+ idade + ", titulo=" + titulo + ", qtdMaterias=" + qtdMaterias + "]";
+		return "Professor: " + nome + " Matricula: " + this.getMatricula();
 	}
-
+	public String Descricao() {
+		return "Professor nome=" + nome + ", \nmatricula=" + matricula + ", \nidade="
+				+ idade + ", \ntitulo=" + titulo + ", \nqtdMaterias=" + qtdMaterias + "]";
+	}
 }
