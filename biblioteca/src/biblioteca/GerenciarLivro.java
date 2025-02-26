@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import excepetion.LivroJaAdicionadoException;
-import excepetion.LivroNaoEncontradoException;
-import excepetion.NumeroPaginasInvalidoException;
+import exception.LivroJaAdicionadoException;
+import exception.LivroNaoEncontradoException;
+import exception.NumeroPaginasInvalidoException;
 
 public class GerenciarLivro implements Serializable {
 	List<Livro> livros = new ArrayList<Livro>();
