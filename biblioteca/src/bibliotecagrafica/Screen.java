@@ -55,7 +55,7 @@ public class Screen extends JFrame {
 			setTitle("Biblioteca Online");
 			//ImageIcon icone = new ImageIcon(getClass().getResource("/imagens/image.png"));
 			//setIconImage(icone.getImage()); //Icone da Janela
-			setSize(1000, 700); //tamanho da Janela
+			setSize(1000, 550); //tamanho da Janela
 			
 			//setLocation(283, 134); //centro de um monitor comum;
 			setLocationRelativeTo(null); //Janela inicia no centro do monitor
@@ -63,7 +63,6 @@ public class Screen extends JFrame {
 			
 			//setVisible(true);
 			
-			carregarDados();
 			
 			//--------------------------------------------------
 			//Paineis Iniciais
@@ -71,7 +70,7 @@ public class Screen extends JFrame {
 				//Painel Roxo Superior Contendo o Titulo e o Icone
 			JPanel painelSuperior = new JPanel();
 			painelSuperior.setLayout(null);
-			painelSuperior.setBounds(0,0,800,100);
+			painelSuperior.setBounds(0,0,1000,100);
 			painelSuperior.setBackground(new Color(140,82,255));
 			
 				//Painel Lateral Contendo os Botões do Paineis Centrais
@@ -191,8 +190,10 @@ public class Screen extends JFrame {
 	        botaoUsuariosAtivos.setBounds(255,120,175,40);
 	        botaoUsuariosAtivos.setBackground(new Color(180,178,187));
 	     
+	        //Botão de Salvamento -> Painel Roxo
+	        
 	        JButton botaoSalvar = new JButton("Salvar");
-	        botaoSalvar.setBounds(685, 60, 100, 40);
+	        botaoSalvar.setBounds(890, 60, 100, 40);
 	        botaoSalvar.setBackground(new Color(180, 178, 187));
 	        botaoSalvar.setFont(new Font("Arial", Font.BOLD, 14));
 	 
@@ -226,6 +227,7 @@ public class Screen extends JFrame {
 				}
 			});
 			
+			carregarDados();
 			
 					//Esse botão define o Painel Central como o Painel Pagina Inicial
 			botaoPaginaInicial.addActionListener(new ActionListener(){
@@ -916,25 +918,31 @@ public class Screen extends JFrame {
 
 			
 			
-			//"Saindo com Segurança"	
+			//"Saindo com Segurança - Persistencia"	
 			addWindowListener(new java.awt.event.WindowAdapter() {
 			    @Override 
 			    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-			    	//impede que o programa feche
-			    	if (sistema.getTemAlteracao()) {
+			        // Evita o fechamento automático da janela
+			        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+			        if (sistema.getTemAlteracao()) {
 			            int option = JOptionPane.showConfirmDialog(null,
-			                    "Você tem alterações não salvas. Deseja salvar antes de sair?",
-			                    "Salvar Alterações", JOptionPane.YES_NO_CANCEL_OPTION);
+			                "Você tem alterações não salvas. Deseja salvar antes de sair?",
+			                "Salvar Alterações", JOptionPane.YES_NO_CANCEL_OPTION);
+
 			            if (option == JOptionPane.YES_OPTION) {
 			                salvarDados();
 			                System.exit(0);
 			            } else if (option == JOptionPane.NO_OPTION) {
 			                System.exit(0);
+			            } else {
+			                // Se for CANCEL_OPTION ou fechar a caixa de diálogo, interrompe a execução
+			                return;
 			            }
-			            // Se cancelar, o programa não fecha
-			        } else {
-			            System.exit(0);
-			        }
+			        } 
+			        
+			        // Se não houver alterações, fecha normalmente
+			        System.exit(0);
 			    }
 			});
 			
@@ -950,18 +958,19 @@ public class Screen extends JFrame {
 	
 
 		private void carregarDados() {
-			try {
-				FileInputStream fis = new FileInputStream("Biblioteca.dat");
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				SistemaBibliotecario sistema = (SistemaBibliotecario) ois.readObject();
-				ois.close();
-				fis.close();
-				//JOptionPane.showMessageDialog(this, "Dados carregados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-			} catch (FileNotFoundException ex) {
-				ex.printStackTrace();
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
-			}  
+		    try {
+		        FileInputStream fis = new FileInputStream("Biblioteca.dat");
+		        ObjectInputStream ois = new ObjectInputStream(fis);
+		        this.sistema = (SistemaBibliotecario) ois.readObject(); // Atribuição à variável de instância
+		        ois.close();
+		        fis.close();
+		        sistema.setTemAlteracao(false);
+		        JOptionPane.showMessageDialog(this, "Dados carregados com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+		    } catch (FileNotFoundException ex) {
+		        ex.printStackTrace();
+		    } catch (IOException | ClassNotFoundException e) {
+		        e.printStackTrace();
+		    }  
 		}
 		
 		private void salvarDados() {
