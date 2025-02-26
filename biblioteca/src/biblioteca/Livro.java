@@ -1,5 +1,7 @@
 package biblioteca;
 
+import java.io.Serializable;
+
 public class Livro implements Serializable {
 	private String  nome;
 	private String codigo;
