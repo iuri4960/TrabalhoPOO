@@ -1,6 +1,6 @@
 package biblioteca;
 
-public class Livro {
+public class Livro implements Serializable {
 	private String  nome;
 	private String codigo;
 	private String ano;
