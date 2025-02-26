@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import excepetion.LivroJaAdicionadoException;
+import exception.LivroJaAdicionadoException;
 
 public class Exemplares implements Serializable {
 	private Map<String, List<Livro>> catalogo;
