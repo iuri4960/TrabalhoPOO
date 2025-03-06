@@ -3,8 +3,9 @@ import javax.swing.*;
 
 import usuario.Aluno;
 import usuario.Emprestimo;
-import usuario.Livro;
 import usuario.Titulo;
+
+import biblioteca.Livro;
 
 import java.time.LocalDate;
 import java.awt.*;
@@ -36,7 +37,7 @@ public class ConsultarEmprestimoPainel extends JPanel implements PainelSwitcher{
     ConsultarEmprestimoPainel(SistemaBibliotecario sistema){
         this.sistema = sistema;
         Aluno aluno = new Aluno("", 0, 0, Titulo.GRADUANDO, 0);
-        Livro livro = livro = new Livro("", "", 0, "", 0, "", "", false);
+        Livro livro = new Livro("", "", "1", "", "1", "", "");
         emprestimoSelecionado = new Emprestimo(aluno, livro, LocalDate.now());
         this.setLayout(new BorderLayout());
         listaEmprestimosTotal = sistema.getListaEmprestimo();

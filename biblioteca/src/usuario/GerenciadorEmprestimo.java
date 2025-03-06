@@ -3,6 +3,8 @@ package usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import biblioteca.*;
+
 import exception.EmprestimoJaAdicionadoException;
 import exception.EmprestimoNaoEncontradoException;
 import exception.MultaNaoPagaException;

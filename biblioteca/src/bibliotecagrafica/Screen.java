@@ -5,7 +5,7 @@ import javax.swing.*;
 import exception.LivroJaAdicionadoException;
 import exception.LivroNaoEncontradoException;
 import exception.NumeroPaginasInvalidoException;
-import usuario.Livro;
+import biblioteca.Livro;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -417,12 +417,8 @@ public class Screen extends JFrame {
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
 					}
-					if(!DadosLivros.setClassificacaoLivro(campoClassificacao.getText().replaceAll("\\s+", "").toLowerCase())) {
-						JOptionPane.showMessageDialog(null, "Classificação Inválida",
-								"Erro", JOptionPane.INFORMATION_MESSAGE);
-						sucess = false;
-					}
-					if(!DadosLivros.setAnoLancamentoLivro(Integer.parseInt(campoAno.getText().replaceAll("\\s+", "").toLowerCase()))) {
+					
+					if(!DadosLivros.setAnoLancamentoLivro(campoAno.getText().replaceAll("\\s+", "").toLowerCase())) {
 						JOptionPane.showMessageDialog(null, "Ano de Lançamento Inválido",
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
@@ -442,7 +438,7 @@ public class Screen extends JFrame {
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
 					}
-					if(!DadosLivros.setNumeroPaginasLivro(Integer.parseInt(campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase()))) {
+					if(!DadosLivros.setNumeroPaginasLivro(campoNumeroPaginas.getText().replaceAll("\\s+", "").toLowerCase())) {
 						JOptionPane.showMessageDialog(null, "Número de Páginas Inválido",
 								"Erro", JOptionPane.INFORMATION_MESSAGE);
 						sucess = false;
@@ -768,13 +764,13 @@ public class Screen extends JFrame {
 								Livro livroAtualizado = new Livro(
 										tituloInformacaoLivro2.getText(), 
 										campoCodigoLivro2.getText(), 
-										Integer.parseInt(campoAno2.getText()),
+										campoAno2.getText(),
 										campoAutor2.getText(),
-										Integer.parseInt(campoNumeroPaginas2.getText()),
+										campoNumeroPaginas2.getText(),
 										campoGenero2.getText(),
 										campoEditora2.getText()
 										);
-								
+								stringCodigoLivroConsultado = campoCodigoLivro2.getText();
 								
 								try {
 									sistema.atualizarInformacao(stringCodigoLivroConsultado, livroAtualizado);

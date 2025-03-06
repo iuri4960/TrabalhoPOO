@@ -14,8 +14,9 @@ import usuario.Aluno;
 import usuario.Emprestimo;
 import usuario.GerenciadorEmprestimo;
 import usuario.GerenciadorUsuario;
-import usuario.GerenciarLivro;
-import usuario.Livro;
+import biblioteca.GerenciarLivro;
+import biblioteca.Livro;
+import biblioteca.Exemplares;
 import usuario.Professor;
 import usuario.Usuario;
 

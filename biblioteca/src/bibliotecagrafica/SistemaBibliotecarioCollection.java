@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import exception.*;
 import usuario.*;
+import biblioteca.*;
 
 public interface SistemaBibliotecarioCollection extends Serializable {
 	public void adicionarLivro(Livro livro) throws LivroJaAdicionadoException, NumeroPaginasInvalidoException;

@@ -3,12 +3,11 @@ package bibliotecagrafica;
 public class DadosLivros {
 	private static String nomeLivro;
 	private static String codigoLivro;
-	private static String classificacaoLivro;
-	private static int anoLancamentoLivro;
+	private static String anoLancamentoLivro;
 	private static String generoLivro;
 	private static String autorLivro;
 	private static String editoraLivro;
-	private static int numeroPaginasLivro;
+	private static String numeroPaginasLivro;
 	private static String numeroExemplaresLivro;
 	private static String descricaoLivro;
 
@@ -41,27 +40,12 @@ public class DadosLivros {
 
 	}
 	
-	public static String getClassificacaoLivro() {
-		return classificacaoLivro;
-	}
-	
-	public static boolean setClassificacaoLivro(String classificacaoLivro) {
-		if(classificacaoLivro.matches("[0-5]+")) { 
-			DadosLivros.classificacaoLivro = classificacaoLivro;
-			return true;
-		}
-		else {
-			return false;
-		}
-
-	}
-	
-	public static int getAnoLancamentoLivro() {
+	public static String getAnoLancamentoLivro() {
 		return anoLancamentoLivro;
 	}
 	
-	public static boolean setAnoLancamentoLivro(int anoLancamentoLivro) {
-		if(anoLancamentoLivro > 0) { 
+	public static boolean setAnoLancamentoLivro(String anoLancamentoLivro) {
+		if(Integer.parseInt(anoLancamentoLivro) > 0) { 
 			DadosLivros.anoLancamentoLivro = anoLancamentoLivro;
 			return true;
 		}
@@ -113,12 +97,12 @@ public class DadosLivros {
 		}
 	}
 	
-	public static int getNumeroPaginasLivro() {
+	public static String getNumeroPaginasLivro() {
 		return numeroPaginasLivro;
 	}
 	
-	public static boolean setNumeroPaginasLivro(int numeroPaginasLivro) {
-		if(numeroPaginasLivro > 0) { 
+	public static boolean setNumeroPaginasLivro(String numeroPaginasLivro) {
+		if(Integer.parseInt(numeroPaginasLivro) > 0) { 
 			DadosLivros.numeroPaginasLivro = numeroPaginasLivro;
 			return true;
 		}

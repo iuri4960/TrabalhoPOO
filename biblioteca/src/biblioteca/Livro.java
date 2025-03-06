@@ -10,10 +10,9 @@ public class Livro implements Serializable {
 	private String  numPaginas;
 	private String genero;
 	private String editora;
-	private boolean alugado;
 	
 	//Construtor da classe livro
-	public Livro(String nome, String codigo,  String  ano, String autor,  String  numPaginas, String genero, String editora, boolean alugado) {
+	public Livro(String nome, String codigo,  String  ano, String autor,  String  numPaginas, String genero, String editora) {
 		super();
 		this.nome = nome;
 		this.codigo = codigo;
@@ -22,12 +21,6 @@ public class Livro implements Serializable {
 		this.numPaginas = numPaginas;
 		this.genero = genero;
 		this.editora = editora; 
-		this.alugado = alugado;
-	}
-	
-	public Livro(String nomeLivro, String codigoLivro, String anoLancamentoLivro, String autorLivro,
-			String numeroPaginasLivro, String generoLivro, String editoraLivro) {
-
 	}
 
 	//Métodos get e set dos atributos
@@ -87,13 +80,6 @@ public class Livro implements Serializable {
 		this.editora = editora;
 	}
 
-	public boolean isAlugado() {
-		return alugado;
-	}
-
-	public void setAlugado(boolean alugado) {
-		this.alugado = alugado;
-	}
 	
 	//Método para imprimir as informações do livro
 		public String toString() {

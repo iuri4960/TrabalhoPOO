@@ -1,6 +1,6 @@
 package exception;
 
-import usuario.Livro;
+import biblioteca.Livro;
 import usuario.Usuario;
 
 public class EmprestimoNaoEncontradoException extends Exception {

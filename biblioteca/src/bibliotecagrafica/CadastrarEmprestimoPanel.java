@@ -3,8 +3,9 @@ import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 
 import usuario.Emprestimo;
-import usuario.Livro;
 import usuario.Usuario;
+
+import biblioteca.Livro;
 
 import java.text.*;
 import java.time.LocalDate;
@@ -47,7 +48,7 @@ public class CadastrarEmprestimoPanel extends JPanel {
 
 
         descriçãoUsuario = new JLabel("Descrição do usuario");
-        descriçãoUsuario.setPreferredSize(new Dimension(300, 200));
+        descriçãoUsuario.setPreferredSize(new Dimension(200, 100));
 
         //definindo uma bornda para o nome
         descriçãoUsuario.setOpaque(true);  // Permite que o fundo seja desenhado
@@ -56,7 +57,7 @@ public class CadastrarEmprestimoPanel extends JPanel {
         descriçãoUsuario.setBorder(BorderFactory.createTitledBorder("Descrição do usuário")); 
 
         descriçãoLivro = new JLabel("Descrição do livro");
-        descriçãoLivro.setPreferredSize(new Dimension(300, 200));
+        descriçãoLivro.setPreferredSize(new Dimension(200, 100));
 
         //definindo uma bornda para o nome
         descriçãoLivro.setOpaque(true);  // Permite que o fundo seja desenhado
@@ -99,6 +100,8 @@ public class CadastrarEmprestimoPanel extends JPanel {
                     limparSelecao();
                     JOptionPane.showMessageDialog(this, "Emprestimo Efetuado", 
                     "Informação", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
                 } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, ex.getMessage(), 
                     "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -144,7 +147,7 @@ public class CadastrarEmprestimoPanel extends JPanel {
         cadastro.add(matriculaField, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         cadastro.add(caixaLivro, gbc);
 
         // Reset gridwidth para 1 para os demais componentes
@@ -156,31 +159,32 @@ public class CadastrarEmprestimoPanel extends JPanel {
         cadastro.add(botaoDeProcurarUsuario, gbc);
 
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         cadastro.add(botaoDeProcurarLivro, gbc);
         
         gbc.gridwidth = 2;
         gbc.gridheight = 2;
         // Linha 2, coluna 2: matriculaField
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         cadastro.add(descriçãoUsuario, gbc);
         
         // Linha 2, coluna 3: selecaoDeTipo
-        gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
         cadastro.add(descriçãoLivro, gbc);
         
          // Linha 3, coluna 1: selecaoDeTitulo
-         gbc.gridwidth = 1;
+         gbc.gridwidth = 2;
          gbc.gridheight = 1;
  
          gbc.gridx = 0;
-         gbc.gridy = 6;
+         gbc.gridy = 4;
          cadastro.add(dataCadastro, gbc);
- 
+         
+         gbc.gridwidth = 1;
          gbc.gridx = 2;
-         gbc.gridy = 6;
+         gbc.gridy = 4;
          cadastro.add(botaoDeCadastro, gbc);
         
         return cadastro;

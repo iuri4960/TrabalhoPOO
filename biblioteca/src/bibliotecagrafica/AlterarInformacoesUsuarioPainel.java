@@ -138,6 +138,7 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
                     JOptionPane.showMessageDialog(this, "Aluno Editado Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);    
                             
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
                 }
                 catch(Exception ex){
                     JOptionPane.showMessageDialog(this, ex.getMessage(), 
@@ -156,9 +157,11 @@ public class AlterarInformacoesUsuarioPainel extends JPanel {
 
                     troca.switchUsuario(professor);
                     troca.reset();
-                    JOptionPane.showMessageDialog(this, "Professor  Com Sucesso", 
+                    JOptionPane.showMessageDialog(this, "Professor Editado Com Sucesso", 
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
                     this.setUsuario(professor);
+                    
+                    sistema.setTemAlteracao(true); //FLAG (Salvar)
                     
                 }
                 catch(Exception ex){
